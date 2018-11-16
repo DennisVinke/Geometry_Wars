@@ -111,14 +111,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="DefaultRenderable.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DefaultRenderable.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="load_file_to_string.h" />
+    <ClInclude Include="Movement.h" />
     <ClInclude Include="NoCopy.h" />
     <ClInclude Include="NoMove.h" />
     <ClInclude Include="Renderable.h" />
