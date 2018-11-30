@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <stdio.h>
-#include "Component.h"
 #include <glm/glm.h>
 
+class Component;
 class GameObject
 {
 public:

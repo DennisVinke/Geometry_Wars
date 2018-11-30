@@ -12,5 +12,15 @@ HealthComponent::~HealthComponent()
 }
 
 void HealthComponent::execute() {
-	if()
+	//if()
+}
+
+
+void HealthComponent::init(GameObject * gameObject) {
+	
+
+}
+
+void HealthComponent::receivedDamage(int damage) {
+	health -= damage;
 }

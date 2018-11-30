@@ -7,8 +7,9 @@ public:
 	HealthComponent();
 	~HealthComponent();
 	
+	void init(GameObject *) override;
 	void execute() override;
-
+	
 private:
 	int * currentHealth;
 	int maxHealth;

@@ -114,6 +114,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DefaultRenderable.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Movement.cpp" />
