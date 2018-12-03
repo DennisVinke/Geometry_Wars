@@ -1,18 +1,18 @@
 #pragma once
 #include "Component.h"
-#include <glm/glm.hpp>
+//#include <glm/glm.hpp>
 
-class Movement : protected Component
+class Movement //: protected Component
 {
 public:
 	Movement();
 	~Movement();
 
-	void execute() override;
+	//void execute() override;
 
 private:
-	void moveGameObject(glm::Vec3 pos);
+	//void moveGameObject(glm::Vec3 pos);
 
-	glm::Vec3 * position;
+	//glm::Vec3 * position;
 };
 

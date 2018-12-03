@@ -112,28 +112,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DefaultRenderable.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Movement.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="PlayerShip.cpp" />
+    <ClCompile Include="TestMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
-    <ClInclude Include="DefaultRenderable.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HealthComponent.h" />
-    <ClInclude Include="load_file_to_string.h" />
     <ClInclude Include="Movement.h" />
-    <ClInclude Include="NoCopy.h" />
-    <ClInclude Include="NoMove.h" />
-    <ClInclude Include="Renderable.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="TestItem.h" />
+    <ClInclude Include="PlayerShip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

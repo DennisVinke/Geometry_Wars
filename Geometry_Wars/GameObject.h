@@ -1,20 +1,28 @@
 #pragma once
 #include <vector>
 #include <stdio.h>
-#include <glm/glm.h>
+
+#include "Entity.h"
+//#include <glm/glm.h>
 
 class Component;
-class GameObject
+class GameObject 
 {
 public:
-	GameObject();
-	GameObject(std::vector<Component> * components, glm::Vec3 startingPosition);
+	GameObject() = delete;
+	GameObject(Entity * entity);
+	//GameObject(std::vector<Component> * components, glm::Vec3 startingPosition);
 	~GameObject();
 
+	virtual void init();
+	void update();
+	Entity& getEntity();
+
 private:
+	Entity * entity;
 	std::vector<Component> componentList;
 
-	glm::Vec3 position;
+	//glm::Vec3 position;
 
 };
 

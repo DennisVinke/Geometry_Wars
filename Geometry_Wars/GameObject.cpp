@@ -2,14 +2,22 @@
 #include "Component.h"
 
 
-GameObject::GameObject(std::vector<Component> * components, glm::Vec3 startingPosition)
-{
-	
-}
 
+GameObject::GameObject(Entity * enti) {
+	entity = enti;
+}
 
 GameObject::~GameObject()
 {
 
 }
 
+void GameObject::update() {
+	for (auto& component : componentList) {
+		component.execute();
+	}
+}
+
+Entity& GameObject::getEntity() {
+	return *entity;
+}

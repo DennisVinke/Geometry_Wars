@@ -1,13 +1,18 @@
 #pragma once
-#include "GameObject.h"
+#include "Entity.h"
+
 class Component
 {
 public:
-	Component();
+	Component()=delete;
+	Component(Entity&);
 	~Component();
 
-	virtual void init(GameObject *) = 0;
+	virtual void init() = 0;
 	virtual void execute() = 0;
-	
+
+private: 
+	Entity& entity;
+
 };
 

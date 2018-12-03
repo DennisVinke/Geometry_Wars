@@ -2,7 +2,7 @@
 
 
 
-Movement::Movement()
+Movement::Movement()//:Component()
 {
 }
 
