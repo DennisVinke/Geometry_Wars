@@ -7,6 +7,27 @@
 
 
 
+template <typename T> struct gl_type_info
+{ };
+
+
+#define GL_REGISTER_DATA_TYPE(T, component_type, is_matrix_type)              \
+template <>                                                                   \
+struct gl_type_info<T>                                                        \
+{                                                                             \
+    typedef component_type type;                                              \
+    static constexpr int num_components = sizeof(T) / sizeof(component_type); \
+    static constexpr bool is_matrix = is_matrix_type;                         \
+};
+
+
+
+GL_REGISTER_DATA_TYPE(bool, bool, false);
+GL_REGISTER_DATA_TYPE(uint32_t, uint32_t, false);
+GL_REGISTER_DATA_TYPE(int32_t, int32_t, false);
+GL_REGISTER_DATA_TYPE(float, float, false);
+
+
 constexpr uint32_t bin(
     uint8_t ordinal,
     uint8_t component_type,

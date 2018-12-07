@@ -33,7 +33,7 @@ Uniform::~Uniform()
 
 void Uniform::upload()
 {
-    assert(definition.location != -1);
+    //assert(definition.location != -1);
 
     switch (definition.type)
     {

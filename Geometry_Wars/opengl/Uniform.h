@@ -5,7 +5,6 @@
 #include <type_traits>
 
 #include "types.h"
-#include "static_type_info.h"
 #include "UniformDefinition.h"
 
 

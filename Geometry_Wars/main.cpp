@@ -38,9 +38,9 @@ void print_context_status()
     std::cout << "rgba bits:\t" << red_bits << ", " << green_bits << ", " << blue_bits << ", " << alpha_bits << "\n";
 }
 
+#include "glm_type_registration.h"
 
 #include "Renderer.h"
-
 
 
 int main(int argc, char* args[])
@@ -81,6 +81,7 @@ int main(int argc, char* args[])
     renderer.resized(640, 480);
     // * *************************************************
 
+    glClearColor(1, 0, 0, 1);
 
     for (bool quit = false; !quit;)
     {
