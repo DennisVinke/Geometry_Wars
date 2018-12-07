@@ -7,6 +7,7 @@
 
 int main() {
 	
+	//stest
 	std::cout << "Creating Entity manager" << std::endl;
 	
 	EntityManager * eManager = new EntityManager();

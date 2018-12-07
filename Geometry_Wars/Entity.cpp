@@ -17,8 +17,9 @@ Entity::~Entity()
 }
 
 void addComponent(Component * component) {
-	if (dynamic_cast<HealthComponent *>(component) != nullptr)
+	if (dynamic_cast<HealthComponent *>(component) != nullptr){
 		;
+}
 }
 
 void removeComponent(Component * component) {
