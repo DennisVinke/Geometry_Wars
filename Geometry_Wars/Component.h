@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 
+// hoi Dennis
+
+
 class Component
 {
 public:
