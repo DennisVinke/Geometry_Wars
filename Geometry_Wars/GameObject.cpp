@@ -3,13 +3,11 @@
 
 
 
-GameObject::GameObject(Entity * enti) {
-	entity = enti;
+GameObject::GameObject(Entity& enti):entity(enti) {
 }
 
 GameObject::~GameObject()
 {
-
 }
 
 void GameObject::update() {
@@ -19,5 +17,5 @@ void GameObject::update() {
 }
 
 Entity& GameObject::getEntity() {
-	return *entity;
+	return entity;
 }

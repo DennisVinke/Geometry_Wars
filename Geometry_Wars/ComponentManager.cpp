@@ -20,10 +20,11 @@ ComponentID getComponentID() {
 
 
 Component* ComponentManager::createHealthComponent(GameObject * gameObject) {
-	Component * component = new HealthComponent(gameObject->getEntity());
+	//Component * component = new HealthComponent(gameObject->getEntity());
 	//std::unique_ptr<Component> upointComponent(component);
 	//components.emplace_back(upointComponent);
-	return component;
+	//return component;
+	return nullptr;
 }
 
 /*

@@ -22,10 +22,11 @@ void EntityManager::AddEntity(IEntity& entity) {
 	//entities.emplace_back(new );
 }*/
 
-Entity * EntityManager::CreateEntity() {
+Entity& EntityManager::CreateEntity() {
 	Entity * entity = new Entity();
-	std::unique_ptr<Entity> upointEntety(entity);
-	entities.emplace_back(upointEntety);
+	//std::unique_ptr<Entity> upointEntety(entity);
+	//entities.emplace_back(std::move(upointEntety));
+	return * entity;
 }
 
 void::EntityManager::update() {
@@ -36,3 +37,4 @@ void::EntityManager::update() {
 
 void EntityManager::clean() {
 }
+void EntityManager::draw() {}

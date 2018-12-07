@@ -6,7 +6,7 @@
 {
 }*/
 
-PlayerShip::PlayerShip(Entity * entity):GameObject(entity)
+PlayerShip::PlayerShip(Entity& entity):GameObject(entity)
 {
 	//entity->addComponent();
 }
