@@ -1,9 +1,8 @@
 #pragma once
 #include "Entity.h"
 
-// hoi Dennis
-// nog een poging
-// en nog een
+// hoi dennis
+
 
 class Component
 {
