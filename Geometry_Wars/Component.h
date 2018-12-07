@@ -2,7 +2,7 @@
 #include "Entity.h"
 
 // hoi Dennis
-
+// nog een poging
 
 class Component
 {
