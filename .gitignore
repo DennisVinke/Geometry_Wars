@@ -45,6 +45,9 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
+*.vcxproj
+*.filters
+*.vcxproj.filters
 *_i.c
 *_p.c
 *_i.h
