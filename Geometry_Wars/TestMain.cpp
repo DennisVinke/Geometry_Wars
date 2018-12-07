@@ -7,6 +7,7 @@
 
 int main() {
 	
+	//stest
 	std::cout << "Creating Entity manager" << std::endl;
 	
 	EntityManager * eManager = new EntityManager();
@@ -15,8 +16,9 @@ int main() {
 	std::cout << "Creating Player Entity" << std::endl;
 
 	GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
-	playerEntity->init();
-	cManager->createHealthComponent(playerEntity);
+	
+	//playerEntity->init();
+	//cManager->createHealthComponent(playerEntity);
 
 	int test;
 

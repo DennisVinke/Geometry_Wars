@@ -16,10 +16,21 @@ Entity::~Entity()
 
 }
 
-void addComponent(Component * component) {
-	if (dynamic_cast<HealthComponent *>(component) != nullptr)
+void Entity::addComponent(Component * component) {
+	if (dynamic_cast<HealthComponent *>(component) != nullptr){
 		;
 }
+}
+
+void Entity::update() {}
+void Entity::draw(){}
+
+void Entity::setComponentFlag(Component *) {}
+void Entity::removeComponent(Component *) {}
+
+void Entity::setChangedComponent() {}
+bool Entity::changedComponents() { return true; }
+
 
 void removeComponent(Component * component) {
 	//if()
