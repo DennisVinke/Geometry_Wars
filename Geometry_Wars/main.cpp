@@ -81,7 +81,6 @@ int main(int argc, char* args[])
     renderer.resized(640, 480);
     // * *************************************************
 
-    glClearColor(1, 0, 0, 1);
 
     for (bool quit = false; !quit;)
     {

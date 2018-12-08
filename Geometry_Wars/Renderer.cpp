@@ -12,6 +12,11 @@
 #include "opengl/Attribute.h"
 #include "opengl/Uniform.h"
 
+#include <iostream>
+#include <utility>
+#include <queue>
+
+
 
 
 
@@ -24,10 +29,23 @@ Renderer::Renderer()
 
     glClearColor(0, 0, 0, 1);
 
+    auto [path, success] = find_folder("Geometry_Wars");
+    auto shaders_folder = path / "shaders";
+
+    if (fs::exists(shaders_folder) && fs::is_directory(shaders_folder))
+    {
+        std::cout << "Shaders folder found at:\n";
+        std::cout << shaders_folder << '\n';
+    }
+    else
+    {
+        std::cout << "Unable to locate \'shaders\' folder.";
+    }
+
     auto shader = ShaderManager::add_shader("default");
 
-    shader->add_shader_stage(load_file_to_string("/shaders/default.vert"), GL_VERTEX_SHADER);
-    shader->add_shader_stage(load_file_to_string("/shaders/default.frag"), GL_FRAGMENT_SHADER);
+    shader->add_shader_stage(load_file_to_string(shaders_folder / "default.vert"), GL_VERTEX_SHADER);
+    shader->add_shader_stage(load_file_to_string(shaders_folder / "default.frag"), GL_FRAGMENT_SHADER);
 
     shader->add_attribute({ 0, "position", Type::VEC2 });
     shader->add_attribute({ 1, "color", Type::VEC4 });
