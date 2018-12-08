@@ -2,7 +2,7 @@
 
 #include "glad/glad.h"
 
-// hi this is test
+
 
 
 class Texture2D
