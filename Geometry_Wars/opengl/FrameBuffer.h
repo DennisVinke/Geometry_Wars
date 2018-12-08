@@ -26,7 +26,7 @@ private:
 
     GLuint framebuffer_handle;
 
-    bool has_moved = true;
+    bool has_moved = false;
 
 
 };

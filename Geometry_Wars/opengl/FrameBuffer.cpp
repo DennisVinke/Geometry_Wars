@@ -14,6 +14,7 @@ FrameBuffer::FrameBuffer()
 FrameBuffer::FrameBuffer(FrameBuffer&& other)
 {
     framebuffer_handle = other.framebuffer_handle;
+    other.has_moved = true;
 }
 
 

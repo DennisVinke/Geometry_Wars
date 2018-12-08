@@ -2,7 +2,7 @@
 
 #include "glad/glad.h"
 
-
+// hi this is test
 
 
 class Texture2D
@@ -54,6 +54,8 @@ public:
 
     void allocate_empty(unsigned int width, unsigned int height);
     
+    void resize(unsigned int width, unsigned int height);
+
 
     const Settings settings;
     const GLenum texture_type;

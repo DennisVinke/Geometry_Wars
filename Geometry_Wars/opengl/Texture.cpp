@@ -72,6 +72,12 @@ void Texture2D::allocate_empty(unsigned int width, unsigned int height)
 
 
 
+void Texture2D::resize(unsigned int width, unsigned int height)
+{
+    allocate_empty(width, height);
+}
+
+
 
 void Texture2D::bind()
 {
@@ -104,3 +110,4 @@ constexpr GLenum Texture2D::texture_type_of(const Type& type)
         return GL_TEXTURE_2D_MULTISAMPLE;
     }
 }
+
