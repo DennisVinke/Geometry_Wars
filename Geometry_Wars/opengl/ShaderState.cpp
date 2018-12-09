@@ -72,9 +72,8 @@ void ShaderState::activate()
         {
             u.second.upload();
         }
-
-        glBindVertexArray(vao_handle);
     }
+    glBindVertexArray(vao_handle);
 }
 
 

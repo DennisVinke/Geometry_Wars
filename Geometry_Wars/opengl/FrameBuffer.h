@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 
-#include "texture.h"
+#include "Texture.h"
 
 
 
@@ -29,6 +29,9 @@ public:
     void resize(unsigned int width, unsigned int height);
 
 
+    void print_status();
+
+
     void start_rendering();
 
 
@@ -39,6 +42,9 @@ public:
 
 
     GLuint get_handle();
+
+
+    const Texture2D& get_texture(int index);
 
 
 private:

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "opengl/Shader.h"
-
+#include "opengl/FrameBuffer.h"
 
 
 
@@ -23,6 +23,10 @@ public:
 private:
 
     std::unique_ptr<ShaderState> default_state;
+    
+    std::unique_ptr<ShaderState> fbo_shader_state;
 
+
+    FrameBuffer frame_buffer{ 640, 480 };
 
 };

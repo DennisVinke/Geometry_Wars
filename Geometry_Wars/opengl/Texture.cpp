@@ -87,7 +87,7 @@ void Texture2D::bind()
 
 
 
-GLuint Texture2D::get_handle()
+GLuint Texture2D::get_handle() const
 {
     return texture_handle;
 }

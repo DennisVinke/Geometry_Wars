@@ -49,7 +49,7 @@ public:
     void bind();
 
 
-    GLuint get_handle();
+    GLuint get_handle() const;
 
 
     void allocate_empty(unsigned int width, unsigned int height);
@@ -58,6 +58,7 @@ public:
 
 
     const Settings settings;
+
     const GLenum texture_type;
 
 

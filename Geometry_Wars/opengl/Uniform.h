@@ -22,6 +22,7 @@ class ShaderState;
  */
 class Uniform
 {
+    friend class Shader;
     friend class ShaderState;
 
 public:

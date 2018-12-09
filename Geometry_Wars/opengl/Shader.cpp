@@ -178,6 +178,12 @@ bool Shader::compile()
 void Shader::activate()
 {
     glUseProgram(program_handle);
+
+    for (auto& uniform : static_uniforms)
+    {
+        uniform.second.upload();
+    }
+
     current_shader = this;
 }
 
