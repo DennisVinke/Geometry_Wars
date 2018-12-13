@@ -4,7 +4,7 @@
 #include "ComponentManager.h"
 #include "Entity.h"
 #include "PlayerShip.h"
-
+/*
 int main() {
 	
 	//stest
@@ -24,4 +24,4 @@ int main() {
 
 	std::cin >> test;
 	return 0;
-}
+}*/
