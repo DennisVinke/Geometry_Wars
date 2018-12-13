@@ -7,6 +7,13 @@
 #include "Entity.h"
 
 using EntityID = std::size_t;
+using ComponentID = std::size_t;
+
+
+static EntityID lastEntityID = 0;
+static ComponentID lastComponentID = 0;
+
+
 
 class EntityManager
 {
@@ -22,8 +29,22 @@ public:
 	void clean();
 	//void 
 	//virtual const int GetStaticEntityID() const = 0;
+	
+
+	//Deze een keer mooier wegwerken
+	static inline ComponentID getLastComponentID() noexcept {
+		return lastComponentID++;
+	}
+	template<typename T> static inline ComponentID getLastComponentID() noexcept {
+		static ComponentID componentTypeID = getLastComponentID();
+			return componentTypeID;
+	}
+
+	static inline EntityID getLastEntityID() {
+		return lastEntityID++;
+	}
 
 private:
-	std::vector<Entity *> entities;
+	std::vector<std::unique_ptr<Entity>> entities;
 	EntityID lastID;
 };

@@ -3,6 +3,11 @@
 #include <iostream>
 #include <glad/glad.h>
 
+#include "EntityManager.h"
+#include "PlayerShip.h"
+#include "HealthComponent.h"
+#include <chrono>
+#undef main
 
 #include "ShaderManager.h"
 
@@ -88,20 +93,54 @@ int main(int argc, char* args[])
 
 
     Renderer renderer;
-    //DefaultShader default_shader;
-    //default_shader.start();
 
     renderer.resized(640, 480);
     // * *************************************************
 
+	//****** Game Loop\\
+	//Todo DENNIS: Maak hier nog een apparte game class voor!\\
+
+	std::cout << "Creating Entity manager" << std::endl;
+	EntityManager * eManager = new EntityManager();
+
+	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
+
+	eManager->update();
+	Entity& test = eManager->CreateEntity();
+	eManager->update();
+
+	std::cout << "The component is being added!" << std::endl;
+	test.setComponent<HealthComponent>();
+	eManager->update();
+	
+	
+	std::cout<<"The component is being removed!" << std::endl;
+	test.removeComponent<HealthComponent>();
+	
+	eManager->update();
+	
+	eManager->update();
+	
+	/*EntityManager::getLastComponentID<T>();
+	*/
+
+	//playerEntity->update();
+	//DefaultShader default_shader;
+	//default_shader.start();
+
+	// * *************************************************
+
+
 
     for (bool quit = false; !quit;)
     {
+
+		auto start = std::chrono::system_clock::now();
         SDL_Event event;
 
         while (SDL_PollEvent(&event) != 0)
-        {
-            if (event.type == SDL_QUIT)
+		{
+			if (event.type == SDL_QUIT)
             {
                 quit = true;
             }
@@ -111,16 +150,21 @@ int main(int argc, char* args[])
                 renderer.resized(event.window.data1, event.window.data2);
                 std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
             }
+			
         }
 
         renderer.render_frame();
-        // * *************************************************
+        
+		// * *************************************************
 
 
         // * *************************************************
 
 
         SDL_GL_SwapWindow(window);
+		auto end = std::chrono::system_clock::now();
+		std::chrono::duration<double> diff = end - start;
+		//std::cout << diff.count() << std::endl;
     }
 
 
