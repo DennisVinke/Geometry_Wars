@@ -21,6 +21,13 @@ public:
     static void free_all();
 
 
+    static void load_default_shader();
+    static void load_horizontalBlur_shader();
+    static void load_verticalBlur_shader();
+    static void load_renderFBO_shader();
+    static void load_resolveMSAA_shader();
+
+
 private:
 
     static std::map<std::string, std::unique_ptr<Shader>> shaders;

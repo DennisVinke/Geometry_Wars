@@ -16,14 +16,14 @@ FrameBuffer::FrameBuffer(unsigned int width, unsigned int height)
 FrameBuffer::FrameBuffer(FrameBuffer&& other)
 {
     framebuffer_handle = other.framebuffer_handle;
-    other.has_moved = true;
+    other.cleanup_responsible = false;
 }
 
 
 
 FrameBuffer::~FrameBuffer()
 {
-    if (has_moved)
+    if (cleanup_responsible)
     {
         glDeleteFramebuffers(1, &framebuffer_handle);
     }
@@ -31,13 +31,13 @@ FrameBuffer::~FrameBuffer()
 
 
 
-void FrameBuffer::add_texture(const Texture2D::Settings& texture_settings, GLenum attachment_point)
+void FrameBuffer::add_texture(Texture::Type texture_type, GLenum pixel_format, GLenum attachment_point)
 {
-    attachments.emplace_back(Texture2D(texture_settings), attachment_point);
+    attachments.emplace_back(Texture(texture_type, pixel_format), attachment_point);
     auto& tex = attachments.back().first;
 
     tex.bind();
-    tex.resize(fbo_width, fbo_height);
+    tex.set_size(fbo_width, fbo_height);
 
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_handle);
     glFramebufferTexture(GL_FRAMEBUFFER, attachment_point, tex.get_handle(), 0);
@@ -84,16 +84,35 @@ void FrameBuffer::print_status()
 
 
 
-void FrameBuffer::resize(unsigned int width, unsigned int height)
+void FrameBuffer::set_size(unsigned int width, unsigned int height)
 {
+    start_rendering();
+
     fbo_width = width;
     fbo_height = height;
 
     for (auto& [tex, a] : attachments)
     {
-        tex.resize(width, height);
+        tex.set_size(width, height);
     }
+    glViewport(0, 0, width, height);
+
+    stop_rendering();
 }
+
+
+
+unsigned int FrameBuffer::get_width()
+{
+    return fbo_width;
+}
+
+
+unsigned int FrameBuffer::get_height()
+{
+    return fbo_height;
+}
+
 
 
 void FrameBuffer::start_rendering()
@@ -120,7 +139,7 @@ void FrameBuffer::bind_to(GLenum target)
 }
 
 
-const Texture2D& FrameBuffer::get_texture(int index)
+Texture& FrameBuffer::get_texture(int index)
 {
     return attachments[index].first;
 }

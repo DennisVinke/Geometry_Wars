@@ -9,12 +9,12 @@ ShaderState::ShaderState(Shader& s)
 {
     for (const auto& u : shader.uniform_definitions)
     {
-        uniforms.emplace(u.name, Uniform(u));
+        uniforms.emplace(u->name, Uniform(*u));
     }
 
     for (const auto& a : shader.attribute_definitions)
     {
-        attributes.emplace(a.name, a);
+        attributes.emplace(a->name, *a);
     }
 
     glGenVertexArrays(1, &vao_handle);
@@ -24,7 +24,7 @@ ShaderState::ShaderState(Shader& s)
     {
         glBindBuffer(GL_ARRAY_BUFFER, attr.get_handle());
         glVertexAttribPointer(attr.definition.index, num_components(attr.definition.type), 
-            gl_base_type(attr.definition.type), attr.definition.normalize_integers, 0, 0);
+            gl_base_type(attr.definition.type), attr.definition.normalize_ints, 0, 0);
         glEnableVertexAttribArray(attr.definition.index);
     }
 }
@@ -37,7 +37,7 @@ ShaderState::ShaderState(ShaderState&& other)
 {
     vao_handle = other.vao_handle;
     other.vao_handle = 0;
-    other.has_moved = false;
+    other.cleanup_responsible = false;
     
     // Ensure that is shaderstate is active current active shaderstate in shader gets updated address.
     if (shader.currently_active_state == &other)
@@ -50,7 +50,7 @@ ShaderState::ShaderState(ShaderState&& other)
 
 ShaderState::~ShaderState()
 {
-    if (has_moved)
+    if (cleanup_responsible)
     {
         glDeleteVertexArrays(1, &vao_handle);
     }

@@ -69,7 +69,7 @@ public:
 
 private:
 
-    bool has_moved = true;
+    bool cleanup_responsible = true;
 
     Shader& shader;
 

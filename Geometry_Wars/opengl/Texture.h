@@ -1,11 +1,20 @@
 #pragma once
 
+#include <utility>
+
 #include "glad/glad.h"
 
 
 
 
-class Texture2D
+// All Query functions both update the data stored client side, and return it.
+// When you do not use get_handle() to change the opengl state of the texture,
+// It is never necessary to query the state, from opengl, the state in this class
+// is should always be up to date, if you only use it's member functions to change 
+// the state
+
+
+class Texture
 {
 
 public:
@@ -21,55 +30,108 @@ public:
         NON_NORMALIZED = 19
     };
 
+    //=================================
 
-    struct Settings
-    {
-        Type type = Type::NORMALIZED_MIPMAP;
-        GLenum pixel_format = GL_RGBA8;
+    Texture() = delete;
 
-        GLenum magnify_filter = GL_NEAREST;  // GL_NEAREST or GL_LINEAR, mipmapping filters are only supported on minify.
-        GLenum minify_filter = GL_NEAREST;  // also allowed: GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST etc.
+    Texture(Type type, GLenum pixel_format);
 
-        GLenum texture_wrap_x = GL_REPEAT;
-        GLenum texture_wrap_y = GL_REPEAT;
-    };
+    Texture(const Texture&) = delete;
 
+    Texture(Texture&& other);
 
-    Texture2D() = delete;
+    ~Texture();
 
-    Texture2D(const Settings& settings);
+    //=================================
 
-    Texture2D(const Texture2D&) = delete;
+    void allocate_empty(unsigned int width, unsigned int height);
 
-    Texture2D(Texture2D&& other);
+    // void allocate_from(...);
 
-    ~Texture2D();
+    //=================================
 
+    void set_size(unsigned int width, unsigned int height);
 
-    void bind();
+    std::pair<int, int> get_size() const;
 
+    std::pair<int, int> query_size();
+
+    int get_width() const;
+
+    int get_height() const;
+
+    int query_width();
+
+    int query_height();
+    
+    //=================================
+
+    void set_mag_filter(GLenum mag_filter);
+
+    void set_min_filter(GLenum min_filter);
+
+    GLenum get_mag_filter() const;
+
+    GLenum get_min_filter() const;
+
+    GLenum query_mag_filter();
+
+    GLenum query_min_filter();
+
+    //=================================
+    
+    void set_wrap_x(GLenum wrap_mode);
+
+    void set_wrap_y(GLenum wrap_mode);
+
+    GLenum get_wrap_x() const;
+
+    GLenum get_wrap_y() const;
+
+    GLenum query_wrap_x();
+
+    GLenum query_wrap_y();
+
+    //=================================
+
+    int get_num_samples() const;
+
+    int query_num_samples();
+
+    //=================================
+
+    void bind() const;
 
     GLuint get_handle() const;
 
+    //=================================
 
-    void allocate_empty(unsigned int width, unsigned int height);
-    
-    void resize(unsigned int width, unsigned int height);
+    const GLenum binding_target;
 
+    const GLenum pixel_format;
 
-    const Settings settings;
-
-    const GLenum texture_type;
+    const Type   type;
 
 
 private:
 
+    
+    // Not const becuase OpenGL is not gauranteed to give the amount of samples asked for.
+    int num_samples = 1;
 
-    static constexpr GLenum texture_type_of(const Type& type);
+    // Size is allowed to be changed dynamically.
+    int texture_width = 0, texture_height = 0;
+
+    // These properties are allowed to be changed dynamically.
+    GLenum mag_filter, min_filter, texture_wrap_x, texture_wrap_y;
+
 
     GLuint texture_handle;
 
-    bool has_moved = false;
+    bool cleanup_responsible = true;
+
+
+    static constexpr GLenum binding_target_of(const Type& type);
 
 
 };

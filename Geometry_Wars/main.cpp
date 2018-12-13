@@ -43,6 +43,8 @@ void print_context_status()
 #include "Renderer.h"
 
 
+
+
 int main(int argc, char* args[])
 {
 
@@ -74,6 +76,8 @@ int main(int argc, char* args[])
 
     //Application
 
+    GaussianBlur::load_shaders();
+
     Renderer renderer;
     //DefaultShader default_shader;
     //default_shader.start();
@@ -99,8 +103,6 @@ int main(int argc, char* args[])
                 std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
             }
         }
-
-        glClear(GL_COLOR_BUFFER_BIT);
 
         renderer.render_frame();
         // * *************************************************

@@ -14,6 +14,7 @@
 #include "Uniform.h"
 #include "MapView.h"
 
+#include "types.h"
 
 
 class ShaderState;
@@ -45,24 +46,24 @@ public:
     // We no copy.
     Shader(const Shader&) = delete;
 
-    /// Moving a Shader is allowed, because there is always only one reference to the gpu resources.
-    Shader(Shader&&);
+    /// No moving either, no point in moving this class, just allocate on the heap
+    Shader(Shader&&) = delete;
 
 
     /// Allows the user to specify the existence of an Attribute in the shader source code.
     /// This does not allow you to change anything in an Attribute, for this you need to create
     /// a ShaderState object using this shader.
-    void add_attribute(const AttributeDefinition& attribute);
+    void add_attribute(int index, const std::string& name, Type type, bool normalize_ints = false);
 
     /// Allows the user to specify the existence of a Uniform in the shader source code.
     /// This does not allow you to change the value of the Uniform variable, for this you need to create
     /// a ShaderState object using this shader.
-    void add_uniform(const UniformDefinition& uniform);
+    void add_uniform(const std::string& name, Type type);
 
     /// Allows the user to specify the existence of a Uniform in the shader source code. which holds
     /// the same value for all ShaderState objects. This is the only gpu side state stored in this class,
     /// simply because it should not be part of ShaderState.
-    void add_static_uniform(const UniformDefinition& uniform);
+    void add_static_uniform(const std::string& name, Type type);
 
 
     /// Adds a ShaderStage to the Shader, shader_type denotes the type of this stage IE. GL_VERTEX_SHADER
@@ -88,9 +89,6 @@ private:
     // Checks if this is the current active Shader, for use by ShaderState.
     bool is_active();
 
-    // OpenGL resources do not always need to be deleted, IE. if Shader is moved.
-    bool has_moved = true;
-
     // OpenGL handle for the complete shader program.
     GLuint program_handle;
 
@@ -103,9 +101,10 @@ private:
     // a pointer to their respective definition, and it will be guaranteed to
     // never change. if I.E. std::vector was used all elements could be placed
     // elsewhere in memory, when adding to the back of the vector.
-    std::list<AttributeDefinition> attribute_definitions;
-    std::list<UniformDefinition> uniform_definitions;
-    std::list<UniformDefinition> static_uniform_definitions;
+    std::vector<std::unique_ptr<AttributeDefinition>> attribute_definitions;
+
+    std::vector<std::unique_ptr<UniformDefinition>> uniform_definitions;
+    std::vector<std::unique_ptr<UniformDefinition>> static_uniform_definitions;
 
     // static_uniforms are the only gpu side state in the Shader class.
     std::map<std::string, Uniform> static_uniforms;
