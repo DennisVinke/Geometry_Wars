@@ -28,7 +28,7 @@ void Entity::update() {
 void Entity::draw() {}
 
 void Entity::setChangedComponent() {}
-bool Entity::changedComponents() {return true;}
+bool Entity::changedComponents() { return true; }
 
 //Make sure this is called after update. Else undefined behaviour may occur
 //If flag of changedComponent is not set, the entity does not have to update

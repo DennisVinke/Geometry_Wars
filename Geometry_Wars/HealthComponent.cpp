@@ -1,8 +1,8 @@
 #include "HealthComponent.h"
+#include <iostream>
 
 
-
-HealthComponent::HealthComponent(Entity& linkedEntity) : Component(linkedEntity)
+HealthComponent::HealthComponent() : Component()
 {
 
 }
@@ -37,6 +37,10 @@ void HealthComponent::setMaxHealth(int newMaxHealth) {
 
 bool HealthComponent::isAlive() {
 	return currentHealth <= 0;
+}
+
+void HealthComponent::toString() {
+	std::cout << "HealthComponent!" << std::endl;
 }
 /*
 void HealthComponent::receivedDamage(int damage) {
