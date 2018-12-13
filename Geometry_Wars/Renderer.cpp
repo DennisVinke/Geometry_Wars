@@ -2,6 +2,7 @@
 
 #include "glm_type_registration.h"
 
+#include "Shape.h"
 #include "Renderer.h"
 #include "ShaderManager.h"
 
@@ -27,11 +28,7 @@ Renderer::Renderer()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_ALWAYS);
 
-
-    //glClearDepth(1);
 
     auto [path, success] = find_folder("Geometry_Wars");
     auto shaders_folder = path / "shaders";
@@ -47,12 +44,9 @@ Renderer::Renderer()
     }
 
 
-    ShaderManager::load_default_shader();
-    ShaderManager::load_renderFBO_shader();
-    ShaderManager::load_resolveMSAA_shader();
 
 
-
+    /*
     triangle_1 = std::make_unique<ShaderState>(*ShaderManager::get("default"));
 
     triangle_1->attribute["position"] = std::vector<glm::vec2>{ {250, 20 }, { 400, 300 }, { 30, 400 } };
@@ -64,7 +58,7 @@ Renderer::Renderer()
     triangle_2->attribute["position"] = std::vector<glm::vec2>{ {150, 120 }, { 700, 200 }, { 400, 400 } };
     triangle_2->attribute["color"] = std::vector<glm::vec4>{ { 0, 0.5, 0, 0.9 }, { 0, 0.5, 0, 0.7 }, { 0, 0.5, 0, 0.9 } };
     triangle_2->uniform["transformation"] = glm::mat3(1);
-
+    */
 
 
     msaa_resolver = std::make_unique<ShaderState>(*ShaderManager::get("resolveMSAA"));
@@ -73,7 +67,8 @@ Renderer::Renderer()
     msaa_resolver->static_uniform["amount"] = 8;
 
 
-
+    shape.translate(100, 100);
+    shape.set_line_width(2);
 
     render_texture = std::make_unique<ShaderState>(*ShaderManager::get("renderFBO"));
 
@@ -104,6 +99,10 @@ Renderer::~Renderer()
 void Renderer::render_frame()
 {
 
+    static float rotation = 0;
+
+    rotation += 0.01;
+
     // First draw objects to multi sampled framebuffer.
 
     frame_buffer_1.start_rendering();
@@ -112,11 +111,13 @@ void Renderer::render_frame()
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    triangle_1->activate();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    shape.rotate(0.01);
+    shape.render();
+    //triangle_1->activate();
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
 
-    triangle_2->activate();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    //triangle_2->activate();
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
 
     frame_buffer_1.stop_rendering();
 

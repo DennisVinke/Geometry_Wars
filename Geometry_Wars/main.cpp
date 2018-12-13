@@ -9,6 +9,10 @@
 #include <chrono>
 #undef main
 
+#include "ShaderManager.h"
+
+
+
 void configure_context()
 {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -81,6 +85,12 @@ int main(int argc, char* args[])
     //Application
 
     GaussianBlur::load_shaders();
+
+    ShaderManager::load_default_shader();
+    ShaderManager::load_renderFBO_shader();
+    ShaderManager::load_resolveMSAA_shader();
+
+
 
     Renderer renderer;
 

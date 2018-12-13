@@ -42,10 +42,13 @@ void ShaderManager::load_default_shader()
     default_shader->add_shader_stage(load_file_to_string(shaders_folder / "default.frag"), GL_FRAGMENT_SHADER);
 
     default_shader->add_attribute(0, "position", Type::VEC2);
-    default_shader->add_attribute(1, "color", Type::VEC4);
+    //default_shader->add_attribute(1, "color", Type::VEC4);
 
     default_shader->add_uniform("transformation", Type::MAT_3x3);
     default_shader->add_static_uniform("viewport", Type::VEC2);
+    default_shader->add_uniform("color", Type::VEC4);
+
+
 
     default_shader->compile();
 }

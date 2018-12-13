@@ -1,14 +1,15 @@
 #version 330 core
 
 layout(location = 0) in vec2 position;
-layout(location = 1) in vec4 color;
+//layout(location = 1) in vec4 color;
 
 uniform vec2 viewport;
+//uniform vec4 color;
 uniform mat3 transformation;
 
 
 
-out vec4 vertex_color;
+//out vec4 vertex_color;
 
 
 
@@ -28,5 +29,5 @@ void main()
 	gl_Position.z = 0.0;
 	gl_Position.w = 1.0;
 
-	vertex_color = color;
+	//vertex_color = color;
 }
