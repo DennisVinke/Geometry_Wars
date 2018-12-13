@@ -57,6 +57,17 @@ public:
 		component->toString();
 	}
 
+	//TODO: DENNIS DOE FIX
+	template<typename T>
+	Component * getComponent() {
+		static_assert(std::is_base_of<Component, T>::value);
+		auto componentID = EntityManager::template getLastComponentID<T>();
+		//containsComponents[componentID] = true;
+		
+		return componentArray[componentID];
+	}
+
+
 	//willen we components recyclen of willen we gewoon vernietigen
 	//Bij recyclen moeten we iets maken die kijkt of de components al gebruikt worden door iets, aka componentmanager :'(
 	template<typename T>

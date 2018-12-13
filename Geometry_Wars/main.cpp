@@ -103,6 +103,8 @@ int main(int argc, char* args[])
 	test.setComponent<HealthComponent>();
 	eManager->update();
 	
+	std::cout << "The component is got!" << std::endl;
+	test.getComponent<HealthComponent>()->toString();
 	
 	std::cout<<"The component is being removed!" << std::endl;
 	test.removeComponent<HealthComponent>();
@@ -134,6 +136,22 @@ int main(int argc, char* args[])
             {
                 quit = true;
             }
+			else if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+				case SDLK_LEFT: // YOUR CODE HERE
+					
+					break;
+				case SDLK_RIGHT: // YOUR CODE HERE
+					break;
+				case SDLK_UP: // YOUR CODE HERE
+					break;
+				case SDLK_DOWN: // YOUR CODE HERE
+					break;
+				case SDLK_ESCAPE:
+					quit = true;
+					break;
+				}
+			}
             else if (event.type == SDL_WINDOWEVENT
                 && event.window.event == SDL_WINDOWEVENT_RESIZED)
             {
