@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GaussianBlur.h"
+
 #include "opengl/Shader.h"
 #include "opengl/FrameBuffer.h"
 
@@ -22,11 +24,20 @@ public:
 
 private:
 
-    std::unique_ptr<ShaderState> default_state;
+    std::unique_ptr<ShaderState> triangle_1;
+    std::unique_ptr<ShaderState> triangle_2;
     
-    std::unique_ptr<ShaderState> fbo_shader_state;
+    std::unique_ptr<ShaderState> msaa_resolver;
+
+    std::unique_ptr<ShaderState> render_texture;
 
 
-    FrameBuffer frame_buffer{ 640, 480 };
+
+    FrameBuffer frame_buffer_1{ 640, 480 };
+    FrameBuffer frame_buffer_2{ 640, 480 };
+
+    GaussianBlur blur_filter{ 640, 480, 0.5, 4 };
+
 
 };
+

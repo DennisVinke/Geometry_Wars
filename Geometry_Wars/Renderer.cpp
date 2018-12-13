@@ -27,7 +27,11 @@ Renderer::Renderer()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glClearColor(0, 0, 0, 1);
+    //glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_ALWAYS);
+
+
+    //glClearDepth(1);
 
     auto [path, success] = find_folder("Geometry_Wars");
     auto shaders_folder = path / "shaders";
@@ -43,56 +47,47 @@ Renderer::Renderer()
     }
 
 
-
-    // ************************
-    auto default_shader = ShaderManager::add_shader("default");
-
-    default_shader->add_shader_stage(load_file_to_string(shaders_folder / "default.vert"), GL_VERTEX_SHADER);
-    default_shader->add_shader_stage(load_file_to_string(shaders_folder / "default.frag"), GL_FRAGMENT_SHADER);
-
-    default_shader->add_attribute({ 0, "position", Type::VEC2 });
-    default_shader->add_attribute({ 1, "color", Type::VEC4 });
-
-    default_shader->add_uniform({ "transformation", Type::MAT_3x3 });
-    default_shader->add_static_uniform({ "viewport", Type::VEC2 });
-
-    default_shader->compile();
-    // ************************
+    ShaderManager::load_default_shader();
+    ShaderManager::load_renderFBO_shader();
+    ShaderManager::load_resolveMSAA_shader();
 
 
-    default_state = std::make_unique<ShaderState>(*default_shader);
 
-    //default_state->activate();
+    triangle_1 = std::make_unique<ShaderState>(*ShaderManager::get("default"));
 
-    default_state->attribute["position"] = std::vector<glm::vec2>{ {250, 20 }, { 400, 300 }, { 30, 400 } };
-    default_state->attribute["color"] = std::vector<glm::vec4>{ { 0, 1, 1, 1 }, { 1, 0, 1, 1 }, { 1, 0, 1, 1 } };
-    default_state->uniform["transformation"] = glm::mat3(1);
+    triangle_1->attribute["position"] = std::vector<glm::vec2>{ {250, 20 }, { 400, 300 }, { 30, 400 } };
+    triangle_1->attribute["color"] = std::vector<glm::vec4>{ { 0, 1, 1, 1 }, { 1, 0, 1, 1 }, { 1, 0, 1, 1 } };
+    triangle_1->uniform["transformation"] = glm::mat3(1);
 
+    triangle_2 = std::make_unique<ShaderState>(*ShaderManager::get("default"));
 
-    // ************************
-    auto draw_fbo_shader = ShaderManager::add_shader("draw_fbo");
-
-    draw_fbo_shader->add_shader_stage(load_file_to_string(shaders_folder / "draw_fbo.vert"), GL_VERTEX_SHADER);
-    draw_fbo_shader->add_shader_stage(load_file_to_string(shaders_folder / "draw_fbo.frag"), GL_FRAGMENT_SHADER);
-
-    draw_fbo_shader->add_attribute({ 0, "position", Type::VEC2 });
-
-    draw_fbo_shader->compile();
-    // ************************
+    triangle_2->attribute["position"] = std::vector<glm::vec2>{ {150, 120 }, { 700, 200 }, { 400, 400 } };
+    triangle_2->attribute["color"] = std::vector<glm::vec4>{ { 0, 0.5, 0, 0.9 }, { 0, 0.5, 0, 0.7 }, { 0, 0.5, 0, 0.9 } };
+    triangle_2->uniform["transformation"] = glm::mat3(1);
 
 
-    fbo_shader_state = std::make_unique<ShaderState>(*draw_fbo_shader);
 
-    fbo_shader_state->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+    msaa_resolver = std::make_unique<ShaderState>(*ShaderManager::get("resolveMSAA"));
 
-    Texture2D::Settings settings;
-    settings.type = Texture2D::Type::MULTI_SAMPLED_8;
-    settings.pixel_format = GL_RGBA8;
-    settings.minify_filter = GL_NEAREST;
-    settings.magnify_filter = GL_NEAREST;
+    msaa_resolver->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+    msaa_resolver->static_uniform["amount"] = 8;
 
-    frame_buffer.add_texture(settings, GL_COLOR_ATTACHMENT0);
-    frame_buffer.print_status();
+
+
+
+    render_texture = std::make_unique<ShaderState>(*ShaderManager::get("renderFBO"));
+
+    render_texture->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+    render_texture->static_uniform["viewport"] = glm::ivec2(640, 480);
+
+
+    frame_buffer_1.add_texture(Texture::Type::MULTI_SAMPLED_8, GL_RGBA8, GL_COLOR_ATTACHMENT0);
+    frame_buffer_1.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
+    frame_buffer_1.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
+
+    frame_buffer_2.add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA8, GL_COLOR_ATTACHMENT0);
+    frame_buffer_2.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
+    frame_buffer_2.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
 
 
 }
@@ -109,28 +104,65 @@ Renderer::~Renderer()
 void Renderer::render_frame()
 {
 
+    // First draw objects to multi sampled framebuffer.
+
+    frame_buffer_1.start_rendering();
+
+    // Clearing the framebuffer 
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    frame_buffer.start_rendering();
-
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    default_state->activate();
-
+    triangle_1->activate();
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
-    frame_buffer.stop_rendering();
+    triangle_2->activate();
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    frame_buffer_1.stop_rendering();
 
 
-    fbo_shader_state->activate();
-    auto& tex = frame_buffer.get_texture(0);
+
+    msaa_resolver->activate();
+
 
     glActiveTexture(GL_TEXTURE0);
-
-    glBindTexture(tex.texture_type, tex.get_handle());
+    frame_buffer_1.get_texture(0).bind();
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    /*
+    frame_buffer_2.start_rendering();
+
+    render_texture->activate();
+
+    frame_buffer_2.stop_rendering();
+    
+
+
+
+    // Here do mixing etc
+
+
+
+    // Finally render the result to the screen.
+    // ( No framebuffer is bound )
+
+    //frame_buffer_2.stop_rendering();
+
+    glClearColor(0, 0, 0.5, 1);
+
+    render_texture->activate();
+
+    glActiveTexture(GL_TEXTURE0);
+    blurred_fbo->get_texture(0).bind();
+    //frame_buffer_2.get_texture(0).bind();
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    frame_buffer_1.get_texture(0).bind();
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    */
 }
 
 
@@ -138,7 +170,16 @@ void Renderer::render_frame()
 
 void Renderer::resized(int w, int h)
 {
+    blur_filter.window_resized(w, h);
+
+    frame_buffer_1.stop_rendering();
+    frame_buffer_2.stop_rendering();
+
     glViewport(0, 0, w, h);
-    frame_buffer.resize(w, h);
+
+    frame_buffer_1.set_size(w, h);
+    frame_buffer_2.set_size(w, h);
+
     ShaderManager::get("default")->static_uniform["viewport"] = glm::vec2(w, h);
+    ShaderManager::get("renderFBO")->static_uniform["viewport"] = glm::vec2(w, h);
 }

@@ -23,10 +23,15 @@ public:
     ~FrameBuffer();
 
 
-    void add_texture(const Texture2D::Settings& texture_settings, GLenum attachment_point);
+    void add_texture(Texture::Type texture_type, GLenum pixel_format, GLenum attachment_point);
 
 
-    void resize(unsigned int width, unsigned int height);
+    void set_size(unsigned int width, unsigned int height);
+
+    unsigned int get_width();
+
+    unsigned int get_height();
+
 
 
     void print_status();
@@ -44,7 +49,7 @@ public:
     GLuint get_handle();
 
 
-    const Texture2D& get_texture(int index);
+    Texture& get_texture(int index);
 
 
 private:
@@ -54,8 +59,8 @@ private:
 
     GLuint framebuffer_handle;
 
-    bool has_moved = false;
+    bool cleanup_responsible = true;
 
-    std::vector<std::pair<Texture2D, GLenum>> attachments;
+    std::vector<std::pair<Texture, GLenum>> attachments;
 
 };

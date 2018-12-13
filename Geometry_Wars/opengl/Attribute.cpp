@@ -16,14 +16,14 @@ Attribute::Attribute(Attribute&& other)
     vbo_handle = other.vbo_handle;
     num_allocated = other.num_allocated;
     other.vbo_handle = 0;
-    other.has_moved = false;
+    other.cleanup_responsible = false;
 }
 
 
 
 Attribute::~Attribute()
 {
-    if (has_moved)
+    if (cleanup_responsible)
     {
         glDeleteBuffers(1, &vbo_handle);
     }

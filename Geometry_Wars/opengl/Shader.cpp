@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include "ShaderState.h"
 #include "Uniform.h"
+#include "UniformDefinition.h" 
 
 #include <map>
 #include <iostream>
@@ -38,56 +39,36 @@ Shader::Shader()
 
 Shader::~Shader()
 {
-    if (has_moved)
+    for (auto shader : shader_stage_handles)
     {
-        for (auto shader : shader_stage_handles)
-        {
-            glDeleteShader(shader);
-        }
-
-        glDeleteProgram(program_handle);
+        glDeleteShader(shader);
     }
+
+    glDeleteProgram(program_handle);
 }
 
 
 
-Shader::Shader(Shader&& other)
+
+void Shader::add_attribute(int index, const std::string& name, Type type, bool normalize_ints)
 {
-    program_handle = other.program_handle;
-
-    shader_stage_handles = std::move(other.shader_stage_handles);
-
-    attribute_definitions = std::move(other.attribute_definitions);
-    uniform_definitions = std::move(other.uniform_definitions);
-    static_uniform_definitions = std::move(other.static_uniform_definitions);
-
-    static_uniforms = std::move(other.static_uniforms);
-
-    currently_active_state = other.currently_active_state;
-
-    other.has_moved = false;
-}
-
-
-void Shader::add_attribute(const AttributeDefinition& attribute)
-{
-    attribute_definitions.emplace_back(attribute);
+    attribute_definitions.emplace_back(new AttributeDefinition(index, name, type, normalize_ints, *this));
 }
 
 
 
-void Shader::add_uniform(const UniformDefinition& uniform)
+void Shader::add_uniform(const std::string& name, Type type)
 {
-    uniform_definitions.emplace_back(uniform.name, uniform.type);
+    uniform_definitions.emplace_back(new UniformDefinition(name, type, *this));   
 }
 
 
 
-void Shader::add_static_uniform(const UniformDefinition& uniform)
+void Shader::add_static_uniform(const std::string& name, Type type)
 {
-    static_uniform_definitions.emplace_back(uniform.name, uniform.type);
+    static_uniform_definitions.emplace_back(new UniformDefinition(name, type, *this));
     
-    const UniformDefinition& def{ static_uniform_definitions.back() };
+    const UniformDefinition& def{ *static_uniform_definitions.back() };
 
     static_uniforms.emplace(def.name, Uniform(def));
     /*
@@ -162,12 +143,12 @@ bool Shader::compile()
 
     for (auto& u : uniform_definitions)
     {
-        u.location = glGetUniformLocation(program_handle, u.name.c_str());
+        u->location = glGetUniformLocation(program_handle, u->name.c_str());
     }
 
     for (auto& s_u : static_uniform_definitions)
     {
-        s_u.location = glGetUniformLocation(program_handle, s_u.name.c_str());
+        s_u->location = glGetUniformLocation(program_handle, s_u->name.c_str());
     }
 
     return success == GL_TRUE;

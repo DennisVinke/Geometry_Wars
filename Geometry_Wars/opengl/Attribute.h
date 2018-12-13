@@ -59,7 +59,7 @@ public:
 
 private:
 
-    bool has_moved = true;
+    bool cleanup_responsible = true;
 
     unsigned int num_allocated = 0;
 

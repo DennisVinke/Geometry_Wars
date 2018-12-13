@@ -38,109 +38,109 @@ void Uniform::upload()
     switch (definition.type)
     {
     case Type::FLOAT:
-        glUniform1f(definition.location, data_pointer[0].f_value);
+        glUniform1f(definition.get_location(), data_pointer[0].f_value);
         break;
 
     case Type::VEC2:
-        glUniform2fv(definition.location, 1, (const GLfloat *) data_pointer);
+        glUniform2fv(definition.get_location(), 1, (const GLfloat *) data_pointer);
         break;
 
     case Type::VEC3:
-        glUniform3fv(definition.location, 1, (const GLfloat *) data_pointer);
+        glUniform3fv(definition.get_location(), 1, (const GLfloat *) data_pointer);
         break;
 
     case Type::VEC4:
-        glUniform4fv(definition.location, 1, (const GLfloat *) data_pointer);
+        glUniform4fv(definition.get_location(), 1, (const GLfloat *) data_pointer);
         break;
 
 
     case Type::INT:
-        glUniform1i(definition.location, data_pointer[0].i_value);
+        glUniform1i(definition.get_location(), data_pointer[0].i_value);
         break;
 
     case Type::IVEC2:
-        glUniform2iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform2iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
     case Type::IVEC3:
-        glUniform3iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform3iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
     case Type::IVEC4:
-        glUniform4iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform4iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
 
     case Type::UINT:
-        glUniform1ui(definition.location, data_pointer[0].u_value);
+        glUniform1ui(definition.get_location(), data_pointer[0].u_value);
         break;
 
     case Type::UVEC2:
-        glUniform2uiv(definition.location, 1, (const GLuint *) data_pointer);
+        glUniform2uiv(definition.get_location(), 1, (const GLuint *) data_pointer);
         break;
 
     case Type::UVEC3:
-        glUniform3uiv(definition.location, 1, (const GLuint *) data_pointer);
+        glUniform3uiv(definition.get_location(), 1, (const GLuint *) data_pointer);
         break;
 
     case Type::UVEC4:
-        glUniform4uiv(definition.location, 1, (const GLuint *) data_pointer);
+        glUniform4uiv(definition.get_location(), 1, (const GLuint *) data_pointer);
         break;
 
 
     case Type::BOOL:
-        glUniform1i(definition.location, data_pointer[0].i_value);
+        glUniform1i(definition.get_location(), data_pointer[0].i_value);
         break;
 
     case Type::BVEC2:
-        glUniform2iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform2iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
     case Type::BVEC3:
-        glUniform3iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform3iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
     case Type::BVEC4:
-        glUniform4iv(definition.location, 1, (const GLint *) data_pointer);
+        glUniform4iv(definition.get_location(), 1, (const GLint *) data_pointer);
         break;
 
 
     case Type::MAT_2x2:
-        glUniformMatrix2fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix2fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_2x3:
-        glUniformMatrix2x3fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix2x3fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_2x4:
-        glUniformMatrix2x4fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix2x4fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
 
     case Type::MAT_3x2:
-        glUniformMatrix3x2fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix3x2fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_3x3:
-        glUniformMatrix3fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix3fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_3x4:
-        glUniformMatrix3x4fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix3x4fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
 
     case Type::MAT_4x2:
-        glUniformMatrix4x2fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix4x2fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_4x3:
-        glUniformMatrix4x3fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix4x3fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
 
     case Type::MAT_4x4:
-        glUniformMatrix4fv(definition.location, 1, GL_FALSE, (const GLfloat *) data_pointer);
+        glUniformMatrix4fv(definition.get_location(), 1, GL_FALSE, (const GLfloat *) data_pointer);
         break;
     }
 }
