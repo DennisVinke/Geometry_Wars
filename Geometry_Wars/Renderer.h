@@ -2,6 +2,8 @@
 
 #include "GaussianBlur.h"
 
+#include "Shape.h"
+
 #include "opengl/Shader.h"
 #include "opengl/FrameBuffer.h"
 
@@ -24,8 +26,12 @@ public:
 
 private:
 
-    std::unique_ptr<ShaderState> triangle_1;
-    std::unique_ptr<ShaderState> triangle_2;
+
+    Shape shape{ { {-10, -10}, { -10, 10 }, { 10, 10}, { 10, -10} } };
+
+
+    //std::unique_ptr<ShaderState> triangle_1;
+    //std::unique_ptr<ShaderState> triangle_2;
     
     std::unique_ptr<ShaderState> msaa_resolver;
 

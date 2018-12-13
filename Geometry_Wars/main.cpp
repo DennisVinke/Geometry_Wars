@@ -4,6 +4,9 @@
 #include <glad/glad.h>
 
 
+#include "ShaderManager.h"
+
+
 
 void configure_context()
 {
@@ -77,6 +80,12 @@ int main(int argc, char* args[])
     //Application
 
     GaussianBlur::load_shaders();
+
+    ShaderManager::load_default_shader();
+    ShaderManager::load_renderFBO_shader();
+    ShaderManager::load_resolveMSAA_shader();
+
+
 
     Renderer renderer;
     //DefaultShader default_shader;
