@@ -18,11 +18,11 @@ void Entity::addComponent(Component * component) {
 }
 */
 void Entity::update() {
-	std::cout << "Entity is updating" << std::endl;
-	std::cout << "Size of list is: " << componentList.size() << std::endl;
+	//std::cout << "Entity is updating" << std::endl;
+	//std::cout << "Size of list is: " << componentList.size() << std::endl;
 	for (auto& c : componentList) {
 		c->execute();
-		c->toString();
+	//	c->toString();
 	}
 }
 void Entity::draw() {}

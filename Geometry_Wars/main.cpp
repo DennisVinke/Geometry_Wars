@@ -2,10 +2,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <glad/glad.h>
+#include <vector>
 
 #include "EntityManager.h"
 #include "PlayerShip.h"
+//Deze moeten allemaal naar 1 header denk ik
 #include "HealthComponent.h"
+#include "RenderComponent.h"
+#include "MovementComponent.h"
 #include <chrono>
 #undef main
 
@@ -106,6 +110,7 @@ int main(int argc, char* args[])
 	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
 
 	eManager->update();
+
 	Entity& test = eManager->CreateEntity();
 	eManager->update();
 
@@ -113,13 +118,28 @@ int main(int argc, char* args[])
 	test.setComponent<HealthComponent>();
 	eManager->update();
 	
+	std::cout << "The component is got!" << std::endl;
+	test.getComponent<HealthComponent>()->toString();
 	
 	std::cout<<"The component is being removed!" << std::endl;
 	test.removeComponent<HealthComponent>();
+	test.setComponent<MovementComponent>();
+	test.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	test.setComponent<RenderComponent>(renderer);
+
+	Entity& blok = eManager->CreateEntity();
+	blok.setComponent<MovementComponent>(glm::vec2(-50,0));
+	blok.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	blok.setComponent<RenderComponent>(renderer);
 	
-	eManager->update();
+	std::vector<Entity*> gameObjects;
+	for (int i = 0; i < 10000;i++) {
+		gameObjects.emplace_back(&eManager->CreateEntity());
+		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i * 50, 0));
+		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+		gameObjects.back()->setComponent<RenderComponent>(renderer);
+	}
 	
-	eManager->update();
 	
 	/*EntityManager::getLastComponentID<T>();
 	*/
@@ -144,6 +164,22 @@ int main(int argc, char* args[])
             {
                 quit = true;
             }
+			else if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+				case SDLK_LEFT: // YOUR CODE HERE
+					
+					break;
+				case SDLK_RIGHT: // YOUR CODE HERE
+					break;
+				case SDLK_UP: // YOUR CODE HERE
+					break;
+				case SDLK_DOWN: // YOUR CODE HERE
+					break;
+				case SDLK_ESCAPE:
+					quit = true;
+					break;
+				}
+			}
             else if (event.type == SDL_WINDOWEVENT
                 && event.window.event == SDL_WINDOWEVENT_RESIZED)
             {
@@ -153,6 +189,7 @@ int main(int argc, char* args[])
 			
         }
 
+		eManager->update();
         renderer.render_frame();
         
 		// * *************************************************
@@ -164,7 +201,7 @@ int main(int argc, char* args[])
         SDL_GL_SwapWindow(window);
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
-		//std::cout << diff.count() << std::endl;
+		std::cout << diff.count() << std::endl;
     }
 
 

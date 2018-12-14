@@ -5,6 +5,7 @@
 #include "Shape.h"
 #include "Renderer.h"
 #include "ShaderManager.h"
+#include "RenderComponent.h"
 
 #include "io/load_file_to_string.h"
 
@@ -111,11 +112,15 @@ void Renderer::render_frame()
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shape.rotate(0.01);
-    shape.render();
+    //shape.rotate(0.01);
+    //shape.render();
     //triangle_1->activate();
     //glDrawArrays(GL_TRIANGLES, 0, 3);
 
+	for (auto renderable : renderables) {
+		renderable->render();
+	}
+	renderables.clear();
     //triangle_2->activate();
     //glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -183,4 +188,9 @@ void Renderer::resized(int w, int h)
 
     ShaderManager::get("default")->static_uniform["viewport"] = glm::vec2(w, h);
     ShaderManager::get("renderFBO")->static_uniform["viewport"] = glm::vec2(w, h);
+}
+
+void Renderer::queueToRender(RenderComponent * component)
+{
+	renderables.emplace_back(component);
 }
