@@ -59,12 +59,18 @@ public:
 
 	//TODO: DENNIS DOE FIX
 	template<typename T>
-	Component * getComponent() {
+	T * getComponent() {
 		static_assert(std::is_base_of<Component, T>::value);
 		auto componentID = EntityManager::template getLastComponentID<T>();
-		//containsComponents[componentID] = true;
-		
-		return componentArray[componentID];
+		T * component = static_cast<T*>(componentArray[componentID]);
+		return component;
+	}
+
+	template<typename T>
+	bool hasComponent() {
+		static_assert(std::is_base_of<Component, T>::value);
+		auto componentID = EntityManager::template getLastComponentID<T>();
+		return containsComponents[componentID];
 	}
 
 

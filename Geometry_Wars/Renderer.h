@@ -8,7 +8,7 @@
 #include "opengl/FrameBuffer.h"
 
 
-
+class RenderComponent;
 class Renderer
 {
 
@@ -23,10 +23,10 @@ public:
 
     void resized(int w, int h);
 
-
+	void queueToRender(RenderComponent *);
 private:
 
-
+	std::vector<RenderComponent *> renderables;
     Shape shape{ { {-10, -10}, { -10, 10 }, { 10, 10}, { 10, -10} } };
 
 
