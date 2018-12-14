@@ -68,7 +68,7 @@ Renderer::Renderer()
 
 
     shape.translate(100, 100);
-    shape.set_line_width(2);
+    shape.set_line_width(3);
 
     render_texture = std::make_unique<ShaderState>(*ShaderManager::get("renderFBO"));
 
