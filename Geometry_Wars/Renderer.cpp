@@ -120,7 +120,7 @@ void Renderer::render_frame()
 	for (auto renderable : renderables) {
 		renderable->render();
 	}
-
+	renderables.clear();
     //triangle_2->activate();
     //glDrawArrays(GL_TRIANGLES, 0, 3);
 

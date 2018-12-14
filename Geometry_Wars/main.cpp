@@ -132,13 +132,13 @@ int main(int argc, char* args[])
 	blok.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
 	blok.setComponent<RenderComponent>(renderer);
 	
-	/*std::vector<Entity*> gameObjects;
-	for (int i = 0; i < 1;i++) {
+	std::vector<Entity*> gameObjects;
+	for (int i = 0; i < 10000;i++) {
 		gameObjects.emplace_back(&eManager->CreateEntity());
 		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i * 50, 0));
 		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
 		gameObjects.back()->setComponent<RenderComponent>(renderer);
-	}*/
+	}
 	
 	
 	/*EntityManager::getLastComponentID<T>();
