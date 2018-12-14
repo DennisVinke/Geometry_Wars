@@ -1,9 +1,9 @@
 #pragma once
 #include "Component.h"
 
-class HealthComponent : protected Component
+class HealthComponent : public Component
 {
-	friend class Entity;
+
 public:
 	HealthComponent();// = delete;
 	//HealthComponent(Entity& entity);
@@ -13,7 +13,7 @@ public:
 	void init() override;
 	void execute() override;
 	
-	void toString();
+	void print();
 	void updateHealth(int damage);
 	void setCurrentHealth(int currentHealth);
 	void setMaxHealth(int);

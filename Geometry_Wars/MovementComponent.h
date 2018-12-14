@@ -17,7 +17,7 @@ public:
 
 	void execute() override;
 	void init() override;
-	void toString() override;
+	void print() override;
 
 	void doMovement(glm::vec2);
 	void doMovement(int x, int y);

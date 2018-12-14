@@ -10,6 +10,8 @@
 #include "HealthComponent.h"
 #include "RenderComponent.h"
 #include "MovementComponent.h"
+#include "TransformationComponent.h"
+
 #include <chrono>
 #undef main
 
@@ -111,36 +113,43 @@ int main(int argc, char* args[])
 
 	eManager->update();
 
-	Entity& test = eManager->CreateEntity();
+	auto test = eManager->CreateEntity();
 	eManager->update();
 
 	std::cout << "The component is being added!" << std::endl;
-	test.setComponent<HealthComponent>();
+	test->setComponent<HealthComponent>();
 	eManager->update();
 	
 	std::cout << "The component is got!" << std::endl;
-	test.getComponent<HealthComponent>()->toString();
+	test->getComponent<HealthComponent>()->print();
 	
 	std::cout<<"The component is being removed!" << std::endl;
-	test.removeComponent<HealthComponent>();
-	test.setComponent<MovementComponent>();
-	test.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
-	test.setComponent<RenderComponent>(renderer);
+	test->removeComponent<HealthComponent>();
+	test->setComponent<MovementComponent>();
+	test->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	test->setComponent<RenderComponent>(renderer);
 
-	Entity& blok = eManager->CreateEntity();
-	blok.setComponent<MovementComponent>(glm::vec2(-50,0));
-	blok.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
-	blok.setComponent<RenderComponent>(renderer);
+	auto blok = eManager->CreateEntity();
+	blok->setComponent<MovementComponent>(glm::vec2(-50,0));
+	blok->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	blok->setComponent<RenderComponent>(renderer);
 	
 	std::vector<Entity*> gameObjects;
-	for (int i = 0; i < 10000;i++) {
-		gameObjects.emplace_back(&eManager->CreateEntity());
+	for (int i = 0; i < 100;i++) {
+		gameObjects.emplace_back(eManager->CreateEntity());
 		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i * 50, 0));
 		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
 		gameObjects.back()->setComponent<RenderComponent>(renderer);
 	}
 	
-	
+    auto tower = eManager->CreateEntity();
+    tower->setComponent<TransformationComponent>();
+    tower->setComponent<RenderComponent>(renderer);
+
+    tower->getComponent<TransformationComponent>()->translate(100, 100);
+    tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
+
+
 	/*EntityManager::getLastComponentID<T>();
 	*/
 

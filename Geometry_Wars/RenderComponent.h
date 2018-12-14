@@ -3,21 +3,29 @@
 #include "Renderer.h"
 #include "Shape.h"
 
+
 //class MovementComponent;
-class RenderComponent :protected Component
+class RenderComponent : public Component
 {
-	friend class Entity;
+
 private:
-	Shape shape;
-	Renderer& renderer;
+
+
+    Renderer& renderer;
+
+
 public:
-	RenderComponent()=delete;
+    Shape shape;
+
+
+    RenderComponent()=delete;
 	RenderComponent(Renderer&);
+
 	~RenderComponent();
 
 	void execute() override;
 	void init() override;
-	void toString() override;
+	void print() override;
 
 	void render();
 	glm::vec2 getLocation();

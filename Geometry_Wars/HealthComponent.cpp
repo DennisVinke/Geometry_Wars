@@ -39,7 +39,7 @@ bool HealthComponent::isAlive() {
 	return currentHealth <= 0;
 }
 
-void HealthComponent::toString() {
+void HealthComponent::print() {
 	std::cout << "HealthComponent!" << std::endl;
 }
 /*

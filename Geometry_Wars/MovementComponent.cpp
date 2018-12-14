@@ -26,7 +26,7 @@ void MovementComponent::init() {
 }
 
 
-void MovementComponent::toString() {
+void MovementComponent::print() {
 	std::cout << "MovementComponent!" << std::endl;
 }
 

@@ -23,7 +23,7 @@ public:
 
 	EntityID getComponentID();
 	//void AddEntity(IEntity&);
-	Entity& CreateEntity();
+	Entity* CreateEntity();
 	void update();
 	void draw();
 	void clean();

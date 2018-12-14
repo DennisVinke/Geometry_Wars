@@ -54,7 +54,7 @@ public:
 		std::unique_ptr<Component> uniqueComponent(component);
 		componentList.emplace_back(std::move(uniqueComponent));
 		std::cout << "De id in de manager: " << EntityManager::template getLastComponentID<T>() << std::endl;
-		component->toString();
+		component->print();
 	}
 
 	//TODO: DENNIS DOE FIX
