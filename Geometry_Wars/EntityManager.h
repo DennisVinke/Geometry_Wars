@@ -21,7 +21,7 @@ public:
 
 	EntityID getComponentID();
 	//void AddEntity(IEntity&);
-	Entity& CreateEntity();
+	Entity* CreateEntity();
 	void update();
 	void draw(); //can be deleted
 	void clean();

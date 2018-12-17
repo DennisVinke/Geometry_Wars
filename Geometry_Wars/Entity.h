@@ -53,11 +53,11 @@ public:
 		containsComponents[componentID] = true;
 		std::unique_ptr<Component> uniqueComponent(component);
 		componentList.emplace_back(std::move(uniqueComponent));
-		//std::cout << "De id in de manager: " << EntityManager::template getLastComponentID<T>() << std::endl;
-		//component->toString();
+		std::cout << "De id in de manager: " << EntityManager::template getLastComponentID<T>() << std::endl;
+		component->print();
 	}
 
-	//TODO: DENNIS DOE FIX (is gefixd?)
+	//TODO: DENNIS DOE FIX
 	template<typename T>
 	T * getComponent() {
 		static_assert(std::is_base_of<Component, T>::value);
@@ -86,7 +86,7 @@ public:
 			component->remove = true;
 			component->id = componentID;
 			this->changedComponentFlag = true;
-			//std::cout << "Hello I have been removed!" << std::endl;
+			std::cout << "Hello I have been removed!" << std::endl;
 			//ComponentArray[componentID] = nullptr
 			//auto index = std::find(componentList.begin(), componentList.end(), component);
 			//componentList.at(index-componentList.begin()).swap(componentList.at(componentList.end()- componentList.begin()));

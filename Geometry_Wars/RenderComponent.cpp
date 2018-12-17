@@ -28,7 +28,7 @@ glm::vec2 RenderComponent::getLocation() {
 	}
 }
 
-void RenderComponent::toString() {
+void RenderComponent::print() {
 	std::cout << "RenderComponent!" << std::endl;
 }
 

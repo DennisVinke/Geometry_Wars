@@ -12,7 +12,7 @@ public:
 	~Component();
 	virtual void init() = 0;
 	virtual void execute() = 0;
-	virtual void toString() = 0;
+	virtual void print() = 0;
 	
 	Entity * entity;
 	bool remove = false;

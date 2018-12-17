@@ -10,6 +10,8 @@
 #include "HealthComponent.h"
 #include "RenderComponent.h"
 #include "MovementComponent.h"
+#include "TransformationComponent.h"
+
 #include <chrono>
 #undef main
 
@@ -111,15 +113,15 @@ int main(int argc, char* args[])
 
 	eManager->update();
 
-	Entity& test = eManager->CreateEntity();
+	auto test = eManager->CreateEntity();
 	eManager->update();
 
 	std::cout << "The component is being added!" << std::endl;
-	test.setComponent<HealthComponent>();
+	test->setComponent<HealthComponent>();
 	eManager->update();
 	
 	std::cout << "The component is got!" << std::endl;
-	test.getComponent<HealthComponent>()->toString();
+	test->getComponent<HealthComponent>()->print();
 	
 	std::cout<<"The component is being removed!" << std::endl;
 	test.removeComponent<HealthComponent>();
@@ -127,10 +129,10 @@ int main(int argc, char* args[])
 	test.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
 	//test.setComponent<RenderComponent>(renderer);
 
-	Entity& blok = eManager->CreateEntity();
-	blok.setComponent<MovementComponent>(glm::vec2(-50,0));
-	blok.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
-	//blok.setComponent<RenderComponent>(renderer);
+	auto blok = eManager->CreateEntity();
+	blok->setComponent<MovementComponent>(glm::vec2(-50,0));
+	blok->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	blok->setComponent<RenderComponent>(renderer);
 	
 	std::vector<Entity*> gameObjects;
 	int j = 0;
@@ -146,7 +148,14 @@ int main(int argc, char* args[])
 		}
 	}
 	
-	
+    auto tower = eManager->CreateEntity();
+    tower->setComponent<TransformationComponent>();
+    tower->setComponent<RenderComponent>(renderer);
+
+    tower->getComponent<TransformationComponent>()->translate(100, 100);
+    tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
+
+
 	/*EntityManager::getLastComponentID<T>();
 	*/
 
