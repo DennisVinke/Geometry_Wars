@@ -124,9 +124,9 @@ int main(int argc, char* args[])
 	test->getComponent<HealthComponent>()->print();
 	
 	std::cout<<"The component is being removed!" << std::endl;
-	test.removeComponent<HealthComponent>();
-	test.setComponent<MovementComponent>();
-	test.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	test->removeComponent<HealthComponent>();
+	test->setComponent<MovementComponent>();
+	test->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
 	//test.setComponent<RenderComponent>(renderer);
 
 	auto blok = eManager->CreateEntity();
@@ -138,7 +138,7 @@ int main(int argc, char* args[])
 	int j = 0;
 	for (int i = 0; i < 15000;i++) {
 		if (i % 100 == 0) ++j;
-		gameObjects.emplace_back(&eManager->CreateEntity());
+		gameObjects.emplace_back(eManager->CreateEntity());
 		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i%100, j));
 		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(10, 10));
 		gameObjects.back()->setComponent<RenderComponent>(renderer);
