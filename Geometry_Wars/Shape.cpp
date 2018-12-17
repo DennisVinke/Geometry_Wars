@@ -65,14 +65,6 @@ void Shape::scale(float x, float y)
 }
 
 
-/*
-void Shape::set_filled(bool fill)
-{
-    filled = fill;
-}*/
-
-
-
 void Shape::set_line_width(float width)
 {
     line_width = width;
