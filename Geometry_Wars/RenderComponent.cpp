@@ -4,7 +4,6 @@
 
 RenderComponent::RenderComponent(Renderer& render):Component(),renderer(render), shape({ {-10, -10}, { -10, 10 }, { 10, 10}, { 10, -10} }) {}
 
-//RenderComponent::RenderComponent():Component() {}
 RenderComponent::~RenderComponent(){}
 
 void RenderComponent::execute() {
@@ -33,3 +32,6 @@ void RenderComponent::print() {
 	std::cout << "RenderComponent!" << std::endl;
 }
 
+void RenderComponent::setColor(int r, int g, int b, int a) {
+	shape.set_color(r, g, b, a);
+}

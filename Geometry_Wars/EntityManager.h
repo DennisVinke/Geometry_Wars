@@ -13,8 +13,6 @@ using ComponentID = std::size_t;
 static EntityID lastEntityID = 0;
 static ComponentID lastComponentID = 0;
 
-
-
 class EntityManager
 {
 public:
@@ -25,13 +23,13 @@ public:
 	//void AddEntity(IEntity&);
 	Entity* CreateEntity();
 	void update();
-	void draw();
+	void draw(); //can be deleted
 	void clean();
 	//void 
 	//virtual const int GetStaticEntityID() const = 0;
 	
 
-	//Deze een keer mooier wegwerken
+	//Deze een keer mooier wegwerken en dan voornamelijk in een andere header of class
 	static inline ComponentID getLastComponentID() noexcept {
 		return lastComponentID++;
 	}

@@ -32,6 +32,7 @@ bool Entity::changedComponents() {return true;}
 
 //Make sure this is called after update. Else undefined behaviour may occur
 //If flag of changedComponent is not set, the entity does not have to update
+//Willen we het op deze manier doen? Nu kunnen we components niet tijdelijk inactief maken
 void Entity::cleanUp() {
 	if (!changedComponentFlag)
 		return;

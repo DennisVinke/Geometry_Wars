@@ -124,10 +124,10 @@ int main(int argc, char* args[])
 	test->getComponent<HealthComponent>()->print();
 	
 	std::cout<<"The component is being removed!" << std::endl;
-	test->removeComponent<HealthComponent>();
-	test->setComponent<MovementComponent>();
-	test->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
-	test->setComponent<RenderComponent>(renderer);
+	test.removeComponent<HealthComponent>();
+	test.setComponent<MovementComponent>();
+	test.getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	//test.setComponent<RenderComponent>(renderer);
 
 	auto blok = eManager->CreateEntity();
 	blok->setComponent<MovementComponent>(glm::vec2(-50,0));
@@ -135,11 +135,17 @@ int main(int argc, char* args[])
 	blok->setComponent<RenderComponent>(renderer);
 	
 	std::vector<Entity*> gameObjects;
-	for (int i = 0; i < 100;i++) {
-		gameObjects.emplace_back(eManager->CreateEntity());
-		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i * 50, 0));
-		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
+	int j = 0;
+	for (int i = 0; i < 15000;i++) {
+		if (i % 100 == 0) ++j;
+		gameObjects.emplace_back(&eManager->CreateEntity());
+		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i%100, j));
+		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(10, 10));
 		gameObjects.back()->setComponent<RenderComponent>(renderer);
+		gameObjects.back()->getComponent<RenderComponent>()->setColor(20, 200, 10, 120);
+		if (i % 1000 == 0) {
+			std::cout << "1000 more created" << std::endl;
+		}
 	}
 	
     auto tower = eManager->CreateEntity();
