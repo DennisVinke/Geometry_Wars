@@ -21,5 +21,6 @@ public:
 
 	void render();
 	glm::vec2 getLocation();
+	void setColor(int,int,int, int);
 };
 

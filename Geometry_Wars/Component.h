@@ -6,6 +6,7 @@
 
 class Component
 {
+	//Extra abstractie voor objecten die alleen data bevatten zodat ze niet meegenomen worden in de execute functie?
 public:
 	Component();
 	~Component();
