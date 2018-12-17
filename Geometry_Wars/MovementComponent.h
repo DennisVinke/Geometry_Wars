@@ -68,12 +68,15 @@
 
 	\param y the y value the new constantMovement vector should change to
 */
+/*! \var glm::vec2 constMove
+	\brief Contains the value of which the entity needs to be updated with every frame
+*/
 
 class MovementComponent : public Component
 {
 private:
-	glm::vec2 startPosition = glm::vec2(0, 0);
-	glm::vec2 position = glm::vec2(0,0);
+	glm::vec2 startPosition = glm::vec2(0, 0); //should be removed
+	glm::vec2 position = glm::vec2(0,0); //should be removed
 	glm::vec2 constMove = glm::vec2(0, 0);
 public:
 	MovementComponent();
