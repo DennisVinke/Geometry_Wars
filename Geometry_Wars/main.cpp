@@ -6,7 +6,6 @@
 
 #include "EntityManager.h"
 #include "PlayerShip.h"
-//Deze moeten allemaal naar 1 header denk ik
 #include "HealthComponent.h"
 #include "RenderComponent.h"
 #include "MovementComponent.h"
