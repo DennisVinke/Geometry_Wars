@@ -175,32 +175,31 @@ int main(int argc, char* args[])
 
         while (SDL_PollEvent(&event) != 0)
 		{
-			if (event.type == SDL_QUIT)
-            {
-                quit = true;
-            }
-			else if (event.type == SDL_KEYDOWN) {
-				switch (event.key.keysym.sym) {
-				case SDLK_LEFT: // YOUR CODE HERE
-					
-					break;
-				case SDLK_RIGHT: // YOUR CODE HERE
-					break;
-				case SDLK_UP: // YOUR CODE HERE
-					break;
-				case SDLK_DOWN: // YOUR CODE HERE
-					break;
-				case SDLK_ESCAPE:
-					quit = true;
+			switch (event.type) {
+			case SDL_KEYDOWN:
+
+				break;
+			case SDL_KEYUP:
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				break;
+			case SDL_MOUSEBUTTONUP:
+				break;
+			case SDL_MOUSEMOTION:
+				break;
+			case SDL_QUIT:
+				quit = true;
+				break;
+			case SDL_WINDOWEVENT:
+				switch (event.window.event) {
+				case SDL_WINDOWEVENT_RESIZED:
+					renderer.resized(event.window.data1, event.window.data2);
+					std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
 					break;
 				}
 			}
-            else if (event.type == SDL_WINDOWEVENT
-                && event.window.event == SDL_WINDOWEVENT_RESIZED)
-            {
-                renderer.resized(event.window.data1, event.window.data2);
-                std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
-            }
+			
+          
 			
         }
 
