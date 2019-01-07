@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <vector>
 
+
+#include "InputManager.h"
 #include "EntityManager.h"
 #include "PlayerShip.h"
 #include "HealthComponent.h"
@@ -100,6 +102,8 @@ int main(int argc, char* args[])
     Renderer renderer;
 
     renderer.resized(640, 480);
+
+	InputManager inputHandler;
     // * *************************************************
 
 	//****** Game Loop\\
@@ -174,32 +178,35 @@ int main(int argc, char* args[])
 
         while (SDL_PollEvent(&event) != 0)
 		{
-			if (event.type == SDL_QUIT)
-            {
-                quit = true;
-            }
-			else if (event.type == SDL_KEYDOWN) {
-				switch (event.key.keysym.sym) {
-				case SDLK_LEFT: // YOUR CODE HERE
-					
-					break;
-				case SDLK_RIGHT: // YOUR CODE HERE
-					break;
-				case SDLK_UP: // YOUR CODE HERE
-					break;
-				case SDLK_DOWN: // YOUR CODE HERE
-					break;
-				case SDLK_ESCAPE:
-					quit = true;
+			switch (event.type) {
+			case SDL_KEYDOWN:
+				inputHandler.onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
+				break;
+			case SDL_KEYUP:
+				inputHandler.onKeyUp(event.key.keysym.scancode, event.key.repeat != 0);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				inputHandler.onMouseDown(event.button.button, event.button.clicks);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				inputHandler.onMouseUp(event.button.button, event.button.clicks);
+				break;
+			case SDL_MOUSEMOTION:
+				inputHandler.onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
+				break;
+			case SDL_QUIT:
+				quit = true;
+				break;
+			case SDL_WINDOWEVENT:
+				switch (event.window.event) {
+				case SDL_WINDOWEVENT_RESIZED:
+					renderer.resized(event.window.data1, event.window.data2);
+					std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
 					break;
 				}
 			}
-            else if (event.type == SDL_WINDOWEVENT
-                && event.window.event == SDL_WINDOWEVENT_RESIZED)
-            {
-                renderer.resized(event.window.data1, event.window.data2);
-                std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
-            }
+			
+          
 			
         }
 
