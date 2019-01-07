@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <vector>
 
+
+#include "InputManager.h"
 #include "EntityManager.h"
 #include "PlayerShip.h"
 //Deze moeten allemaal naar 1 header denk ik
@@ -101,6 +103,8 @@ int main(int argc, char* args[])
     Renderer renderer;
 
     renderer.resized(640, 480);
+
+	InputManager inputHandler;
     // * *************************************************
 
 	//****** Game Loop\\
@@ -177,15 +181,19 @@ int main(int argc, char* args[])
 		{
 			switch (event.type) {
 			case SDL_KEYDOWN:
-
+				inputHandler.onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_KEYUP:
+				inputHandler.onKeyUp(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
+				inputHandler.onMouseDown(event.button.button, event.button.clicks);
 				break;
 			case SDL_MOUSEBUTTONUP:
+				inputHandler.onMouseUp(event.button.button, event.button.clicks);
 				break;
 			case SDL_MOUSEMOTION:
+				inputHandler.onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
 				break;
 			case SDL_QUIT:
 				quit = true;
