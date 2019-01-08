@@ -15,7 +15,7 @@
 void GaussianBlur::load_shaders()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
 
 

@@ -34,7 +34,7 @@ void ShaderManager::free_all()
 void ShaderManager::load_default_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
     auto default_shader = ShaderManager::add_shader("default");
 
@@ -57,7 +57,7 @@ void ShaderManager::load_default_shader()
 void ShaderManager::load_horizontalBlur_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
 
 }
@@ -66,7 +66,7 @@ void ShaderManager::load_horizontalBlur_shader()
 void ShaderManager::load_verticalBlur_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
 
 }
@@ -75,7 +75,7 @@ void ShaderManager::load_verticalBlur_shader()
 void ShaderManager::load_renderFBO_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
     auto renderFBO_shader = ShaderManager::add_shader("renderFBO");
 
@@ -93,7 +93,7 @@ void ShaderManager::load_renderFBO_shader()
 void ShaderManager::load_resolveMSAA_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
     auto resolveMSAA_shader = ShaderManager::add_shader("resolveMSAA");
 

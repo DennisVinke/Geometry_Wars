@@ -7,6 +7,7 @@
 
 #include "InputManager.h"
 #include "EntityManager.h"
+#include "SoundManager.h"
 #include "PlayerShip.h"
 #include "HealthComponent.h"
 #include "RenderComponent.h"
@@ -14,10 +15,10 @@
 #include "TransformationComponent.h"
 
 #include <chrono>
-#undef main
 
 #include "ShaderManager.h"
 
+#undef main
 
 
 void configure_context()
@@ -104,6 +105,10 @@ int main(int argc, char* args[])
     renderer.resized(640, 480);
 
 	InputManager inputHandler;
+
+    SoundManager::initialize();
+    SoundManager::play(Sounds::THEME);
+
     // * *************************************************
 
 	//****** Game Loop\\
@@ -181,12 +186,14 @@ int main(int argc, char* args[])
 			switch (event.type) {
 			case SDL_KEYDOWN:
 				inputHandler.onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
+                SoundManager::play(Sounds::THEME);
 				break;
 			case SDL_KEYUP:
 				inputHandler.onKeyUp(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				inputHandler.onMouseDown(event.button.button, event.button.clicks);
+                SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEBUTTONUP:
 				inputHandler.onMouseUp(event.button.button, event.button.clicks);
@@ -222,9 +229,10 @@ int main(int argc, char* args[])
         SDL_GL_SwapWindow(window);
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
-		std::cout << diff.count() << std::endl;
+		//std::cout << diff.count() << std::endl;
     }
 
+    SoundManager::shutdown();
 
     SDL_DestroyWindow(window);
 
