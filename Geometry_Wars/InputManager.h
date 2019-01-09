@@ -5,6 +5,8 @@
 #include <vector>
 #include "ActionController.h"
 
+#define MOUSEKEYOFFSET 512
+#define SDL_MOUSEBUTTON_TYPES 5
 /*
 	@Aart gaan we hier nog een interface voor schrijven of vind je het wel prima zo?
 */
