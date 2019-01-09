@@ -34,6 +34,7 @@ public:
     static void load_default_shader();
     static void load_horizontalBlur_shader();
     static void load_verticalBlur_shader();
+    static void load_combine_shader();
     static void load_renderFBO_shader();
     static void load_resolveMSAA_shader();
 

@@ -2,6 +2,7 @@
 
 
 #include <glm/glm.hpp>
+#include <glad/glad.h>
 
 #include <vector>
 #include <memory>
@@ -81,6 +82,14 @@ public:
     void rotate(float angle_rads);
 
 
+    /// scale(float scale_).
+    /*
+     *  Adds a uniform scale to the transformation matrix.
+     *  Note. This does not actually change the vertex data. Only renders it differently.
+     */
+    void scale(float scale_);
+
+
     /// scale(glm::vec2 scale).
     /*
      *  Adds a scale to the transformation matrix.
@@ -126,6 +135,13 @@ public:
     void reset_transformation();
 
 
+    /// set_draw_mode(GLenum draw_mode)
+    /* 
+     *  This function is used to set the draw mode OpenGL uses, default is set to GL_LINE_LOOP
+     */
+    void set_draw_mode(GLenum draw_mode);
+
+
     /// render().
     /*
      *  Draws the shape to the current framebuffer, using the default shader. This function first 
@@ -143,6 +159,8 @@ private:
     std::vector<glm::vec2> shape;
 
     float line_width = 1.0f;
+
+    GLenum draw_mode = GL_LINE_LOOP;
     
     glm::vec4 color{ 1, 1, 1, 1 };
 

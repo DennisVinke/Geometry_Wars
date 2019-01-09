@@ -45,23 +45,19 @@ public:
 private:
 
 	std::vector<RenderComponent *> renderables;
-    Shape shape{ { {-10, -10}, { -10, 10 }, { 10, 10}, { 10, -10} } };
 
-
-    //std::unique_ptr<ShaderState> triangle_1;
-    //std::unique_ptr<ShaderState> triangle_2;
-    
     std::unique_ptr<ShaderState> msaa_resolver;
-
     std::unique_ptr<ShaderState> render_texture;
+    std::unique_ptr<ShaderState> combine_shader;
 
-
+    std::vector<Shape> test_shapes{ 30 };
 
     FrameBuffer frame_buffer_1{ 640, 480 };
     FrameBuffer frame_buffer_2{ 640, 480 };
+    FrameBuffer combined_blur{ 640, 480 };
 
-    GaussianBlur blur_filter{ 640, 480, 0.5, 4 };
-
+    GaussianBlur blur_near{ 640, 480, 0.8, 4 };
+    GaussianBlur blur_far{ 640, 480, 0.60, 4 };
 
 };
 

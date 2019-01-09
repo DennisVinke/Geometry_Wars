@@ -68,8 +68,26 @@ void ShaderManager::load_verticalBlur_shader()
     auto[path, success] = find_folder("Geometry_Wars");
     auto shaders_folder = path / "data";
 
-
 }
+
+
+void ShaderManager::load_combine_shader()
+{
+    auto[path, success] = find_folder("Geometry_Wars");
+    auto shaders_folder = path / "data";
+
+    auto combine_shader = ShaderManager::add_shader("combine");
+
+    combine_shader->add_shader_stage(load_file_to_string(shaders_folder / "minimal2D.vert"), GL_VERTEX_SHADER);
+    combine_shader->add_shader_stage(load_file_to_string(shaders_folder / "combine.frag"),     GL_FRAGMENT_SHADER);
+
+    combine_shader->add_attribute(0, "position", Type::VEC2);
+    combine_shader->add_uniform("weights", Type::VEC2);
+    combine_shader->add_static_uniform("viewport", Type::IVEC2);
+    
+    combine_shader->compile();
+}
+
 
 
 void ShaderManager::load_renderFBO_shader()

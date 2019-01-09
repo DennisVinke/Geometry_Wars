@@ -69,9 +69,13 @@ GaussianBlur::GaussianBlur(unsigned int w, unsigned int h, float rel_size, unsig
 
         frame_buffers.emplace_back(width, height);
         frame_buffers.back().add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA, GL_COLOR_ATTACHMENT0);
+        frame_buffers.back().get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
+        frame_buffers.back().get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
 
         frame_buffers.emplace_back(width, height);
         frame_buffers.back().add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA, GL_COLOR_ATTACHMENT0);
+        frame_buffers.back().get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
+        frame_buffers.back().get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
     }
 
 
@@ -129,7 +133,7 @@ FrameBuffer* GaussianBlur::apply(const Texture& texture)
 
         tex_ptr = &frame_buffers[i].get_texture(0);
         
-        /////////////////
+        //*******************************************************************************
 
         frame_buffers[i + 1].start_rendering();
 

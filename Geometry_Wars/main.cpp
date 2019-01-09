@@ -21,6 +21,9 @@
 #include "ShaderManager.h"
 
 
+#define RANDOM_IMPLEMENTATION
+#include "random.h"
+
 
 void configure_context()
 {
@@ -97,6 +100,7 @@ int main(int argc, char* args[])
 
 	ShaderManager::load_default_shader();
 	ShaderManager::load_renderFBO_shader();
+	ShaderManager::load_combine_shader();
 	ShaderManager::load_resolveMSAA_shader();
 
 

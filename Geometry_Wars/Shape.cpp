@@ -53,6 +53,12 @@ void Shape::rotate(float angle_rads)
 }
 
 
+void Shape::scale(float scale_)
+{
+    scale(scale_, scale_);
+}
+
+
 void Shape::scale(glm::vec2 scale)
 {
     transformation = glm::scale(transformation, scale);
@@ -92,6 +98,12 @@ void Shape::reset_transformation()
 }
 
 
+void Shape::set_draw_mode(GLenum draw_mode_)
+{
+    draw_mode = draw_mode_;
+}
+
+
 void Shape::render()
 {
     shader_state->activate();
@@ -100,7 +112,8 @@ void Shape::render()
     shader_state->uniform["transformation"] = transformation;
 
     glLineWidth(line_width);
+    //glPointSize(line_width / 2);
 
-    glDrawArrays(GL_LINE_LOOP, 0, shape.size());
-
+    glDrawArrays(draw_mode, 0, shape.size());
+    //glDrawArrays(GL_POINTS, 0, shape.size());
 }
