@@ -32,7 +32,7 @@ Renderer::Renderer()
 
 
     auto [path, success] = find_folder("Geometry_Wars");
-    auto shaders_folder = path / "shaders";
+    auto shaders_folder = path / "data";
 
     if (fs::exists(shaders_folder) && fs::is_directory(shaders_folder))
     {

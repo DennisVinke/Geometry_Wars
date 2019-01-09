@@ -264,3 +264,4 @@ __pycache__/
 *.pyc
 /Geometry_Wars/SDL2-2.0.9
 /Doxygen
+/Geometry_Wars/html
