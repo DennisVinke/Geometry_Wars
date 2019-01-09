@@ -22,6 +22,10 @@
 #include "ShaderManager.h"
 
 
+#define RANDOM_IMPLEMENTATION
+#include "random.h"
+
+
 void configure_context()
 {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -103,6 +107,7 @@ int main(int argc, char* args[])
 	ShaderManager::load_default_shader();
 	ShaderManager::load_renderFBO_shader();
 	ShaderManager::load_resolveMSAA_shader();
+    ShaderManager::load_combine_shader();
 
 
 
