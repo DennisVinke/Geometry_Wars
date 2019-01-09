@@ -94,5 +94,11 @@ public:
 	void setConstantMovement(glm::vec2);
 	void setConstantMovement(int x, int y);
 	glm::vec2 getLocation();
+
+
+	//Deze moeten nog ge doxytsgen d worden
+	void handleInput();
+
+
 };
 

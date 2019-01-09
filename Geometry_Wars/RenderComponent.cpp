@@ -24,7 +24,6 @@ glm::vec2 RenderComponent::getLocation() {
 	}
 	else {
 		return glm::vec2(0, 0);
-		
 	}
 }
 

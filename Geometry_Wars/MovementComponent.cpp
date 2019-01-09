@@ -1,5 +1,6 @@
 #include "MovementComponent.h"
-
+#include "InputComponent.h"
+#include "RenderComponent.h"
 
 
 MovementComponent::MovementComponent()
@@ -18,6 +19,7 @@ MovementComponent::~MovementComponent()
 
 void MovementComponent::execute() {
 	constantMovement();
+
 }
 
 
@@ -25,7 +27,7 @@ void MovementComponent::init() {
 	position = glm::vec2(0, 0);
 }
 
-
+ 
 void MovementComponent::print() {
 	std::cout << "MovementComponent!" << std::endl;
 }
@@ -44,7 +46,6 @@ void MovementComponent::doMovement(int x, int y) {
 	if (position.x > 600)position.x = startPosition.x;
 	if (position.y > 600)position.y = startPosition.x;
 	//std::cout << position.x << ":"<<position.y<<std::endl;
-
 }
 
 void MovementComponent::constantMovement() {
@@ -62,4 +63,7 @@ void MovementComponent::setConstantMovement(int x, int y) {
 
 glm::vec2 MovementComponent::getLocation() {
 	return position;
+}
+
+void MovementComponent::handleInput() {
 }

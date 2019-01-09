@@ -12,7 +12,6 @@ class TransformationComponent : public Component
 
 public:
 
-
     void reset();
 
     void translate(float x, float y);
