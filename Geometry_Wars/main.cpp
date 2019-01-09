@@ -121,7 +121,6 @@ int main(int argc, char* args[])
 	std::cout << "Creating Entity manager" << std::endl;
 	EntityManager * eManager = new EntityManager();
 
-
 	InputManager inputHandler;
 
 	SoundManager::initialize();
@@ -180,12 +179,19 @@ int main(int argc, char* args[])
 
 
 
-	auto tower = eManager->CreateEntity();
+ 	auto tower = eManager->CreateEntity();
 	tower->setComponent<TransformationComponent>();
 	tower->setComponent<RenderComponent>(renderer);
 
 	tower->getComponent<TransformationComponent>()->translate(100, 100);
+	tower->getComponent<TransformationComponent>()->rotate(3.14);
+	tower->getComponent<TransformationComponent>()->translate(100, 100);
+
 	tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
+
+	std::cout << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).x<< tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).y;
+	glm::vec3 test(tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(0, 0, 0)));
+	
 
 	/*EntityManager::getLastComponentID<T>();
 	*/
@@ -208,7 +214,7 @@ int main(int argc, char* args[])
 		{
 			switch (event.type) {
 			case SDL_KEYDOWN:
-				std::cout << "Key pressed down!: " << event.key.keysym.scancode << std::endl;
+				//std::cout << "Key pressed down!: " << event.key.keysym.scancode << std::endl;
 				inputHandler.onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_KEYUP:
@@ -216,7 +222,7 @@ int main(int argc, char* args[])
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				inputHandler.onMouseDown(event.button.button, event.button.clicks);
-				std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
+				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
 				SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEBUTTONUP:

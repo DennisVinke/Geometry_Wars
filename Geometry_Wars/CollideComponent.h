@@ -1,9 +1,7 @@
 #pragma once
 
+#include "glm_include/glm/glm.hpp"
 #include "Component.h"
-#include "Renderer.h"
-#include "Shape.h"
-
 
 /*! \file RenderComponent.h
 	\brief A component responsible for showing an Entity on the screen through the renderer
@@ -51,22 +49,23 @@
 /*! \var Shape shape
 	\brief Contains the shape that should be drawn by the renderer
 */
-
+class CollisionManager;
 class CollideComponent : public Component
 {
-private:
-	//Renderer& renderer;
-
-
-
 public:
-	CollideComponent() = delete;
-	CollideComponent();
+	//CollideComponent() = delete;
+	CollideComponent(CollisionManager& colManager);
 
 	~CollideComponent();
 
 	void execute() override;
 	void init() override;
 	void print() override;
+
+	virtual bool hasCollision(glm::vec2 otherPosition, int size);
+	void onCollision();
+
+private:
+	CollisionManager& colMan;
 };
 

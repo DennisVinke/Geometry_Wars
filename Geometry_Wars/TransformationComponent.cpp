@@ -40,9 +40,13 @@ void TransformationComponent::scale(float x, float y)
     transformation = glm::scale(transformation, glm::vec2(x, y));
 }
 
-
-
 glm::vec2 TransformationComponent::get_position()
 {
     return glm::vec2(transformation[2][0], transformation[2][1]);
+}
+
+glm::vec3 TransformationComponent::apply_to(const glm::vec3& v)
+{
+
+	return v*transformation;
 }
