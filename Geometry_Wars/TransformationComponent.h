@@ -36,10 +36,13 @@ public:
 
     void print() { }
 
+	glm::vec3 apply_to(const glm::vec3& v);    
+
 
 private:
 
     glm::mat3 transformation{ 1 };
+
 
 
 };
