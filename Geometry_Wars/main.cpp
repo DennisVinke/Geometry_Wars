@@ -107,7 +107,7 @@ int main(int argc, char* args[])
 	ShaderManager::load_default_shader();
 	ShaderManager::load_renderFBO_shader();
 	ShaderManager::load_resolveMSAA_shader();
-    ShaderManager::load_combine_shader();
+	ShaderManager::load_combine_shader();
 
 
 
@@ -162,7 +162,7 @@ int main(int argc, char* args[])
 	inputHandler.addKeyControl(SDL_SCANCODE_W, blok->getComponent<InputComponent>()->getActionController(1), -1.0f);
 	inputHandler.addKeyControl(SDL_SCANCODE_S, blok->getComponent<InputComponent>()->getActionController(1), 1.0f);
 
-	ActionController ac,cac;
+	ActionController ac, cac;
 	inputHandler.addKeyControl(SDL_SCANCODE_P, ac, 1.f);
 	inputHandler.addMouseControl(1, cac, 1.f);
 	blok->setComponent<RenderComponent>(renderer);
@@ -184,7 +184,7 @@ int main(int argc, char* args[])
 
 
 
- 	auto tower = eManager->CreateEntity();
+	auto tower = eManager->CreateEntity();
 	tower->setComponent<TransformationComponent>();
 	tower->setComponent<RenderComponent>(renderer);
 
@@ -194,9 +194,9 @@ int main(int argc, char* args[])
 
 	tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
 
-	std::cout << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).x<< tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).y;
+	std::cout << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).x << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).y;
 	glm::vec3 test(tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(0, 0, 0)));
-	
+
 
 	/*EntityManager::getLastComponentID<T>();
 	*/
@@ -257,7 +257,8 @@ int main(int argc, char* args[])
 
 		glm::vec2 pos(blok->getComponent<MovementComponent>()->getLocation());
 		if (cac.getValue() == 1) {
-			gameObjects.emplace_back(eManager->CreateEntity());
+			for (int i = 0;i < 100;i++)
+			{gameObjects.emplace_back(eManager->CreateEntity());
 			gameObjects.back()->setComponent<MovementComponent>(pos);
 			glm::vec2 spawn((cac.getClickedPosition() - pos) / glm::distance(cac.getClickedPosition(), pos));
 			spawn.x *= 5;
@@ -265,24 +266,25 @@ int main(int argc, char* args[])
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
 			gameObjects.back()->setComponent<RenderComponent>(renderer);
 			gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-		}
+	}
+}
 
-		eManager->update();
-		blok->getComponent<InputComponent>()->executeInput();
-		//resolve input
-		//collsionManager->update();
-		renderer.render_frame();
+eManager->update();
+blok->getComponent<InputComponent>()->executeInput();
+//resolve input
+//collsionManager->update();
+renderer.render_frame();
 
-		// * *************************************************
-
-
-		// * *************************************************
+// * *************************************************
 
 
-		SDL_GL_SwapWindow(window);
-		auto end = std::chrono::system_clock::now();
-		std::chrono::duration<double> diff = end - start;
-		//std::cout << diff.count() << std::endl;
+// * *************************************************
+
+
+SDL_GL_SwapWindow(window);
+auto end = std::chrono::system_clock::now();
+std::chrono::duration<double> diff = end - start;
+std::cout << diff.count() << std::endl;
 	}
 
 	SoundManager::shutdown();
