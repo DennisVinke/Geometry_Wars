@@ -7,6 +7,7 @@
 #include "ShaderManager.h"
 #include "RenderComponent.h"
 #include "random.h"
+#include "Background.h"
 
 #include "io/load_file_to_string.h"
 
@@ -90,6 +91,7 @@ Renderer::Renderer()
     combined_blur.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
     combined_blur.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
 
+    background = std::make_unique<Background>();
 }
 
 
@@ -111,7 +113,8 @@ void Renderer::render_frame()
     // Clearing the framebuffer 
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-
+    
+    background->render();
 
 	for (auto renderable : renderables) 
     {
@@ -124,6 +127,7 @@ void Renderer::render_frame()
         shape.rotate(0.01);
         shape.render();
     }
+
 
     frame_buffer_1.stop_rendering();
 
@@ -187,6 +191,12 @@ void Renderer::render_frame()
 
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    background->render_welcome_screen();
+
+    //background->render();
+
     //combine_shader->activate();
     //render_texture->activate();
 
@@ -249,6 +259,8 @@ void Renderer::render_frame()
 
 void Renderer::resized(int w, int h)
 {
+    background->window_resized(w, h);
+
     blur_near.window_resized(w, h);
     blur_far.window_resized(w, h);
 

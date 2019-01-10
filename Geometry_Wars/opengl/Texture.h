@@ -46,8 +46,8 @@ public:
 
     void allocate_empty(unsigned int width, unsigned int height);
 
-    // void allocate_from(...);
-
+    void allocate_filled(unsigned int width, unsigned int height, const unsigned char* data);
+    
     //=================================
 
     void set_size(unsigned int width, unsigned int height);

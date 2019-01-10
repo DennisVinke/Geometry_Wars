@@ -30,6 +30,17 @@ void ShaderManager::free_all()
 
 
 
+void ShaderManager::load_shaders()
+{
+    load_default_shader();
+    load_renderFBO_shader();
+    load_resolveMSAA_shader();
+    load_combine_shader();
+    load_background_shader();
+    load_texture_shader();
+}
+
+
 
 void ShaderManager::load_default_shader()
 {
@@ -88,6 +99,40 @@ void ShaderManager::load_combine_shader()
     combine_shader->compile();
 }
 
+
+void ShaderManager::load_texture_shader()
+{
+    auto[path, success] = find_folder("Geometry_Wars");
+    auto shaders_folder = path / "data";
+
+    auto texture_shader = ShaderManager::add_shader("texture");
+
+    texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.vert"), GL_VERTEX_SHADER);
+    texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.frag"), GL_FRAGMENT_SHADER);
+
+    texture_shader->add_attribute(0, "position", Type::VEC2);
+    texture_shader->add_attribute(1, "tex_coord", Type::VEC2);
+    texture_shader->add_static_uniform("viewport", Type::VEC2);
+
+    texture_shader->compile();
+}
+
+
+void ShaderManager::load_background_shader()
+{
+    auto[path, success] = find_folder("Geometry_Wars");
+    auto shaders_folder = path / "data";
+
+    auto background_shader = ShaderManager::add_shader("background");
+
+    background_shader->add_shader_stage(load_file_to_string(shaders_folder / "background.vert"), GL_VERTEX_SHADER);
+    background_shader->add_shader_stage(load_file_to_string(shaders_folder / "background.frag"), GL_FRAGMENT_SHADER);
+
+    background_shader->add_attribute(0, "position", Type::VEC2);
+    background_shader->add_attribute(1, "color", Type::FLOAT);
+
+    background_shader->compile();
+}
 
 
 void ShaderManager::load_renderFBO_shader()
