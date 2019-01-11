@@ -39,7 +39,7 @@ void::EntityManager::update() {
 	for (auto& entity : entities) {
 		entity->update();
 	}
-	clean();
+	//clean();
 
 }
 

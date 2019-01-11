@@ -125,7 +125,7 @@ private:
 	bool changedComponentFlag;
 	std::vector<std::unique_ptr<Component>> componentList;
 	bool alive = true;
-
+	bool removeAll = false;
 public:
 	Entity() = delete;
 	Entity(EntityID i);
@@ -200,6 +200,8 @@ public:
 		auto componentID = EntityManager::template getLastComponentID<T>();
 		containsComponents[componentID] = false;
 	}
+
+	void removeAllComponents();
 
 	void setChangedComponent();
 	bool changedComponents();

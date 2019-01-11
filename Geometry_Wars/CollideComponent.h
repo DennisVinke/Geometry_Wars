@@ -63,9 +63,13 @@ public:
 	void print() override;
 
 	virtual bool hasCollision(glm::vec2 otherPosition, int size);
+	virtual bool hasCollision(CollideComponent *);
 	void onCollision();
 
+	void SetCollisionRadius(int radius);
+	int GetCollisionRadius();
 private:
 	CollisionManager& colMan;
+	int collisionRadius;
 };
 

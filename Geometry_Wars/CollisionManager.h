@@ -17,12 +17,16 @@ public:
 	~CollisionManager();
 	void RegisterEntity(CollideComponent * entity);
 	void Update();
+
 private:
 	void CleanUp();
 	void ResolveCollisions();
 	void RemoveDupplicateCollisions(); // is deze niet overbodig?
 	
-	std::map<int, std::map<int, CollideComponent *>> collideTree;
+	std::vector<CollideComponent*> entities;
+
+	//std::map<int, std::map<int, CollideComponent *>> collideTree;
+	std::vector<std::vector<CollideComponent *>> sortedCollideComponents;
 	std::vector<CollisionEvent> collisions;
 	
 };

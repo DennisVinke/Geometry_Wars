@@ -7,6 +7,7 @@
 
 #include "InputManager.h"
 #include "EntityManager.h"
+#include "CollisionManager.h"
 #include "PlayerShip.h"
 #include "SoundManager.h"
 //Deze moeten allemaal naar 1 header denk ik
@@ -15,6 +16,7 @@
 #include "MovementComponent.h"
 #include "TransformationComponent.h"
 #include "InputComponent.h"
+#include "CollideComponent.h"
 
 #include <chrono>
 #undef main
@@ -127,6 +129,7 @@ int main(int argc, char* args[])
 	EntityManager * eManager = new EntityManager();
 
 	InputManager inputHandler;
+	CollisionManager collisionManager;
 
 	SoundManager::initialize();
 	SoundManager::play(Sounds::THEME);
@@ -167,7 +170,8 @@ int main(int argc, char* args[])
 	inputHandler.addMouseControl(1, cac, 1.f);
 	blok->setComponent<RenderComponent>(renderer);
 
-
+	blok->setComponent<CollideComponent>(collisionManager);
+	blok->getComponent<CollideComponent>()->SetCollisionRadius(10);
 	std::vector<Entity*> gameObjects;
 	/*int j = 0;
 	for (int i = 0; i < 15000;i++) {
@@ -191,13 +195,12 @@ int main(int argc, char* args[])
 	tower->getComponent<TransformationComponent>()->translate(100, 100);
 	tower->getComponent<TransformationComponent>()->rotate(3.14);
 	tower->getComponent<TransformationComponent>()->translate(100, 100);
-
+	
 	tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
 
-	std::cout << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).x << tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(10, 10, 0)).y;
-	glm::vec3 test(tower->getComponent<TransformationComponent>()->apply_to(glm::vec3(0, 0, 0)));
-
-
+	tower->setComponent<CollideComponent>(collisionManager);
+	tower->getComponent<CollideComponent>()->SetCollisionRadius(20);
+	tower->setComponent<MovementComponent>(glm::vec2(400,400));
 	/*EntityManager::getLastComponentID<T>();
 	*/
 
@@ -257,37 +260,41 @@ int main(int argc, char* args[])
 
 		glm::vec2 pos(blok->getComponent<MovementComponent>()->getLocation());
 		if (cac.getValue() == 1) {
-			for (int i = 0;i < 100;i++)
-			{gameObjects.emplace_back(eManager->CreateEntity());
+			//for (int i = 0;i < 100;i++)
+			gameObjects.emplace_back(eManager->CreateEntity());
 			gameObjects.back()->setComponent<MovementComponent>(pos);
 			glm::vec2 spawn((cac.getClickedPosition() - pos) / glm::distance(cac.getClickedPosition(), pos));
 			spawn.x *= 5;
 			spawn.y *= 5;
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
 			gameObjects.back()->setComponent<RenderComponent>(renderer);
-            auto render_component = gameObjects.back()->getComponent<RenderComponent>();
-            render_component->shape.set_line_width(7);
-            render_component->shape.set_draw_mode(GL_POINTS);
-            render_component->shape.set_shape({ {0, 0} });
+			gameObjects.back()->setComponent<CollideComponent>(collisionManager);
+			gameObjects.back()->getComponent<CollideComponent>()->SetCollisionRadius(10);
+			auto render_component = gameObjects.back()->getComponent<RenderComponent>();
+			render_component->shape.set_line_width(7);
+			render_component->shape.set_draw_mode(GL_POINTS);
+			render_component->shape.set_shape({ {0, 0} });
 			//gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
 		}
 
-eManager->update();
-blok->getComponent<InputComponent>()->executeInput();
-//resolve input
-//collsionManager->update();
-renderer.render_frame();
+		eManager->update();
+		blok->getComponent<InputComponent>()->executeInput();
 
-// * *************************************************
+		//resolve input
+		collisionManager.Update();
+		//eManager->clean();
+		renderer.render_frame();
+
+		// * *************************************************
 
 
-// * *************************************************
+		// * *************************************************
 
 
-SDL_GL_SwapWindow(window);
-auto end = std::chrono::system_clock::now();
-std::chrono::duration<double> diff = end - start;
-std::cout << diff.count() << std::endl;
+		SDL_GL_SwapWindow(window);
+		auto end = std::chrono::system_clock::now();
+		std::chrono::duration<double> diff = end - start;
+		std::cout << diff.count() << std::endl;
 	}
 
 	SoundManager::shutdown();

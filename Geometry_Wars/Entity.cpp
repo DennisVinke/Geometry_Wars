@@ -36,6 +36,9 @@ bool Entity::changedComponents() {return true;}
 void Entity::cleanUp() {
 	if (!changedComponentFlag)
 		return;
+	else if (removeAll) {
+		change
+	}
 	for (int i = 0; i < componentList.size() && !componentList.empty();) {
 		if (componentList.at(i)->remove) {
 			containsComponents[componentList.at(i)->id] = false;
@@ -46,6 +49,12 @@ void Entity::cleanUp() {
 			i++;
 		}
 	}
+}
+
+void Entity::removeAllComponents()
+{
+	removeAll = true;
+	changedComponentFlag = true;
 }
 
 bool Entity::isActive() {
