@@ -1082,9 +1082,9 @@ static void find_coreGL(void) {
     if (!version) return;
 
     for (i = 0;  prefixes[i];  i++) {
-        const size_t length = strlen(prefixes[i]);
-        if (strncmp(version, prefixes[i], length) == 0) {
-            version += length;
+        const size_t num_bytes = strlen(prefixes[i]);
+        if (strncmp(version, prefixes[i], num_bytes) == 0) {
+            version += num_bytes;
             break;
         }
     }

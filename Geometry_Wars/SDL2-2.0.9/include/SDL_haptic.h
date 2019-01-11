@@ -472,7 +472,7 @@ typedef struct SDL_HapticConstant
     SDL_HapticDirection direction;  /**< Direction of the effect. */
 
     /* Replay */
-    Uint32 length;          /**< Duration of the effect. */
+    Uint32 num_bytes;          /**< Duration of the effect. */
     Uint16 delay;           /**< Delay before starting the effect. */
 
     /* Trigger */
@@ -555,7 +555,7 @@ typedef struct SDL_HapticPeriodic
     SDL_HapticDirection direction;  /**< Direction of the effect. */
 
     /* Replay */
-    Uint32 length;      /**< Duration of the effect. */
+    Uint32 num_bytes;      /**< Duration of the effect. */
     Uint16 delay;       /**< Delay before starting the effect. */
 
     /* Trigger */
@@ -607,7 +607,7 @@ typedef struct SDL_HapticCondition
     SDL_HapticDirection direction;  /**< Direction of the effect - Not used ATM. */
 
     /* Replay */
-    Uint32 length;          /**< Duration of the effect. */
+    Uint32 num_bytes;          /**< Duration of the effect. */
     Uint16 delay;           /**< Delay before starting the effect. */
 
     /* Trigger */
@@ -643,7 +643,7 @@ typedef struct SDL_HapticRamp
     SDL_HapticDirection direction;  /**< Direction of the effect. */
 
     /* Replay */
-    Uint32 length;          /**< Duration of the effect. */
+    Uint32 num_bytes;          /**< Duration of the effect. */
     Uint16 delay;           /**< Delay before starting the effect. */
 
     /* Trigger */
@@ -679,7 +679,7 @@ typedef struct SDL_HapticLeftRight
     Uint16 type;            /**< ::SDL_HAPTIC_LEFTRIGHT */
 
     /* Replay */
-    Uint32 length;          /**< Duration of the effect in milliseconds. */
+    Uint32 num_bytes;          /**< Duration of the effect in milliseconds. */
 
     /* Rumble */
     Uint16 large_magnitude; /**< Control of the large controller motor. */
@@ -708,7 +708,7 @@ typedef struct SDL_HapticCustom
     SDL_HapticDirection direction;  /**< Direction of the effect. */
 
     /* Replay */
-    Uint32 length;          /**< Duration of the effect. */
+    Uint32 num_bytes;          /**< Duration of the effect. */
     Uint16 delay;           /**< Delay before starting the effect. */
 
     /* Trigger */
@@ -1213,7 +1213,7 @@ extern DECLSPEC int SDLCALL SDL_HapticRumbleInit(SDL_Haptic * haptic);
  *  \sa SDL_HapticRumbleInit
  *  \sa SDL_HapticRumbleStop
  */
-extern DECLSPEC int SDLCALL SDL_HapticRumblePlay(SDL_Haptic * haptic, float strength, Uint32 length );
+extern DECLSPEC int SDLCALL SDL_HapticRumblePlay(SDL_Haptic * haptic, float strength, Uint32 num_bytes );
 
 /**
  *  \brief Stops the simple rumble on a haptic device.

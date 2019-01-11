@@ -34,9 +34,9 @@ Background::Background()
 
     for (int i = 0; i < amount; ++i)
     {
-        glm::vec2 pos{ random(-1.4f, 1.4f), random(-1.4f, 1.4f) };
-        coordinates.emplace_back(pos + glm::vec2(random(0.2f, 0.4f), random(-0.3f, 0.3f)));
-        coordinates.emplace_back(pos + glm::vec2(random(-0.4f, -0.2f), random(-0.3f, 0.3f)));
+        glm::vec2 position{ random(-1.4f, 1.4f), random(-1.4f, 1.4f) };
+        coordinates.emplace_back(position + glm::vec2(random(0.2f, 0.4f), random(-0.3f, 0.3f)));
+        coordinates.emplace_back(position + glm::vec2(random(-0.4f, -0.2f), random(-0.3f, 0.3f)));
         //coordinates.emplace_back(pos + glm::vec2(random(-0.4f, 0.4f), random(-0.2f, 0.2f)));
         colors.emplace_back(random(0.07f));
         colors.emplace_back(colors.back());

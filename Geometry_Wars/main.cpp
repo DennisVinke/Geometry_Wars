@@ -125,7 +125,7 @@ int main(int argc, char* args[])
 	InputManager inputHandler;
 
 	SoundManager::initialize();
-	SoundManager::play(Sounds::THEME);
+	SoundManager::play(Sounds::THEME, true);
 
 
 	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
@@ -228,7 +228,8 @@ int main(int argc, char* args[])
 				break;
 			case SDL_MOUSEBUTTONUP:
 				inputHandler.onMouseUp(event.button.button, event.button.clicks);
-				SoundManager::play(Sounds::THEME);
+				//SoundManager::play(Sounds::THEME);
+                //SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEMOTION:
 				inputHandler.onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
@@ -251,11 +252,11 @@ int main(int argc, char* args[])
 		}
 
 
-		glm::vec2 pos(blok->getComponent<MovementComponent>()->getLocation());
+		glm::vec2 position(blok->getComponent<MovementComponent>()->getLocation());
 		if (cac.getValue() == 1) {
 			gameObjects.emplace_back(eManager->CreateEntity());
-			gameObjects.back()->setComponent<MovementComponent>(pos);
-			glm::vec2 spawn((cac.getClickedPosition() - pos) / glm::distance(cac.getClickedPosition(), pos));
+			gameObjects.back()->setComponent<MovementComponent>(position);
+			glm::vec2 spawn((cac.getClickedPosition() - position) / glm::distance(cac.getClickedPosition(), position));
 			spawn.x *= 5;
 			spawn.y *= 5;
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
