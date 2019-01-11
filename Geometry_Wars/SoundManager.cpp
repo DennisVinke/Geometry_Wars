@@ -8,16 +8,48 @@
 
 
 
+SDL_AudioSpec SoundManager::output_spec;
+
 SDL_AudioDeviceID SoundManager::audio_device;
 
 std::array<SoundManager::Sound, static_cast<int>(Sounds::NUM_SOUNDS)> SoundManager::sounds;
 
+std::vector<SoundManager::SoundInvocation> SoundManager::sounds_playing;
 
 
-void print_audio_format_bits(SDL_AudioFormat f)
+
+void print_audio_format_info(const SDL_AudioSpec& spec)
 {
-    std::bitset<16> bits{ f };
-    std::cout << bits.to_string() << std::endl;
+    std::bitset<16> bits{ spec.format };
+    std::cout << bits.to_string() << "\t" << spec.freq
+        << "\t" << static_cast<int>(spec.channels) << "\n";
+}
+
+
+int pos = 0;
+
+void SoundManager::audio_callback(void *udata, uint8_t *stream, int len)
+{
+    SDL_memset(stream, 0, len);
+
+    auto& s = sounds[0];
+
+    if (pos + len < s.length)
+    {
+        SDL_memcpy(stream, &s.data[pos], len);
+        pos += len;
+    }
+    else
+    {
+
+    }
+
+
+    //extern SDL_AudioFormat deviceFormat;
+    //extern const Uint8 *mixData;
+    //SDL_memset(stream, 0, len);  // make sure this is silence.
+    // mix our audio against the silence, at 50% volume.
+    //SDL_MixAudioFormat(stream, mixData, deviceFormat, len, SDL_MIX_MAXVOLUME / 2);
 }
 
 
@@ -31,6 +63,10 @@ void SoundManager::load_sound(Sounds sound, const std::string& path)
     {
         std::cerr << "Error: file could not be loaded as an audio file." << std::endl;
     }
+    
+    std::cout << "  ";
+    print_audio_format_info(sounds[index].spec);
+
 }
 
 
@@ -42,8 +78,14 @@ void SoundManager::initialize()
     load_sound(Sounds::THEME, (data_folder / "theme.wav").string());
     load_sound(Sounds::LASER, (data_folder / "laser.wav").string());
 
-    audio_device = SDL_OpenAudioDevice(NULL, 0, &(sounds[0].spec), NULL, 0);
+    output_spec = sounds[0].spec;
+    output_spec.callback = SoundManager::audio_callback;
 
+    audio_device = SDL_OpenAudioDevice(NULL, 0, &output_spec, NULL, 0);
+
+    std::cout << "- ";
+    print_audio_format_info(output_spec);
+    
     SDL_PauseAudioDevice(audio_device, 0);
 }
 

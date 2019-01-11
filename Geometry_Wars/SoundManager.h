@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <array>
 #include <SDL.h>
 
@@ -35,6 +36,9 @@ private:
 
     static void load_sound(Sounds sound, const std::string& path);
 
+    
+    static void audio_callback(void * udata, uint8_t * stream, int len);
+
 
     struct Sound
     {
@@ -43,8 +47,18 @@ private:
         uint32_t length;
     };
 
+    struct SoundInvocation
+    {
+        Sound* sound;
+        uint32_t position;
+    };
+
+
+    static SDL_AudioSpec output_spec;
 
     static SDL_AudioDeviceID audio_device;
+
+    static std::vector<SoundInvocation> sounds_playing;
 
     static std::array<Sound, static_cast<int>(Sounds::NUM_SOUNDS)> sounds;
 
