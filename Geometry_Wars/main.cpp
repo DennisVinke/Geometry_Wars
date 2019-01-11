@@ -105,11 +105,7 @@ int main(int argc, char* args[])
 	//Application
 
 	GaussianBlur::load_shaders();
-
-	ShaderManager::load_default_shader();
-	ShaderManager::load_renderFBO_shader();
-	ShaderManager::load_resolveMSAA_shader();
-	ShaderManager::load_combine_shader();
+    ShaderManager::load_shaders();
 
 
 

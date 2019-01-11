@@ -150,9 +150,7 @@ public:
      */
     void render();
 
-	float getWidht();
 
-	float getHeight();
 private:
 
     std::unique_ptr<ShaderState> shader_state;

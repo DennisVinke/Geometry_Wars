@@ -58,8 +58,25 @@ void Texture::allocate_empty(unsigned int width, unsigned int height)
 }
 
 
-// void allocate_from(...)
 
+void Texture::allocate_filled(unsigned int width, unsigned int height, const unsigned char* data)
+{
+    // Not allowed to instantiate with data
+    assert(binding_target != GL_TEXTURE_2D_MULTISAMPLE);
+
+    bind();
+
+    glTexImage2D(binding_target, 0, pixel_format, width, height,
+        0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+    if (type == Type::NORMALIZED_MIPMAP)
+    {
+        glGenerateMipmap(binding_target);
+    }
+
+    texture_width = width;
+    texture_height = height;
+}
 
 
 

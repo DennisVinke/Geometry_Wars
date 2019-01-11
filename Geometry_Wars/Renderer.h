@@ -9,7 +9,7 @@
 
 
 class RenderComponent;
-
+class Background;
 
 
 /// class Renderer: Responsible for rendering entities to the screen
@@ -58,6 +58,8 @@ private:
 
     GaussianBlur blur_near{ 640, 480, 0.8, 4 };
     GaussianBlur blur_far{ 640, 480, 0.60, 4 };
+
+    std::unique_ptr<Background> background;
 
 };
 

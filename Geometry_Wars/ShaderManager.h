@@ -30,18 +30,21 @@ public:
     /// Used to deallocate all the shaders, necesary because this class has no destructor.
     static void free_all();
 
-    
-    static void load_default_shader();
-    static void load_horizontalBlur_shader();
-    static void load_verticalBlur_shader();
-    static void load_combine_shader();
-    static void load_renderFBO_shader();
-    static void load_resolveMSAA_shader();
+    static void load_shaders();
 
 
 private:
 
     static std::map<std::string, std::unique_ptr<Shader>> shaders;
 
+
+    static void load_default_shader();
+    static void load_horizontalBlur_shader();
+    static void load_verticalBlur_shader();
+    static void load_combine_shader();
+    static void load_renderFBO_shader();
+    static void load_resolveMSAA_shader();
+    static void load_background_shader();
+    static void load_texture_shader();
 
 };
