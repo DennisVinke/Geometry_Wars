@@ -13,7 +13,7 @@
 
 class Component;
 //Deze moeten allemaal een keer naar een constants class
-constexpr auto maxComponents = 100; ;
+constexpr auto maxComponents = 10;
 
 //Array[Components] for indexation
 //Vector<Components> for update

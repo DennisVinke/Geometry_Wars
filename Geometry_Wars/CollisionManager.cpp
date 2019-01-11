@@ -15,7 +15,6 @@ void CollisionManager::Update() {
 	//look up down left right
 	//for(int i=0; i< )
 
-	
 	for (int i = 0; i < entities.size();i++) {
 		for (int j = i+1; j < entities.size()-1;j++) {
 			if (entities.at(i)->hasCollision(entities.at(j))) {
@@ -49,4 +48,14 @@ void CollisionManager::ResolveCollisions() {
 
 void CollisionManager::RemoveDupplicateCollisions() {
 
+}
+
+bool CollisionManager::can_collide(CollideMask c1, CollideMask c2) {
+	auto target = static_cast<int>(c2);
+	for (auto id : collisionTable.at(static_cast<int>(c1))) {
+		if (target == id) {
+			return true;
+		}
+	}
+	return false;
 }

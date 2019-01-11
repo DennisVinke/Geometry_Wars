@@ -161,12 +161,13 @@ int main(int argc, char* args[])
 	inputHandler.addKeyControl(SDL_SCANCODE_W, blok->getComponent<InputComponent>()->getActionController(1), -1.0f);
 	inputHandler.addKeyControl(SDL_SCANCODE_S, blok->getComponent<InputComponent>()->getActionController(1), 1.0f);
 
-	ActionController ac, cac;
+	ActionController ac, cac, cacr;
 	inputHandler.addKeyControl(SDL_SCANCODE_P, ac, 1.f);
 	inputHandler.addMouseControl(1, cac, 1.f);
+	inputHandler.addMouseControl(3, cacr, 1.f);
 	blok->setComponent<RenderComponent>(renderer);
 
-	blok->setComponent<CollideComponent>(collisionManager);
+	blok->setComponent<CollideComponent>(collisionManager, CollideMask::PLAYER);
 	blok->getComponent<CollideComponent>()->SetCollisionRadius(10);
 	std::vector<Entity*> gameObjects;
 	/*int j = 0;
@@ -194,7 +195,7 @@ int main(int argc, char* args[])
 	
 	tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
 
-	tower->setComponent<CollideComponent>(collisionManager);
+	tower->setComponent<CollideComponent>(collisionManager, CollideMask::ENEMY);
 	tower->getComponent<CollideComponent>()->SetCollisionRadius(20);
 	tower->setComponent<MovementComponent>(glm::vec2(400,400));
 	/*EntityManager::getLastComponentID<T>();
@@ -227,6 +228,7 @@ int main(int argc, char* args[])
 			case SDL_MOUSEBUTTONDOWN:
 				inputHandler.onMouseDown(event.button.button, event.button.clicks);
 				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
+				std::cout << "MouseClicked " << event.button.button<<std::endl;
 				SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEBUTTONUP:
@@ -264,7 +266,7 @@ int main(int argc, char* args[])
 			spawn.y *= 5;
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
 			gameObjects.back()->setComponent<RenderComponent>(renderer);
-			gameObjects.back()->setComponent<CollideComponent>(collisionManager);
+			gameObjects.back()->setComponent<CollideComponent>(collisionManager, CollideMask::BULLET);
 			gameObjects.back()->getComponent<CollideComponent>()->SetCollisionRadius(10);
 			auto render_component = gameObjects.back()->getComponent<RenderComponent>();
 			render_component->shape.set_line_width(7);
@@ -273,14 +275,31 @@ int main(int argc, char* args[])
 			//gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
 		}
 
+		if (cacr.getValue() == 1){
+			auto tower = eManager->CreateEntity();
+			tower->setComponent<TransformationComponent>();
+			tower->setComponent<RenderComponent>(renderer);
+
+			tower->getComponent<TransformationComponent>()->translate(100, 100);
+			tower->getComponent<TransformationComponent>()->rotate(3.14);
+			tower->getComponent<TransformationComponent>()->translate(100, 100);
+
+			tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
+
+			tower->setComponent<CollideComponent>(collisionManager, CollideMask::ENEMY);
+			tower->getComponent<CollideComponent>()->SetCollisionRadius(20);
+			tower->setComponent<MovementComponent>(cacr.getClickedPosition());
+		}
+
 		eManager->update();
-		blok->getComponent<InputComponent>()->executeInput();
+		if(blok->hasComponent<InputComponent>())
+			blok->getComponent<InputComponent>()->executeInput();
 
 		//resolve input
 		collisionManager.Update();
-		//eManager->clean();
+		
 		renderer.render_frame();
-
+		eManager->clean();
 		// * *************************************************
 
 
@@ -290,7 +309,7 @@ int main(int argc, char* args[])
 		SDL_GL_SwapWindow(window);
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
-		std::cout << diff.count() << std::endl;
+		//std::cout << diff.count() << std::endl;
 	}
 
 	SoundManager::shutdown();
