@@ -37,7 +37,7 @@ void Entity::cleanUp() {
 	if (!changedComponentFlag)
 		return;
 	else if (removeAll) {
-		change
+		//change
 	}
 	for (int i = 0; i < componentList.size() && !componentList.empty();) {
 		if (componentList.at(i)->remove) {
