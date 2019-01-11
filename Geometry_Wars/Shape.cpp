@@ -112,6 +112,7 @@ void Shape::render()
     shader_state->uniform["transformation"] = transformation;
 
     glLineWidth(line_width);
+    glPointSize(line_width);
     //glPointSize(line_width / 2);
 
     glDrawArrays(draw_mode, 0, shape.size());

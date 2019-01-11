@@ -163,7 +163,7 @@ private:
 
     GLenum draw_mode = GL_LINE_LOOP;
     
-    glm::vec4 color{ 1, 1, 1, 1 };
+    glm::vec4 color{ 1, 0, 1, 1 };
 
     glm::mat3 transformation{ 1 };
 

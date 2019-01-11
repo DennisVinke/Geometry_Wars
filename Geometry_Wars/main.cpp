@@ -265,9 +265,12 @@ int main(int argc, char* args[])
 			spawn.y *= 5;
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
 			gameObjects.back()->setComponent<RenderComponent>(renderer);
-			gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-	}
-}
+            auto render_component = gameObjects.back()->getComponent<RenderComponent>();
+            render_component->shape.set_line_width(7);
+            render_component->shape.set_draw_mode(GL_POINTS);
+            render_component->shape.set_shape({ {0, 0} });
+			//gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
+		}
 
 eManager->update();
 blok->getComponent<InputComponent>()->executeInput();
