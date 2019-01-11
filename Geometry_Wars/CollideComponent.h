@@ -49,13 +49,21 @@
 /*! \var Shape shape
 	\brief Contains the shape that should be drawn by the renderer
 */
+enum class CollideMask:int {
+PLAYER,
+ENEMY,
+BULLET,
+ENEMYBULLET,
+POWERUP
+};
+
 class CollisionManager;
 class CollideComponent : public Component
 {
 public:
-	//CollideComponent() = delete;
-	CollideComponent(CollisionManager& colManager);
-
+	CollideComponent() = delete;
+	CollideComponent(CollisionManager& colManager, CollideMask id);
+	CollideComponent(CollisionManager&) = delete;
 	~CollideComponent();
 
 	void execute() override;
@@ -63,9 +71,15 @@ public:
 	void print() override;
 
 	virtual bool hasCollision(glm::vec2 otherPosition, int size);
+	virtual bool hasCollision(CollideComponent *);
 	void onCollision();
 
+	void SetCollisionRadius(int radius);
+	int GetCollisionRadius();
+	CollideMask get_mask();
 private:
 	CollisionManager& colMan;
+	int collisionRadius;
+	CollideMask MaskId;
 };
 

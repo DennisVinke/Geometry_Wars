@@ -34,8 +34,15 @@ bool Entity::changedComponents() {return true;}
 //If flag of changedComponent is not set, the entity does not have to update
 //Willen we het op deze manier doen? Nu kunnen we components niet tijdelijk inactief maken
 void Entity::cleanUp() {
-	if (!changedComponentFlag)
+	if (!changedComponentFlag) {
 		return;
+	}
+	else if (removeAll) {
+		containsComponents.reset();
+
+		componentList.clear();
+		removeAll = false;
+	}
 	for (int i = 0; i < componentList.size() && !componentList.empty();) {
 		if (componentList.at(i)->remove) {
 			containsComponents[componentList.at(i)->id] = false;
@@ -46,6 +53,13 @@ void Entity::cleanUp() {
 			i++;
 		}
 	}
+	changedComponentFlag = false;
+}
+
+void Entity::removeAllComponents()
+{
+	removeAll = true;
+	changedComponentFlag = true;
 }
 
 bool Entity::isActive() {

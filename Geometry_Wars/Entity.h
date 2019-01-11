@@ -13,7 +13,7 @@
 
 class Component;
 //Deze moeten allemaal een keer naar een constants class
-constexpr auto maxComponents = 100; ;
+constexpr auto maxComponents = 10;
 
 //Array[Components] for indexation
 //Vector<Components> for update
@@ -125,7 +125,7 @@ private:
 	bool changedComponentFlag;
 	std::vector<std::unique_ptr<Component>> componentList;
 	bool alive = true;
-
+	bool removeAll = false;
 public:
 	Entity() = delete;
 	Entity(EntityID i);
@@ -200,6 +200,8 @@ public:
 		auto componentID = EntityManager::template getLastComponentID<T>();
 		containsComponents[componentID] = false;
 	}
+
+	void removeAllComponents();
 
 	void setChangedComponent();
 	bool changedComponents();
