@@ -43,7 +43,7 @@ public:
 	void queueToRender(RenderComponent *);
 
 private:
-
+	Shape a;
 	std::vector<RenderComponent *> renderables;
 
     std::unique_ptr<ShaderState> msaa_resolver;

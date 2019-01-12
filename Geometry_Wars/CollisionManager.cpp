@@ -5,7 +5,7 @@
 CollisionManager::CollisionManager() {}
 CollisionManager::~CollisionManager() {}
 
-void CollisionManager::Update() {
+void CollisionManager::update() {
 	
 	//Doe het gewoon in vector<vector<CollisionComponent>>
 //	for (int i = 0; i < collideTree.count;i++) {
