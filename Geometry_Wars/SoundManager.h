@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+#include <mutex>
 #include <array>
 #include <SDL.h>
 
@@ -26,7 +28,7 @@ public:
     static void shutdown();
 
 
-    static void play(Sounds sound);
+    static void play(Sounds sound, bool loop = false);
 
     static void stop();
 
@@ -35,16 +37,33 @@ private:
 
     static void load_sound(Sounds sound, const std::string& path);
 
+    
+    static void audio_callback(void * udata, uint8_t * stream, int len);
+
 
     struct Sound
     {
         SDL_AudioSpec spec;
         uint8_t * data;
-        uint32_t length;
+        uint32_t num_bytes;
+    };
+
+    struct SoundInvocation
+    {
+        Sound* sound = nullptr;
+        uint32_t position = 0;
+        bool loop = false;
+        bool finished = false;
     };
 
 
+    static SDL_AudioSpec output_spec;
+
+    static std::mutex audio_mutex;
+
     static SDL_AudioDeviceID audio_device;
+
+    static std::vector<SoundInvocation> sounds_playing;
 
     static std::array<Sound, static_cast<int>(Sounds::NUM_SOUNDS)> sounds;
 

@@ -132,7 +132,7 @@ int main(int argc, char* args[])
 	CollisionManager collisionManager;
 
 	SoundManager::initialize();
-	SoundManager::play(Sounds::THEME);
+	SoundManager::play(Sounds::THEME, true);
 
 
 	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
@@ -247,8 +247,8 @@ int main(int argc, char* args[])
 		if (cac.getValue() == 1) {
 			//for (int i = 0;i < 100;i++)
 			gameObjects.emplace_back(eManager->CreateEntity());
-			gameObjects.back()->setComponent<MovementComponent>(pos);
-			glm::vec2 spawn((cac.getClickedPosition() - pos) / glm::distance(cac.getClickedPosition(), pos));
+			gameObjects.back()->setComponent<MovementComponent>(position);
+			glm::vec2 spawn((cac.getClickedPosition() - position) / glm::distance(cac.getClickedPosition(), position));
 			spawn.x *= 5;
 			spawn.y *= 5;
 			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
