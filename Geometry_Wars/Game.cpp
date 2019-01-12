@@ -22,15 +22,14 @@ void Game::load_shaders() {
 	GaussianBlur::load_shaders();
 	ShaderManager::load_shaders();
 }
+
 #include "MovementComponent.h"
 #include "InputComponent.h"
 #include "RenderComponent.h"
 Entity* blok;
 void Game::update(float delta_time) {
 	entity_manager.update();
-	//input_manager.update();if(blok->hasComponent<InputComponent>())
-	blok->getComponent<InputComponent>()->executeInput();
-
+	input_manager.update();
 	collision_manager.update();
 
 	renderer.render_frame();
@@ -54,6 +53,7 @@ void Game::Test() {
 	blok = entity_manager.CreateEntity();
 	blok->setComponent<MovementComponent>(glm::vec2(0, 0));
 	blok->setComponent<InputComponent>();
+	input_manager.addInputComponent(blok->getComponent<InputComponent>());
 	input_manager.addKeyControl(SDL_SCANCODE_A, blok->getComponent<InputComponent>()->getActionController(0), -1.0f);
 	input_manager.addKeyControl(SDL_SCANCODE_D, blok->getComponent<InputComponent>()->getActionController(0), 1.0f);
 
@@ -77,7 +77,7 @@ void Game::Test() {
 		//spawn.y *= 5;
 		test->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(5,5));
 		test->setComponent<RenderComponent>(renderer);
-		test->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
+		test->setComponent<CollideComponent>(collision_manager, CollideMask::BULLET);
 		test->getComponent<CollideComponent>()->SetCollisionRadius(10);
 		auto render_component = test->getComponent<RenderComponent>();
 		render_component->shape.set_line_width(7);
