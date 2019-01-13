@@ -1,6 +1,9 @@
 #include "GameObjectSpawner.h"
 #include "Components.h"
 
+#include <SDL.h>
+
+/*
 GameObjectSpawner::GameObjectSpawner(EntityManager& em):entity_manager(em) {}
 GameObjectSpawner::~GameObjectSpawner() {}
 
@@ -33,3 +36,4 @@ void GameObjectSpawner::SpawnBullet(){
 
 }
 
+*/
