@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include "ActionController.h"
+#include "InputComponent.h"
 
 #define MOUSEKEYOFFSET 512
 #define SDL_MOUSEBUTTON_TYPES 5
@@ -23,7 +24,14 @@ public:
 	void addKeyControl(uint32_t key, ActionController& controller, float weight);
 	void addMouseControl(uint32_t button, ActionController& controller, float weight);
 
+	void addInputComponent(InputComponent*);
+	void removeInputComponent(InputComponent*);
+	void executeInput();
+	void update();
+
 private:
 	std::map<uint32_t, std::vector<std::pair<float, ActionController&>>> inputActions;
+	std::vector<InputComponent *> inputComponents;
+
 	void updateInput(uint32_t input, float dir, bool repeated);
 };

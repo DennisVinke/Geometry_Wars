@@ -59,7 +59,4 @@ void InputComponent::executeInput() {
 	if (entity->hasComponent<MovementComponent>()) {
 		entity->getComponent<MovementComponent>()->doMovement(glm::vec2(getActionController(0).getValue(), getActionController(1).getValue()));
 	}
-	//if (entity->hasComponent<MovementComponent>()) {
-	// entity->getComponent<MovementComponent>()->getLocation();
-	//}
 }

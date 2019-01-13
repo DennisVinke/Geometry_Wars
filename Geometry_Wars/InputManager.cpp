@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include <algorithm>
 
 void InputManager::onKeyDown(uint32_t key, bool repeated) {
 	updateInput(key, 1.0f, repeated);
@@ -37,4 +38,22 @@ void InputManager::updateInput(uint32_t keyCode, float dir, bool repeated) {
 	for (auto pair : inputActions[keyCode]) {
 		pair.second.add(pair.first * dir);
 	}
+}
+
+void InputManager::addInputComponent(InputComponent* input) {
+	inputComponents.emplace_back(input);
+}
+
+void InputManager::removeInputComponent(InputComponent* input) {
+//	inputComponents.erase(std::remove(inputComponents.begin(), inputComponents.end(), input),inputComponents.end());
+}
+
+void InputManager::executeInput() {
+	for (auto component : inputComponents) {
+		component->executeInput();
+	}
+}
+
+void InputManager::update() {
+	executeInput();
 }

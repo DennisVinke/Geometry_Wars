@@ -8,8 +8,9 @@
 #include "InputManager.h"
 #include "EntityManager.h"
 #include "CollisionManager.h"
-#include "PlayerShip.h"
 #include "SoundManager.h"
+
+#include "Game.h"
 //Deze moeten allemaal naar 1 header denk ik
 #include "HealthComponent.h"
 #include "RenderComponent.h"
@@ -18,7 +19,6 @@
 #include "InputComponent.h"
 #include "CollideComponent.h"
 
-#include <chrono>
 #undef main
 
 #include "ShaderManager.h"
@@ -72,7 +72,6 @@ glm::vec2 clamp(glm::vec2 a, glm::vec2 b, int valA, int valB) {
 	return sum;
 }
 
-
 int main(int argc, char* args[])
 {
 
@@ -85,7 +84,7 @@ int main(int argc, char* args[])
 	SDL_Window * window = nullptr;
 	SDL_GLContext opengl_context = nullptr;
 
-	window = SDL_CreateWindow("test", 100, 100, 640, 480,
+	window = SDL_CreateWindow("test", 100, 100, 1280, 720,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
 
@@ -104,15 +103,20 @@ int main(int argc, char* args[])
 
 	//Application
 
+
 	GaussianBlur::load_shaders();
-    ShaderManager::load_shaders();
+	ShaderManager::load_shaders();
+	Game game;//(window);
+	float delta_time = 0;
+	game.Test();
+	
+	
 
 
+	//Renderer renderer;
 
-	Renderer renderer;
-
-	renderer.resized(640, 480);
-
+	//renderer.resized(640, 480);
+	
 	// * *************************************************
 
 	//****** Game Loop\\
@@ -120,7 +124,7 @@ int main(int argc, char* args[])
 
 
 
-
+	/*
 	std::cout << "Creating Entity manager" << std::endl;
 	EntityManager * eManager = new EntityManager();
 
@@ -152,24 +156,7 @@ int main(int argc, char* args[])
 	//test.setComponent<RenderComponent>(renderer);
 	*/
 
-	auto blok = eManager->CreateEntity();
-	blok->setComponent<MovementComponent>(glm::vec2(0, 0));
-	blok->setComponent<InputComponent>();
-	inputHandler.addKeyControl(SDL_SCANCODE_A, blok->getComponent<InputComponent>()->getActionController(0), -1.0f);
-	inputHandler.addKeyControl(SDL_SCANCODE_D, blok->getComponent<InputComponent>()->getActionController(0), 1.0f);
-
-	inputHandler.addKeyControl(SDL_SCANCODE_W, blok->getComponent<InputComponent>()->getActionController(1), -1.0f);
-	inputHandler.addKeyControl(SDL_SCANCODE_S, blok->getComponent<InputComponent>()->getActionController(1), 1.0f);
-
-	ActionController ac, cac, cacr;
-	inputHandler.addKeyControl(SDL_SCANCODE_P, ac, 1.f);
-	inputHandler.addMouseControl(1, cac, 1.f);
-	inputHandler.addMouseControl(3, cacr, 1.f);
-	blok->setComponent<RenderComponent>(renderer);
-
-	blok->setComponent<CollideComponent>(collisionManager, CollideMask::PLAYER);
-	blok->getComponent<CollideComponent>()->SetCollisionRadius(10);
-	std::vector<Entity*> gameObjects;
+	
 	/*int j = 0;
 	for (int i = 0; i < 15000;i++) {
 		if (i % 100 == 0) ++j;
@@ -184,7 +171,7 @@ int main(int argc, char* args[])
 	}*/
 
 
-
+	/*
 	auto tower = eManager->CreateEntity();
 	tower->setComponent<TransformationComponent>();
 	tower->setComponent<RenderComponent>(renderer);
@@ -220,24 +207,23 @@ int main(int argc, char* args[])
 			switch (event.type) {
 			case SDL_KEYDOWN:
 				//std::cout << "Key pressed down!: " << event.key.keysym.scancode << std::endl;
-				inputHandler.onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
+				game.get_input_manager().onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_KEYUP:
-				inputHandler.onKeyUp(event.key.keysym.scancode, event.key.repeat != 0);
+				game.get_input_manager().onKeyUp(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				inputHandler.onMouseDown(event.button.button, event.button.clicks);
+				game.get_input_manager().onMouseDown(event.button.button, event.button.clicks);
 				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
 				std::cout << "MouseClicked " << event.button.button<<std::endl;
-				SoundManager::play(Sounds::LASER);
+				//SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEBUTTONUP:
-				inputHandler.onMouseUp(event.button.button, event.button.clicks);
+				game.get_input_manager().onMouseUp(event.button.button, event.button.clicks);
 				//SoundManager::play(Sounds::THEME);
-                //SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEMOTION:
-				inputHandler.onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
+				game.get_input_manager().onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
 				//std::cout << "MouseMoved " << event.motion.x << ":" << event.motion.y << std::endl;
 				break;
 			case SDL_QUIT:
@@ -246,7 +232,7 @@ int main(int argc, char* args[])
 			case SDL_WINDOWEVENT:
 				switch (event.window.event) {
 				case SDL_WINDOWEVENT_RESIZED:
-					renderer.resized(event.window.data1, event.window.data2);
+					game.get_renderer().resized(event.window.data1, event.window.data2);
 					std::cout << "Window resized to: " << event.window.data1 << ", " << event.window.data2 << "\n";
 					break;
 				}
@@ -256,8 +242,8 @@ int main(int argc, char* args[])
 
 		}
 
-
-		glm::vec2 position(blok->getComponent<MovementComponent>()->getLocation());
+		/*
+		glm::vec2 pos(blok->getComponent<MovementComponent>()->getLocation());
 		if (cac.getValue() == 1) {
 			//for (int i = 0;i < 100;i++)
 			gameObjects.emplace_back(eManager->CreateEntity());
@@ -297,19 +283,22 @@ int main(int argc, char* args[])
 			blok->getComponent<InputComponent>()->executeInput();
 
 		//resolve input
-		collisionManager.Update();
-		
-		renderer.render_frame();
-		eManager->clean();
+		collisionManager.update();
+		*/
+		//renderer.render_frame();
+		/*eManager->clean();
 		// * *************************************************
 
 
 		// * *************************************************
+		*/
 
+		game.update(delta_time);
 
 		SDL_GL_SwapWindow(window);
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
+		delta_time = diff.count();
 		//std::cout << diff.count() << std::endl;
 	}
 
