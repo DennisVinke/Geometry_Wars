@@ -5,7 +5,10 @@
 struct EnemyBehaviour {
 public:
 	int bulletBehaviour = 0;
-	int red, green, blue, alpha = 255;
+	int red = 125;
+	int green = 125;
+	int blue = 125;
+	int alpha = 125;
 	glm::vec2 speed = glm::vec2(0, 0);
 	int size = 1;
 	int cooldown;
@@ -16,6 +19,7 @@ public:
 };
 
 struct Chaser :EnemyBehaviour {
+
 	void update() override;
 };
 

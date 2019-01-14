@@ -5,3 +5,4 @@
 #include "RenderComponent.h"
 #include "SoundComponent.h"
 #include "TransformationComponent.h"
+#include "EnemyBehaviourComponent.h"

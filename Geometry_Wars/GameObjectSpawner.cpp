@@ -62,8 +62,14 @@ void GameObjectSpawner::spawn_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_
 	entity->setComponent<MovementComponent>(spawn_position);
 
 	entity->setComponent<RenderComponent>(renderer);
+	auto render_component = entity->getComponent<RenderComponent>();
+
+	render_component->shape.set_line_width(7);
+	render_component->shape.set_draw_mode(GL_POINTS);
+	render_component->shape.set_shape({ {0, 0} });
 	entity->getComponent<RenderComponent>()->setColor(enemy_info->red, enemy_info->green, enemy_info->blue, enemy_info->alpha);
 	entity->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(enemy_info->size);
+	entity->setComponent<EnemyBehaviourComponent>(enemy_info);
 
 }
