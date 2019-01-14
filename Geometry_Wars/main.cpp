@@ -24,8 +24,7 @@
 #include "ShaderManager.h"
 
 
-#define RANDOM_IMPLEMENTATION
-#include "random.h"
+#include "math_utils.h"
 
 
 void configure_context()
@@ -214,6 +213,7 @@ int main(int argc, char* args[])
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				game.get_input_manager().onMouseDown(event.button.button, event.button.clicks);
+                game.get_renderer().shake(15, 2);
 				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
 				std::cout << "MouseClicked " << event.button.button<<std::endl;
 				//SoundManager::play(Sounds::LASER);

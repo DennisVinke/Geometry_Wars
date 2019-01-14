@@ -97,14 +97,14 @@ void GaussianBlur::window_resized(unsigned int w, unsigned int h)
     float width = w;
     float height = h;
 
-    for (int i = 0; i < frame_buffers.size(); i += 2)
+    for (int i = 0; i < frame_buffers.size(); ++i)
     {
         width *= relative_size_per_iteration;
         height *= relative_size_per_iteration;
 
         frame_buffers[i].set_size(width, height); 
 
-        frame_buffers[i + 1].set_size(width, height);
+        //frame_buffers[i + 1].set_size(width, height);
     }
 }
 
@@ -117,7 +117,7 @@ FrameBuffer* GaussianBlur::apply(const Texture& texture)
     {
         frame_buffers[i].start_rendering();
 
-        glClearColor(1, 0, 0, 1);
+        glClearColor(0, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         horizontal->activate();
@@ -137,12 +137,12 @@ FrameBuffer* GaussianBlur::apply(const Texture& texture)
 
         frame_buffers[i + 1].start_rendering();
 
-        glClearColor(0, 1, 0, 1);
+        glClearColor(0, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         vertical->activate();
-        vertical->static_uniform["window_width"] = frame_buffers[i].get_width();
-        vertical->static_uniform["window_height"] = frame_buffers[i].get_height();
+        vertical->static_uniform["window_width"] = frame_buffers[i + 1].get_width();
+        vertical->static_uniform["window_height"] = frame_buffers[i + 1].get_height();
 
         glActiveTexture(GL_TEXTURE0);
         tex_ptr->bind();

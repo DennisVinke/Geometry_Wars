@@ -3,6 +3,7 @@
 
 EntityManager::EntityManager()
 {
+    entities.reserve(1000);
 	lastID = -1;
 }
 
@@ -26,7 +27,7 @@ Entity* EntityManager::CreateEntity() {
 	Entity * entity = new Entity(1);
 	std::unique_ptr<Entity> upointEntety(entity);
 	entities.emplace_back(std::move(upointEntety));
-	std::cout<<entities.size()<<std::endl;
+	//std::cout<<entities.size()<<std::endl;
 	return entity;
 }
 

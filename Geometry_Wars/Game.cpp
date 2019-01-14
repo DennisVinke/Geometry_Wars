@@ -69,7 +69,7 @@ void Game::Test() {
 	blok->setComponent<CollideComponent>(collision_manager, CollideMask::PLAYER);
 	blok->getComponent<CollideComponent>()->SetCollisionRadius(10);
 
-	for (int i = 0;i < 2000;i++) {
+	for (int i = 0;i < 200; i++) {
 		auto test = entity_manager.CreateEntity();
 		glm::vec2 spawn(i%600,i%600);//(cac.getClickedPosition() - pos) / glm::distance(cac.getClickedPosition(), pos));
 		test->setComponent<MovementComponent>(glm::vec2(sin(i),50)+spawn);

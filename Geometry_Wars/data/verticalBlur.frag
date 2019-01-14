@@ -26,5 +26,5 @@ void main()
 	vec4 s5 = texture(tex, vec2(base.x, base.y + 2 * ph)) * 0.060626;
 	vec4 s6 = texture(tex, vec2(base.x, base.y + 3 * ph)) * 0.00598;
 
-	output_color = s0 + s1 + s2 + s3 + s4 + s5 + s6;
+	output_color = 1.2 * (s0 + s1 + s2 + s3 + s4 + s5 + s6);
 }

@@ -24,7 +24,7 @@ private:
 	CollisionManager collision_manager;
 	Renderer renderer;
 	
-	GameObjectSpawner spawner;
+	//GameObjectSpawner spawner;
 
 	int score;
 	int lifes;

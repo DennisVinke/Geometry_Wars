@@ -3,30 +3,40 @@
 #include "ShaderManager.h"
 #include "glm_type_registration.h"
 
-#include "random.h"
+#include "math_utils.h"
 
 #include <glm/gtc/constants.hpp>
 
 #include "io/load_file_to_string.h"
 
-
+#include <iostream>
 #include <SDL.h>
 
 
 
-Background::Background()
+Background::Background(Background::Theme theme_)
+    : theme(theme_)
 {
     auto[path, success] = find_folder("Geometry_Wars");
-    auto file = path / "data" / "welcome_screen.bmp";
+    auto data = path / "data";
 
-    auto img = SDL_LoadBMP(file.string().c_str());
-   
-    // upload to gpu here
+    auto sdl_welcome_img = SDL_LoadBMP((data / "welcome_screen.bmp").string().c_str());
+    auto sdl_light_img = SDL_LoadBMP((data / "light_theme.bmp").string().c_str());
+    auto sdl_dark_img = SDL_LoadBMP((data / "dark_theme.bmp").string().c_str());
 
     welcome_screen = std::make_unique<Texture>(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA);
-    welcome_screen->allocate_filled(img->w, img->h, (const unsigned char*) img->pixels);
+    light_theme = std::make_unique<Texture>(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGB);
+    dark_theme = std::make_unique<Texture>(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGB);
 
-    SDL_FreeSurface(img);
+    welcome_screen->allocate_filled(sdl_welcome_img->w, sdl_welcome_img->h, (const unsigned char*) sdl_welcome_img->pixels);
+    light_theme->allocate_filled(sdl_light_img->w, sdl_light_img->h, (const unsigned char*)sdl_light_img->pixels);
+    dark_theme->allocate_filled(sdl_dark_img->w, sdl_dark_img->h, (const unsigned char*)sdl_dark_img->pixels);
+
+    SDL_FreeSurface(sdl_welcome_img);
+    SDL_FreeSurface(sdl_light_img);
+    SDL_FreeSurface(sdl_dark_img);
+
+
 
     glEnable(GL_FRONT_AND_BACK);
     coordinates.reserve(2 * amount);
@@ -47,29 +57,46 @@ Background::Background()
     background_shader->attribute["position"] = coordinates;
     background_shader->attribute["color"] = colors;
 
-    texture_shader = std::make_unique<ShaderState>(*ShaderManager::get("texture"));
-    texture_shader->attribute["tex_coord"] = std::vector<glm::vec2>{ {0, 1}, {1, 1}, {0, 0}, {1, 1}, {1, 0}, {0, 0} };
+    centred_texture_shader = std::make_unique<ShaderState>(*ShaderManager::get("texture"));
+    centred_texture_shader->attribute["tex_coord"] = std::vector<glm::vec2>{ {0, 1}, {1, 1}, {0, 0}, {1, 1}, {1, 0}, {0, 0} };
+
+    full_texture_shader = std::make_unique<ShaderState>(*ShaderManager::get("texture"));
+    full_texture_shader->attribute["tex_coord"] = std::vector<glm::vec2>{ {0, 1}, {1, 1}, {0, 0}, {1, 1}, {1, 0}, {0, 0} };
 }
 
 
 
 void Background::render()
 {
-    background_shader->activate();
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if (theme == Theme::GEOMETRIC_THEME)
+    {
+        background_shader->activate();
 
-    glDrawArrays(GL_LINES, 0, amount);
+        glDrawArrays(GL_LINES, 0, amount);
+    }
+    else if (theme == Theme::LIGHT_THEME)
+    {
+        full_texture_shader->activate();
 
+        glActiveTexture(GL_TEXTURE0);
+        light_theme->bind();
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
+    else if (theme == Theme::DARK_THEME)
+    {
+        full_texture_shader->activate();
 
+        glActiveTexture(GL_TEXTURE0);
+        dark_theme->bind();
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 
 void Background::render_welcome_screen()
 {
-    texture_shader->activate();
+    centred_texture_shader->activate();
 
     glActiveTexture(GL_TEXTURE0);
     welcome_screen->bind();
@@ -91,12 +118,21 @@ void Background::window_resized(unsigned int w, unsigned int h)
     auto x_max = x_min + (float)welcome_screen->get_width();
     auto y_max = y_min + (float)welcome_screen->get_height();
 
-    texture_shader->attribute["position"] = std::vector<glm::vec2>{
+    centred_texture_shader->attribute["position"] = std::vector<glm::vec2>{
         { x_min, y_max },
         { x_max, y_max },
         { x_min, y_min },
         { x_max, y_max },
         { x_max, y_min },
         { x_min, y_min }
+    };
+
+    full_texture_shader->attribute["position"] = std::vector<glm::vec2>{
+        { 0, h },
+        { w, h },
+        { 0, 0 },
+        { w, h },
+        { w, 0 },
+        { 0, 0 }
     };
 }

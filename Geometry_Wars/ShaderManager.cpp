@@ -38,6 +38,7 @@ void ShaderManager::load_shaders()
     load_combine_shader();
     load_background_shader();
     load_texture_shader();
+    load_final_shader();
 }
 
 
@@ -100,21 +101,43 @@ void ShaderManager::load_combine_shader()
 }
 
 
+void ShaderManager::load_final_shader()
+{
+    auto[path, success] = find_folder("Geometry_Wars");
+    auto shaders_folder = path / "data";
+
+    auto final_shader = ShaderManager::add_shader("final");
+
+    final_shader->add_shader_stage(load_file_to_string(shaders_folder / "minimal2D.vert"), GL_VERTEX_SHADER);
+    final_shader->add_shader_stage(load_file_to_string(shaders_folder / "final.frag"), GL_FRAGMENT_SHADER);
+
+    final_shader->add_attribute(0, "position", Type::VEC2);
+    final_shader->add_uniform("weights", Type::VEC2);
+    final_shader->add_uniform("inverted", Type::INT);
+    final_shader->add_uniform("r_transform", Type::MAT_3x3);
+    final_shader->add_uniform("g_transform", Type::MAT_3x3);
+    final_shader->add_uniform("b_transform", Type::MAT_3x3);
+    final_shader->add_static_uniform("viewport", Type::IVEC2);
+
+    final_shader->compile();
+}
+
+
 void ShaderManager::load_texture_shader()
 {
     auto[path, success] = find_folder("Geometry_Wars");
     auto shaders_folder = path / "data";
 
-    auto texture_shader = ShaderManager::add_shader("texture");
+    auto centred_texture_shader = ShaderManager::add_shader("texture");
 
-    texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.vert"), GL_VERTEX_SHADER);
-    texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.frag"), GL_FRAGMENT_SHADER);
+    centred_texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.vert"), GL_VERTEX_SHADER);
+    centred_texture_shader->add_shader_stage(load_file_to_string(shaders_folder / "texture.frag"), GL_FRAGMENT_SHADER);
 
-    texture_shader->add_attribute(0, "position", Type::VEC2);
-    texture_shader->add_attribute(1, "tex_coord", Type::VEC2);
-    texture_shader->add_static_uniform("viewport", Type::VEC2);
+    centred_texture_shader->add_attribute(0, "position", Type::VEC2);
+    centred_texture_shader->add_attribute(1, "tex_coord", Type::VEC2);
+    centred_texture_shader->add_static_uniform("viewport", Type::VEC2);
 
-    texture_shader->compile();
+    centred_texture_shader->compile();
 }
 
 
@@ -146,7 +169,6 @@ void ShaderManager::load_renderFBO_shader()
     renderFBO_shader->add_shader_stage(load_file_to_string(shaders_folder / "renderFBO.frag"), GL_FRAGMENT_SHADER);
 
     renderFBO_shader->add_attribute(0, "position", Type::VEC2);
-
     renderFBO_shader->add_static_uniform("viewport", Type::IVEC2);
 
     renderFBO_shader->compile();
