@@ -213,7 +213,7 @@ int main(int argc, char* args[])
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				game.get_input_manager().onMouseDown(event.button.button, event.button.clicks);
-                game.get_renderer().shake(15, 2);
+                game.get_renderer().shake(25, 4);
 				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
 				std::cout << "MouseClicked " << event.button.button<<std::endl;
 				//SoundManager::play(Sounds::LASER);

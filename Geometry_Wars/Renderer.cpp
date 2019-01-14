@@ -183,24 +183,22 @@ void Renderer::render_frame()
 
     // **************************************************************
 
+    static int counter = 0;
+    counter++;
 
     final_shader->activate();
+    
+    if (counter % 2 == 0)
+    {
+        r_transform.reset();
+        r_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
 
-    r_transform.reset();
-    //r_transform.translate(-(width / 2), -(height / 2));
-    r_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
-    //r_transform.rotate(random(-0.1f, 0.1f));
+        g_transform.reset();
+        g_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
 
-    g_transform.reset();
-    //g_transform.translate(-(width / 2), -(height / 2));
-    g_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
-    //g_transform.rotate(random(-0.1f, 0.1f));
-
-    b_transform.reset();
-    //b_transform.translate(- (width / 2),-( height / 2));
-    b_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
-    //b_transform.rotate(random(-0.1f, 0.1f));
-
+        b_transform.reset();
+        b_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    }
 
     shake_amount -= shake_decrease;
 
