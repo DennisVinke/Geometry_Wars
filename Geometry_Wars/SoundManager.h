@@ -10,6 +10,7 @@ enum class Sounds : int
 {
     THEME = 0,
     LASER = 1,
+    EXPLOSION = 2,
     // ADD MORE SOUNDS HERE
 
     NUM_SOUNDS // This has to be the last value in the enum!
