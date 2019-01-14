@@ -1,7 +1,8 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game():object_spawner(GameObjectSpawner(*this)) {
 	init();
+	init_level();
 }
 
 Game::~Game() {
@@ -23,10 +24,6 @@ void Game::load_shaders() {
 	ShaderManager::load_shaders();
 }
 
-#include "MovementComponent.h"
-#include "InputComponent.h"
-#include "RenderComponent.h"
-Entity* blok;
 void Game::update(float delta_time) {
 	entity_manager.update();
 	input_manager.update();
@@ -37,6 +34,11 @@ void Game::update(float delta_time) {
 
 }
 
+void Game::init_level() {
+	object_spawner.spawn_player();
+	//object_spawner.spawn
+}
+
 InputManager& Game::get_input_manager() {
 	return input_manager;
 }
@@ -45,11 +47,19 @@ Renderer& Game::get_renderer() {
 	return renderer;
 }
 
+EntityManager& Game::get_entity_manager() {
+	return entity_manager;
+}
+CollisionManager& Game::get_collision_manager() {
+	return collision_manager;
+}
+
+/*
 #include "MovementComponent.h"
 #include "InputComponent.h"
 #include "RenderComponent.h"
-
-void Game::Test() {
+*/
+void Game::Test() {}/*
 	blok = entity_manager.CreateEntity();
 	blok->setComponent<MovementComponent>(glm::vec2(0, 0));
 	blok->setComponent<InputComponent>();

@@ -1,18 +1,28 @@
 #pragma once
-#include "Game.h"
+
+
+#include "ShootComponent.h"
+
+class Game;
+class EntityManager;
+class InputManager;
+class CollisionManager;
+class Renderer;
 class GameObjectSpawner{
 public:
-	GameObjectSpawner(Game& game);
+	GameObjectSpawner() = delete;
+	GameObjectSpawner(Game& gme);
+	
 	~GameObjectSpawner();
 
-	void SpawnObject();
-	void SpawnPlayer();
-	void SpawnBullet();
+	void spawn_object();
+	void spawn_player();
+	void spawn_bullet(Weapon *, glm::vec2 spawn_position);
+	//void set_game(Game * gme);
 private:
 	Game& game;
 	EntityManager& entity_manager;
 	InputManager& input_manager;
 	CollisionManager& collision_manager;
 	Renderer& renderer;
-
 };

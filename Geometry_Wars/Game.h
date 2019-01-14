@@ -24,7 +24,7 @@ private:
 	CollisionManager collision_manager;
 	Renderer renderer;
 	
-	//GameObjectSpawner spawner;
+	GameObjectSpawner object_spawner; //Ik ben hier echt nu om aan het huilen. Bijna een uur hieraan besteed om het werkend te kijgen. RAGE!!!!!!!!!!
 
 	int score;
 	int lifes;
@@ -41,9 +41,11 @@ public:
 
 	InputManager& get_input_manager();
 	Renderer& get_renderer();
-
+	EntityManager& get_entity_manager();
+	CollisionManager& get_collision_manager();
+		
 	void Test();
-
+	void init_level();
 	/*
 	void onKeyDown(uint32_t key, bool repeated);
 	void onKeyUp(uint32_t key, bool repeated);

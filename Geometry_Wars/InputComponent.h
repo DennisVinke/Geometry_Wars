@@ -6,7 +6,13 @@
 #include "ActionController.h"
 
 constexpr auto maxActions = 10;
-//For ActionArray 
+/*For ActionArray :
+	0 horizontal
+	1 vertical
+	2 left click
+	3 right click
+	4 toggle
+*/
 using ActionArray = std::array <ActionController *, maxActions>;
 
 class InputComponent : public Component
