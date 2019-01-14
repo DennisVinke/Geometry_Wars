@@ -1,15 +1,18 @@
 #pragma once
-#include "EntityManager.h"
-
-
+#include "Game.h"
 class GameObjectSpawner{
 public:
-	GameObjectSpawner(EntityManager& em);
+	GameObjectSpawner(Game& game);
 	~GameObjectSpawner();
 
 	void SpawnObject();
-	void SpawnPlayer(Entity*);
+	void SpawnPlayer();
 	void SpawnBullet();
 private:
+	Game& game;
 	EntityManager& entity_manager;
+	InputManager& input_manager;
+	CollisionManager& collision_manager;
+	Renderer& renderer;
+
 };
