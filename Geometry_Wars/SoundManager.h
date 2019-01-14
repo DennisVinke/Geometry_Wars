@@ -35,7 +35,7 @@ public:
 
 private:
 
-    static void load_sound(Sounds sound, const std::string& path);
+    static void load_sound(Sounds sound, const std::string& path, int volume);
 
     
     static void audio_callback(void * udata, uint8_t * stream, int len);
@@ -46,6 +46,7 @@ private:
         SDL_AudioSpec spec;
         uint8_t * data;
         uint32_t num_bytes;
+        int volume;
     };
 
     struct SoundInvocation

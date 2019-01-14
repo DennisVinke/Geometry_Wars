@@ -1,7 +1,9 @@
 #include "Game.h"
+#include "Renderer.h"
 
-Game::Game():object_spawner(GameObjectSpawner(*this)) {
-	init();
+
+Game::Game() : renderer{ std::make_unique<Renderer>() }, object_spawner(GameObjectSpawner(*this)) {
+    init();
 	init_level();
 }
 
@@ -11,7 +13,7 @@ Game::~Game() {
 
 void Game::init() {
 	reset();
-	renderer.resized(1280, 720);
+	renderer->resized(1280, 720);
 	SoundManager::initialize();
 	SoundManager::play(Sounds::THEME, true);
 	input_manager.addKeyControl(SDL_SCANCODE_SPACE, stateHandler, 1.f);
@@ -39,7 +41,7 @@ void Game::update(float delta_time) {
 		}
 	}
 
-	renderer.render_frame();
+	renderer->render_frame(current_state);
 	entity_manager.clean();
 
 }
@@ -61,7 +63,7 @@ InputManager& Game::get_input_manager() {
 }
 
 Renderer& Game::get_renderer() {
-	return renderer;
+	return *renderer;
 }
 
 EntityManager& Game::get_entity_manager() {

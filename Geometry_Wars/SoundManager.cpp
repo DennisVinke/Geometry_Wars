@@ -45,7 +45,7 @@ void SoundManager::audio_callback(void *unused, uint8_t *stream, int num_bytes_d
 
         if (sound.position + num_bytes_desired < sound_length)
         {
-            SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, num_bytes_desired, SDL_MIX_MAXVOLUME);
+            SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, num_bytes_desired, sound.sound->volume);
             sound.position += num_bytes_desired;
         }
         else
@@ -54,14 +54,14 @@ void SoundManager::audio_callback(void *unused, uint8_t *stream, int num_bytes_d
             {
                 auto first_half = sound_length - sound.position;
                 auto second_half = (sound.position + num_bytes_desired) - sound_length;
-                SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, first_half, SDL_MIX_MAXVOLUME);
-                SDL_MixAudioFormat(stream, sound_data + first_half, output_spec.format, second_half, SDL_MIX_MAXVOLUME);
+                SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, first_half, sound.sound->volume);
+                SDL_MixAudioFormat(stream, sound_data + first_half, output_spec.format, second_half, sound.sound->volume);
                 sound.position = second_half;
             }
             else
             {
                 auto remainder = sound_length - sound.position;
-                SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, remainder, SDL_MIX_MAXVOLUME);
+                SDL_MixAudioFormat(stream, sound_data + sound.position, output_spec.format, remainder, sound.sound->volume);
                 sound.finished = true;
             }
         }
@@ -79,8 +79,7 @@ void SoundManager::audio_callback(void *unused, uint8_t *stream, int num_bytes_d
 
 
 
-
-void SoundManager::load_sound(Sounds sound, const std::string& path)
+void SoundManager::load_sound(Sounds sound, const std::string& path, int volume)
 {
     int index = static_cast<int>(sound);
 
@@ -88,11 +87,12 @@ void SoundManager::load_sound(Sounds sound, const std::string& path)
     {
         std::cerr << "Error: file could not be loaded as an audio file." << std::endl;
     }
+    sounds[index].volume = volume;
     
     std::cout << "  ";
     print_audio_format_info(sounds[index].spec);
-
 }
+
 
 
 void SoundManager::initialize()
@@ -100,8 +100,8 @@ void SoundManager::initialize()
     auto [path, success] = find_folder("Geometry_Wars");
     auto data_folder = path / "data";
 
-    load_sound(Sounds::THEME, (data_folder / "theme.wav").string());
-    load_sound(Sounds::LASER, (data_folder / "laser.wav").string());
+    load_sound(Sounds::THEME, (data_folder / "theme.wav").string(), 128);
+    load_sound(Sounds::LASER, (data_folder / "laser.wav").string(), 10);
 
     output_spec = sounds[0].spec;
     output_spec.callback = SoundManager::audio_callback;

@@ -6,23 +6,33 @@
 #include "EntityManager.h"
 #include "InputManager.h"
 #include "CollisionManager.h"
-#include "Renderer.h"
 #include "SoundManager.h"
 #include "ShaderManager.h"
 #include "GameObjectSpawner.h"
 #include "ActionController.h"
 
 
-
+class Renderer;
 
 //TODO: Incorperate new SoundManager!
 
 class Game {
+
+public:
+
+    enum class State :int {
+        WELCOME,
+        PLAYING,
+        PAUSE,
+        GAMEOVER
+    };
+
 private:
+
 	EntityManager entity_manager;
 	InputManager input_manager;
 	CollisionManager collision_manager;
-	Renderer renderer;
+	std::unique_ptr<Renderer> renderer;
 	SoundManager sound_manager;
 
 	GameObjectSpawner object_spawner; //Ik ben hier echt nu om aan het huilen. Bijna een uur hieraan besteed om het werkend te kijgen. RAGE!!!!!!!!!!
@@ -34,16 +44,11 @@ private:
 
 	void reset();
 	void load_shaders();
+
+	State current_state;
 	
 public:
 
-	enum class State :int {
-		WELCOME,
-		PLAYING,
-		PAUSE,
-		GAMEOVER
-	};
-	
 	Game();
 	~Game();
 
@@ -64,7 +69,6 @@ public:
 	void onMouseUp(uint32_t button, uint8_t numOfClicks);
 	void onMouseMove(uint32_t mouseX, uint32_t mouseY, uint32_t mouseDeltaX, uint32_t mouseDeltaY);
 	*/
-	State current_state;
 	State get_game_state();
 	void set_game_state(Game::State);
 
