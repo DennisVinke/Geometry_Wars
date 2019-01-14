@@ -7,7 +7,7 @@
 
 constexpr auto TREESLICE = 100;
 
-//
+//	0		1	 2		3			4
 //PLAYER,ENEMY,BULLET,ENEMYBULLET,POWERUP
 const std::vector<std::vector<int>> collisionTable = { {1,3},{0,2},{1},{0},{0} };
 

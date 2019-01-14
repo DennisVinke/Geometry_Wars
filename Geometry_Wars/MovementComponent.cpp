@@ -32,6 +32,9 @@ void MovementComponent::print() {
 	std::cout << "MovementComponent!" << std::endl;
 }
 
+void MovementComponent::setPosition(glm::vec2 move) {
+	position = move;
+}
 
 void MovementComponent::doMovement(glm::vec2 move) {
 	position += move;

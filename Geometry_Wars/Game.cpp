@@ -56,6 +56,7 @@ Game::State Game::get_game_state() {
 void Game::init_level() {
 	object_spawner.spawn_player();
 	object_spawner.spawn_enemy(new Chaser(), glm::vec2(1200, 350));
+	object_spawner.spawn_shooting_enemy();
 }
 
 InputManager& Game::get_input_manager() {

@@ -31,4 +31,6 @@ private:
 	InputManager& input_manager;
 	CollisionManager& collision_manager;
 	Renderer& renderer;
+
+	Entity * player;
 };

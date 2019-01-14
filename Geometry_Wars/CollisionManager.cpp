@@ -16,12 +16,14 @@ void CollisionManager::update() {
 	//for(int i=0; i< )
 
 	for (int i = 0; i < entities.size();i++) {
-		for (int j = i+1; j < entities.size()-1;j++) {
-			if (entities.at(i)->hasCollision(entities.at(j))) {
-				collisions.emplace_back(CollisionEvent{ entities.at(i) ,entities.at(j) });
+		for (int j = i + 1; j < entities.size();j++) {
+			if (can_collide(entities.at(i)->get_mask(), entities.at(j)->get_mask())){
+				if (entities.at(i)->hasCollision(entities.at(j))) {
+					collisions.emplace_back(CollisionEvent{ entities.at(i) ,entities.at(j) });
 				}
 			}
 		}
+	}
 		//auto entity = collideTree
 	ResolveCollisions();
 	CleanUp();

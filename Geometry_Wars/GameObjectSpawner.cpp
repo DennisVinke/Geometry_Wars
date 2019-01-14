@@ -34,6 +34,8 @@ void GameObjectSpawner::spawn_player(){
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(10);
 	entity->setComponent<ShootComponent>(*this);
 
+	player = entity;
+
 }
 
 void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_position) {
@@ -70,6 +72,9 @@ void GameObjectSpawner::spawn_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_
 	entity->getComponent<RenderComponent>()->setColor(enemy_info->red, enemy_info->green, enemy_info->blue, enemy_info->alpha);
 	entity->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(enemy_info->size);
-	entity->setComponent<EnemyBehaviourComponent>(enemy_info);
+	entity->setComponent<EnemyBehaviourComponent>(enemy_info, player);
 
+}
+
+void GameObjectSpawner::spawn_shooting_enemy() {
 }

@@ -9,27 +9,40 @@ public:
 	int green = 125;
 	int blue = 125;
 	int alpha = 125;
-	glm::vec2 speed = glm::vec2(0, 0);
-	int size = 1;
+	glm::vec2 speed = glm::vec2(1, 1);
+	int size = 10;
 	int cooldown;
 	float movement_speed;
-	virtual void update() = 0;
+	std::vector<glm::vec2> shape;
+	virtual glm::vec2 update(glm::vec2, glm::vec2 player_position) = 0;
 	MovementComponent * current_position;
 	glm::vec2 player_position;
 };
 
 struct Chaser :EnemyBehaviour {
-
-	void update() override;
+public:
+	inline Chaser() {
+		red = 100;
+		blue = 100;
+		green = 100;
+		alpha = 190;
+		speed = glm::vec2(5, 5);
+	}
+	glm::vec2 update(glm::vec2, glm::vec2 player_position) override;
 };
 
 struct Random :EnemyBehaviour {
-	void update() override;
+	glm::vec2 update(glm::vec2, glm::vec2 player_position) override;
 };
 struct ChaserWhenNear :EnemyBehaviour {
-	void update() override;
+	int min_chase_distance = 100;
+	glm::vec2 update(glm::vec2, glm::vec2 player_position) override;
 };
 
-struct Shooting :EnemyBehaviour {
-	void update() override;
+struct Shooting : Chaser {
+	glm::vec2 shoot_speed =  glm::vec2(1, 1);
+	glm::vec2 update(glm::vec2, glm::vec2 player_position);
+	//inline glm::vec2 get_shoot_vector() {
+	//	return shoot_vector*shoot_speed;
+	//}
 };
