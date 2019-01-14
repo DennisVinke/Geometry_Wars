@@ -6,7 +6,6 @@
 #include "Renderer.h"
 #include "ShaderManager.h"
 #include "RenderComponent.h"
-#include "random.h"
 #include "Background.h"
 
 #include "io/load_file_to_string.h"
@@ -58,9 +57,26 @@ Renderer::Renderer()
     combine_shader->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
 
 
+    final_shader = std::make_unique<ShaderState>(*ShaderManager::get("final"));
+    final_shader->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+    final_shader->uniform["inverted"] = 0;
+    final_shader->uniform["r_transform"] = r_transform.get();
+    final_shader->uniform["g_transform"] = g_transform.get();
+    final_shader->uniform["b_transform"] = b_transform.get();
 
+
+    //final_shader->add_uniform("r_transform", Type::MAT_3x3);
+    //final_shader->add_uniform("g_transform", Type::MAT_3x3);
+    //final_shader->add_uniform("b_transform", Type::MAT_3x3);
+
+    render_texture = std::make_unique<ShaderState>(*ShaderManager::get("renderFBO"));
+    render_texture->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+    render_texture->static_uniform["viewport"] = glm::ivec2(640, 480);
+    
 
     std::vector<glm::vec2> s{ {-10, -10}, { -10, 10 }, { 10, 10}, { 10, -10} };
+    
+    for (int i = 0; i < 230; ++i) random(100); // discard some because the pattern starts ugly
 
     for (auto& shape : test_shapes)
     {
@@ -70,28 +86,23 @@ Renderer::Renderer()
         shape.scale(random(1.0f, 5.0f), random(1.0f, 5.0f));
         shape.set_color(random(255), 150, 200, 255);
         //shape.set_line_width(random(3, 20));
-        shape.set_line_width(3);
+        shape.set_line_width(4);
     }
 
-    render_texture = std::make_unique<ShaderState>(*ShaderManager::get("renderFBO"));
 
-    render_texture->attribute["position"] = std::vector<glm::vec2>{ {-1, 1 }, { 1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
-    render_texture->static_uniform["viewport"] = glm::ivec2(640, 480);
-
-
-    frame_buffer_1.add_texture(Texture::Type::MULTI_SAMPLED_8, GL_RGBA8, GL_COLOR_ATTACHMENT0);
+    frame_buffer_1.add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA8, GL_COLOR_ATTACHMENT0);
     frame_buffer_1.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
     frame_buffer_1.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
 
     frame_buffer_2.add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA8, GL_COLOR_ATTACHMENT0);
     frame_buffer_2.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
     frame_buffer_2.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
-    
-    combined_blur.add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA8, GL_COLOR_ATTACHMENT0);
-    combined_blur.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
-    combined_blur.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
 
-    background = std::make_unique<Background>();
+    frame_buffer_3.add_texture(Texture::Type::NORMALIZED_NO_MIPMAP, GL_RGBA8, GL_COLOR_ATTACHMENT0);
+    frame_buffer_3.get_texture(0).set_wrap_x(GL_CLAMP_TO_EDGE);
+    frame_buffer_3.get_texture(0).set_wrap_y(GL_CLAMP_TO_EDGE);
+
+    background = std::make_unique<Background>(Background::Theme::DARK_THEME);
 }
 
 
@@ -102,24 +113,25 @@ Renderer::~Renderer()
     ShaderManager::free_all();
 }
 
+void Renderer::shake(float amount, float decrease)
+{
+    shake_amount = amount;
+    shake_decrease = decrease;
+}
+
 
 void Renderer::render_frame()
 {
-
-    // First draw objects to multi sampled framebuffer.
-
     frame_buffer_1.start_rendering();
 
-    // Clearing the framebuffer 
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-    
-    background->render();
 
 	for (auto renderable : renderables) 
     {
 		renderable->render();
 	}
+
 	renderables.clear();
 
     for (auto& shape : test_shapes)
@@ -128,130 +140,98 @@ void Renderer::render_frame()
         shape.render();
     }
 
-
     frame_buffer_1.stop_rendering();
 
     // ***************************************************************
 
-
-    frame_buffer_2.start_rendering();
-
-    msaa_resolver->activate();
-
-
-    glActiveTexture(GL_TEXTURE0);
-    frame_buffer_1.get_texture(0).bind();
-
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-
-    frame_buffer_2.stop_rendering();
+    auto near_blur = blur_near.apply(frame_buffer_1.get_texture(0));
 
     // ***************************************************************
 
-    auto near_blur = blur_near.apply(frame_buffer_2.get_texture(0));
-    auto far_blur = blur_far.apply(frame_buffer_2.get_texture(0));
+    frame_buffer_2.start_rendering();
 
-    combined_blur.start_rendering();
+    auto original_texture = &(frame_buffer_1.get_texture(0));
+    auto blurred_texture = &near_blur->get_texture(0);
 
     combine_shader->activate();
-
 
     glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex1"), 0);
     glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex2"), 1);
 
-
     glActiveTexture(GL_TEXTURE0);
-    near_blur->get_texture(0).bind();
+    original_texture->bind();
 
     glActiveTexture(GL_TEXTURE1);
-    far_blur->get_texture(0).bind();
+    blurred_texture->bind();
 
-    combine_shader->uniform["weights"] = glm::vec2(0.7, 0.7);
+    combine_shader->uniform["weights"] = glm::vec2(0.25, 0.75);
 
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    combined_blur.stop_rendering();
 
+    frame_buffer_2.stop_rendering();
+    
     // ***************************************************************
 
+    frame_buffer_3.start_rendering();
 
-    auto original_texture = &(frame_buffer_2.get_texture(0));
-    auto blurred_texture = &combined_blur.get_texture(0);
+    background->render();
 
-    combine_shader->activate();
+    frame_buffer_3.stop_rendering();
+
+
+    // **************************************************************
+
+
+    final_shader->activate();
+
+    r_transform.reset();
+    //r_transform.translate(-(width / 2), -(height / 2));
+    r_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    //r_transform.rotate(random(-0.1f, 0.1f));
+
+    g_transform.reset();
+    //g_transform.translate(-(width / 2), -(height / 2));
+    g_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    //g_transform.rotate(random(-0.1f, 0.1f));
+
+    b_transform.reset();
+    //b_transform.translate(- (width / 2),-( height / 2));
+    b_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    //b_transform.rotate(random(-0.1f, 0.1f));
+
+
+    shake_amount -= shake_decrease;
+
+    if (shake_amount < 0.0f)
+    {
+        shake_amount = 0.0f;
+    }
+
+
+    final_shader->uniform["r_transform"] = r_transform.get();
+    final_shader->uniform["g_transform"] = g_transform.get();
+    final_shader->uniform["b_transform"] = b_transform.get();
+
+
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex1"), 0);
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex2"), 1);
 
     glActiveTexture(GL_TEXTURE0);
-    blurred_texture->bind();
+    frame_buffer_3.get_texture(0).bind();
 
     glActiveTexture(GL_TEXTURE1);
-    original_texture->bind();
+    frame_buffer_2.get_texture(0).bind();
 
-    combine_shader->uniform["weights"] = glm::vec2(3, 1);
-
+    final_shader->uniform["weights"] = glm::vec2(1, 1);
+    final_shader->uniform["inverted"] = 0;
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
 
     background->render_welcome_screen();
 
-    //background->render();
-
-    //combine_shader->activate();
-    //render_texture->activate();
-
-
-    //glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex1"), 0);
-    //glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex2"), 1);
-
-    /*
-    glActiveTexture(GL_TEXTURE0);
-    near_blur->get_texture(0).bind();
-
-    glActiveTexture(GL_TEXTURE1);
-    original_texture->bind();
-    */
-
-
-
-    //int texture_units = 0;
-    //glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &texture_units);
-
-    //std::cout << texture_units << std::endl;
-
-    /*
-    frame_buffer_2.start_rendering();
-
-    render_texture->activate();
-
-    frame_buffer_2.stop_rendering();
-    
-
-
-
-    // Here do mixing etc
-
-
-
-    // Finally render the result to the screen.
-    // ( No framebuffer is bound )
-
-    //frame_buffer_2.stop_rendering();
-
-    glClearColor(0, 0, 0.5, 1);
-
-    render_texture->activate();
-
-    glActiveTexture(GL_TEXTURE0);
-    blurred_fbo->get_texture(0).bind();
-    //frame_buffer_2.get_texture(0).bind();
-
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-
-
-    frame_buffer_1.get_texture(0).bind();
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
-    */
 }
 
 
@@ -259,24 +239,35 @@ void Renderer::render_frame()
 
 void Renderer::resized(int w, int h)
 {
+    for (auto& shape : test_shapes)
+    {
+        shape.reset_transformation();
+        shape.translate(random(0, w), random(0, h));
+        shape.rotate(random(30.0f));
+        shape.scale(random(1.5f, 8.0f), random(1.5f, 8.0f));
+    }
+
+    width = w;
+    height = h;
+
     background->window_resized(w, h);
 
     blur_near.window_resized(w, h);
-    blur_far.window_resized(w, h);
 
     frame_buffer_1.stop_rendering();
     frame_buffer_2.stop_rendering();
-    combined_blur.stop_rendering();
+    frame_buffer_3.stop_rendering();
 
     glViewport(0, 0, w, h);
 
     frame_buffer_1.set_size(w, h);
     frame_buffer_2.set_size(w, h);
-    combined_blur.set_size(w, h);
+    frame_buffer_3.set_size(w, h);
 
     ShaderManager::get("default")->static_uniform["viewport"] = glm::vec2(w, h);
     ShaderManager::get("renderFBO")->static_uniform["viewport"] = glm::vec2(w, h);
     ShaderManager::get("combine")->static_uniform["viewport"] = glm::vec2(w, h);
+    ShaderManager::get("final")->static_uniform["viewport"] = glm::vec2(w, h);
 }
 
 void Renderer::queueToRender(RenderComponent * component)

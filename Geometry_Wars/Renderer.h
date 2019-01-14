@@ -6,6 +6,7 @@
 
 #include "opengl/Shader.h"
 #include "opengl/FrameBuffer.h"
+#include "math_utils.h"
 
 
 class RenderComponent;
@@ -30,6 +31,8 @@ public:
     /// Renderer, Destructor
     ~Renderer();
 
+    void shake(float amount, float decrease);
+
 
     /// Executed once per frame by the Game class to render all components queued to render.
     void render_frame();
@@ -49,15 +52,21 @@ private:
     std::unique_ptr<ShaderState> msaa_resolver;
     std::unique_ptr<ShaderState> render_texture;
     std::unique_ptr<ShaderState> combine_shader;
+    std::unique_ptr<ShaderState> final_shader;
 
-    std::vector<Shape> test_shapes{ 30 };
+    std::vector<Shape> test_shapes{ 40 };
 
     FrameBuffer frame_buffer_1{ 640, 480 };
     FrameBuffer frame_buffer_2{ 640, 480 };
-    FrameBuffer combined_blur{ 640, 480 };
+    FrameBuffer frame_buffer_3{ 640, 480 };
 
-    GaussianBlur blur_near{ 640, 480, 0.8, 4 };
-    GaussianBlur blur_far{ 640, 480, 0.60, 4 };
+    Transformation r_transform, g_transform, b_transform;
+
+    int width, height;
+    float shake_amount;
+    float shake_decrease;
+
+    GaussianBlur blur_near{ 640, 480, 0.9, 4 };
 
     std::unique_ptr<Background> background;
 

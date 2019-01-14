@@ -67,7 +67,7 @@ void Texture::allocate_filled(unsigned int width, unsigned int height, const uns
     bind();
 
     glTexImage2D(binding_target, 0, pixel_format, width, height,
-        0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        0, pixel_format, GL_UNSIGNED_BYTE, data);
 
     if (type == Type::NORMALIZED_MIPMAP)
     {

@@ -46,5 +46,6 @@ private:
     static void load_resolveMSAA_shader();
     static void load_background_shader();
     static void load_texture_shader();
+    static void load_final_shader();
 
 };
