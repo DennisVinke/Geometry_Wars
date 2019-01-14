@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "EnemyBehaviour.h"
 
 Game::Game():object_spawner(GameObjectSpawner(*this)) {
 	init();
@@ -40,7 +41,6 @@ void Game::update(float delta_time) {
 	}
 	renderer.render_frame();
 	entity_manager.clean();
-
 }
 
 void Game::set_game_state(Game::State game_state) {
@@ -52,7 +52,7 @@ Game::State Game::get_game_state() {
 
 void Game::init_level() {
 	object_spawner.spawn_player();
-	//object_spawner.spawn
+	object_spawner.spawn_enemy(new Chaser(), glm::vec2(1200, 350));
 }
 
 InputManager& Game::get_input_manager() {

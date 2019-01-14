@@ -3,7 +3,7 @@
 #include "ShootComponent.h"
 #include "Game.h"
 #include "Weapon.h"
-
+#include "EnemyBehaviour.h"
 
 GameObjectSpawner::GameObjectSpawner(Game& gme):game(gme),entity_manager(gme.get_entity_manager()), input_manager(gme.get_input_manager()), collision_manager(gme.get_collision_manager()), renderer(gme.get_renderer()) {}
 GameObjectSpawner::~GameObjectSpawner() {}
@@ -57,6 +57,13 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	SoundManager::play(Sounds::LASER);
 }
 
-void GameObjectSpawner::spawn_enemy() {
+void GameObjectSpawner::spawn_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_position) {
+	auto entity = game.get_entity_manager().CreateEntity();
+	entity->setComponent<MovementComponent>(spawn_position);
+
+	entity->setComponent<RenderComponent>(renderer);
+	entity->getComponent<RenderComponent>()->setColor(enemy_info->red, enemy_info->green, enemy_info->blue, enemy_info->alpha);
+	entity->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
+	entity->getComponent<CollideComponent>()->SetCollisionRadius(enemy_info->size);
 
 }

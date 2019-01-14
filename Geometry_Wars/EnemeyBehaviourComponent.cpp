@@ -1,4 +1,5 @@
 #include "EnemyBehaviourComponent.h"
+#include "EnemyBehaviour.h"
 
 EnemyBehaviourComponent::EnemyBehaviourComponent(EnemyBehaviour*bhvir):Component(), behaviour(bhvir){}
 
