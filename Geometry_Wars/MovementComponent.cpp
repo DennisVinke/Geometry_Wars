@@ -45,8 +45,8 @@ void MovementComponent::doMovement(glm::vec2 move) {
 void MovementComponent::doMovement(int x, int y) {
 	position.x += x;
 	position.y += y;
-	if (position.x > 600)position.x = startPosition.x;
-	if (position.y > 600)position.y = startPosition.x;
+	if (position.x > 1280 || position.x < 0) position.x *= -1;
+	if (position.y > 720 || position.y < 0) position.y *= -1;
 	//std::cout << position.x << ":"<<position.y<<std::endl;
 }
 

@@ -38,7 +38,6 @@ void Game::update(float delta_time) {
 			set_game_state(Game::State::PLAYING);
 		}
 	}
-
 	renderer.render_frame();
 	entity_manager.clean();
 
