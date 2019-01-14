@@ -1,10 +1,9 @@
 #include "GameObjectSpawner.h"
 #include "Components.h"
 
-#include <SDL.h>
-
-/*
-GameObjectSpawner::GameObjectSpawner(EntityManager& em):entity_manager(em) {}
+GameObjectSpawner::GameObjectSpawner(Game& gme):game(gme){
+	
+}
 GameObjectSpawner::~GameObjectSpawner() {}
 
 void GameObjectSpawner::SpawnObject() {
@@ -14,8 +13,8 @@ void GameObjectSpawner::SpawnObject() {
 void GameObjectSpawner::SpawnPlayer(){
 	auto entity = entity_manager.CreateEntity();
 	entity->setComponent<MovementComponent>(glm::vec2(0, 0));
-	blok->setComponent<InputComponent>();
-	input_manager.addInputComponent(blok->getComponent<InputComponent>());
+	entity->setComponent<InputComponent>();
+	input_manager.addInputComponent(entity->getComponent<InputComponent>());
 	input_manager.addKeyControl(SDL_SCANCODE_A, blok->getComponent<InputComponent>()->getActionController(0), -1.0f);
 	input_manager.addKeyControl(SDL_SCANCODE_D, blok->getComponent<InputComponent>()->getActionController(0), 1.0f);
 
@@ -36,4 +35,3 @@ void GameObjectSpawner::SpawnBullet(){
 
 }
 
-*/
