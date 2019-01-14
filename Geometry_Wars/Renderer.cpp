@@ -120,24 +120,30 @@ void Renderer::shake(float amount, float decrease)
 }
 
 
-void Renderer::render_frame()
+void Renderer::render_frame(Game::State game_state)
 {
     frame_buffer_1.start_rendering();
 
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
 
-	for (auto renderable : renderables) 
+    if (game_state == Game::State::PLAYING)
     {
-		renderable->render();
-	}
+        for (auto renderable : renderables)
+        {
+            renderable->render();
+        }
+    }
 
 	renderables.clear();
 
-    for (auto& shape : test_shapes)
+    if (game_state == Game::State::WELCOME)
     {
-        shape.rotate(0.01);
-        shape.render();
+        for (auto& shape : test_shapes)
+        {
+            shape.rotate(0.01);
+            shape.render();
+        }
     }
 
     frame_buffer_1.stop_rendering();
@@ -227,9 +233,234 @@ void Renderer::render_frame()
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
+    if (game_state == Game::State::WELCOME)
+    {
+        background->render_welcome_screen();
+    }
+}
+
+
+
+void Renderer::render_welcome_screen()
+{
+    frame_buffer_1.start_rendering();
+
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    for (auto renderable : renderables)
+    {
+        renderable->render();
+    }
+
+    renderables.clear();
+
+    for (auto& shape : test_shapes)
+    {
+        shape.rotate(0.01);
+        shape.render();
+    }
+
+    frame_buffer_1.stop_rendering();
+
+    // ***************************************************************
+
+    auto near_blur = blur_near.apply(frame_buffer_1.get_texture(0));
+
+    // ***************************************************************
+
+    frame_buffer_2.start_rendering();
+
+    auto original_texture = &(frame_buffer_1.get_texture(0));
+    auto blurred_texture = &near_blur->get_texture(0);
+
+    combine_shader->activate();
+
+    glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex1"), 0);
+    glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex2"), 1);
+
+    glActiveTexture(GL_TEXTURE0);
+    original_texture->bind();
+
+    glActiveTexture(GL_TEXTURE1);
+    blurred_texture->bind();
+
+    combine_shader->uniform["weights"] = glm::vec2(0.25, 0.75);
+
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    frame_buffer_2.stop_rendering();
+
+    // ***************************************************************
+
+    frame_buffer_3.start_rendering();
+
+    background->render();
+
+    frame_buffer_3.stop_rendering();
+
+
+    // **************************************************************
+
+    static int counter = 0;
+    counter++;
+
+    final_shader->activate();
+
+    if (counter % 2 == 0)
+    {
+        r_transform.reset();
+        r_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+
+        g_transform.reset();
+        g_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+
+        b_transform.reset();
+        b_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    }
+
+    shake_amount -= shake_decrease;
+
+    if (shake_amount < 0.0f)
+    {
+        shake_amount = 0.0f;
+    }
+
+
+    final_shader->uniform["r_transform"] = r_transform.get();
+    final_shader->uniform["g_transform"] = g_transform.get();
+    final_shader->uniform["b_transform"] = b_transform.get();
+
+
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex1"), 0);
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex2"), 1);
+
+    glActiveTexture(GL_TEXTURE0);
+    frame_buffer_3.get_texture(0).bind();
+
+    glActiveTexture(GL_TEXTURE1);
+    frame_buffer_2.get_texture(0).bind();
+
+    final_shader->uniform["weights"] = glm::vec2(1, 1);
+    final_shader->uniform["inverted"] = 0;
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
 
     background->render_welcome_screen();
+}
 
+void Renderer::render_game()
+{
+    frame_buffer_1.start_rendering();
+
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    for (auto renderable : renderables)
+    {
+        renderable->render();
+    }
+
+    renderables.clear();
+
+    for (auto& shape : test_shapes)
+    {
+        shape.rotate(0.01);
+        shape.render();
+    }
+
+    frame_buffer_1.stop_rendering();
+
+    // ***************************************************************
+
+    auto near_blur = blur_near.apply(frame_buffer_1.get_texture(0));
+
+    // ***************************************************************
+
+    frame_buffer_2.start_rendering();
+
+    auto original_texture = &(frame_buffer_1.get_texture(0));
+    auto blurred_texture = &near_blur->get_texture(0);
+
+    combine_shader->activate();
+
+    glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex1"), 0);
+    glUniform1i(glGetUniformLocation(combine_shader->get_shader().get_handle(), "tex2"), 1);
+
+    glActiveTexture(GL_TEXTURE0);
+    original_texture->bind();
+
+    glActiveTexture(GL_TEXTURE1);
+    blurred_texture->bind();
+
+    combine_shader->uniform["weights"] = glm::vec2(0.25, 0.75);
+
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    frame_buffer_2.stop_rendering();
+
+    // ***************************************************************
+
+    frame_buffer_3.start_rendering();
+
+    background->render();
+
+    frame_buffer_3.stop_rendering();
+
+
+    // **************************************************************
+
+    static int counter = 0;
+    counter++;
+
+    final_shader->activate();
+
+    if (counter % 2 == 0)
+    {
+        r_transform.reset();
+        r_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+
+        g_transform.reset();
+        g_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+
+        b_transform.reset();
+        b_transform.translate(random(-shake_amount, shake_amount), random(-shake_amount, shake_amount));
+    }
+
+    shake_amount -= shake_decrease;
+
+    if (shake_amount < 0.0f)
+    {
+        shake_amount = 0.0f;
+    }
+
+
+    final_shader->uniform["r_transform"] = r_transform.get();
+    final_shader->uniform["g_transform"] = g_transform.get();
+    final_shader->uniform["b_transform"] = b_transform.get();
+
+
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex1"), 0);
+    glUniform1i(glGetUniformLocation(final_shader->get_shader().get_handle(), "tex2"), 1);
+
+    glActiveTexture(GL_TEXTURE0);
+    frame_buffer_3.get_texture(0).bind();
+
+    glActiveTexture(GL_TEXTURE1);
+    frame_buffer_2.get_texture(0).bind();
+
+    final_shader->uniform["weights"] = glm::vec2(1, 1);
+    final_shader->uniform["inverted"] = 0;
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    background->render_welcome_screen();
 }
 
 

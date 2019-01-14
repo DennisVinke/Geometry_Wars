@@ -2,6 +2,7 @@
 
 #include "GaussianBlur.h"
 
+#include "Game.h"
 #include "Shape.h"
 
 #include "opengl/Shader.h"
@@ -35,7 +36,7 @@ public:
 
 
     /// Executed once per frame by the Game class to render all components queued to render.
-    void render_frame();
+    void render_frame(Game::State game_state);
 
 
     /// Update necessary systems, shaders, framebuffers etc, about the resizing of the game.
@@ -45,9 +46,16 @@ public:
     /// Used to register Components that want to be rendered this frame. 
 	void queueToRender(RenderComponent *);
 
+
 private:
-	Shape a;
-	std::vector<RenderComponent *> renderables;
+	
+    void render_welcome_screen();
+    
+    void render_game();
+    
+    Shape a;
+	
+    std::vector<RenderComponent *> renderables;
 
     std::unique_ptr<ShaderState> msaa_resolver;
     std::unique_ptr<ShaderState> render_texture;
