@@ -10,7 +10,7 @@
 #include "SoundManager.h"
 #include "ShaderManager.h"
 #include "GameObjectSpawner.h"
-
+#include "ActionController.h"
 
 
 
@@ -27,6 +27,8 @@ private:
 
 	GameObjectSpawner object_spawner; //Ik ben hier echt nu om aan het huilen. Bijna een uur hieraan besteed om het werkend te kijgen. RAGE!!!!!!!!!!
 
+	ActionController stateHandler;
+
 	int score;
 	int lifes;
 
@@ -34,6 +36,14 @@ private:
 	void load_shaders();
 	
 public:
+
+	enum class State :int {
+		WELCOME,
+		PLAYING,
+		PAUSE,
+		GAMEOVER
+	};
+	
 	Game();
 	~Game();
 
@@ -54,4 +64,8 @@ public:
 	void onMouseUp(uint32_t button, uint8_t numOfClicks);
 	void onMouseMove(uint32_t mouseX, uint32_t mouseY, uint32_t mouseDeltaX, uint32_t mouseDeltaY);
 	*/
+	State current_state;
+	State get_game_state();
+	void set_game_state(Game::State);
+
 };

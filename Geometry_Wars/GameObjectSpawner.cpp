@@ -26,7 +26,7 @@ void GameObjectSpawner::spawn_player(){
 	input_manager.addKeyControl(SDL_SCANCODE_W, entity->getComponent<InputComponent>()->getActionController(1), -1.0f);
 	input_manager.addKeyControl(SDL_SCANCODE_S, entity->getComponent<InputComponent>()->getActionController(1), 1.0f);
 	input_manager.addMouseControl(1, entity->getComponent<InputComponent>()->getActionController(2), 1.0f);
-	input_manager.addMouseControl(SDL_SCANCODE_R, entity->getComponent<InputComponent>()->getActionController(4), 1.0f);
+	input_manager.addKeyControl(SDL_SCANCODE_R, entity->getComponent<InputComponent>()->getActionController(4), 1.0f);
 
 
 	entity->setComponent<RenderComponent>(renderer);
@@ -45,7 +45,7 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	
 	
 	entity->setComponent<CollideComponent>(collision_manager, CollideMask::BULLET);
-	entity->getComponent<CollideComponent>()->SetCollisionRadius(10);
+	entity->getComponent<CollideComponent>()->SetCollisionRadius(bullet_info->size);
 	
 
 	auto render_component = entity->getComponent<RenderComponent>();
@@ -53,7 +53,10 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	render_component->shape.set_draw_mode(GL_POINTS);
 	render_component->shape.set_shape({ {0, 0} });
 	
-	entity->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
+	entity->getComponent<RenderComponent>()->setColor(bullet_info->red, bullet_info->green, bullet_info->blue, bullet_info->alpha);
 	SoundManager::play(Sounds::LASER);
 }
 
+void GameObjectSpawner::spawn_enemy() {
+
+}

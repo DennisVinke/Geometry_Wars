@@ -193,7 +193,6 @@ int main(int argc, char* args[])
 		{
 			switch (event.type) {
 			case SDL_KEYDOWN:
-				//std::cout << "Key pressed down!: " << event.key.keysym.scancode << std::endl;
 				game.get_input_manager().onKeyDown(event.key.keysym.scancode, event.key.repeat != 0);
 				break;
 			case SDL_KEYUP:
@@ -202,17 +201,13 @@ int main(int argc, char* args[])
 			case SDL_MOUSEBUTTONDOWN:
 				game.get_input_manager().onMouseDown(event.button.button, event.button.clicks);
                 game.get_renderer().shake(25, 4);
-				//std::cout << "MouseClicked " << event.button.x<<":"<<event.button.y<<std::endl;
 				std::cout << "MouseClicked " << event.button.button<<std::endl;
-				//SoundManager::play(Sounds::LASER);
 				break;
 			case SDL_MOUSEBUTTONUP:
 				game.get_input_manager().onMouseUp(event.button.button, event.button.clicks);
-				//SoundManager::play(Sounds::THEME);
 				break;
 			case SDL_MOUSEMOTION:
 				game.get_input_manager().onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel);
-				//std::cout << "MouseMoved " << event.motion.x << ":" << event.motion.y << std::endl;
 				break;
 			case SDL_QUIT:
 				quit = true;
@@ -225,65 +220,13 @@ int main(int argc, char* args[])
 					break;
 				}
 			}
-
-
-
 		}
-
-		/*
-		glm::vec2 pos(blok->getComponent<MovementComponent>()->getLocation());
-		if (cac.getValue() == 1) {
-			//for (int i = 0;i < 100;i++)
-			gameObjects.emplace_back(eManager->CreateEntity());
-			gameObjects.back()->setComponent<MovementComponent>(position);
-			glm::vec2 spawn((cac.getClickedPosition() - position) / glm::distance(cac.getClickedPosition(), position));
-			spawn.x *= 5;
-			spawn.y *= 5;
-			gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(spawn);
-			gameObjects.back()->setComponent<RenderComponent>(renderer);
-			gameObjects.back()->setComponent<CollideComponent>(collisionManager, CollideMask::BULLET);
-			gameObjects.back()->getComponent<CollideComponent>()->SetCollisionRadius(10);
-			auto render_component = gameObjects.back()->getComponent<RenderComponent>();
-			render_component->shape.set_line_width(7);
-			render_component->shape.set_draw_mode(GL_POINTS);
-			render_component->shape.set_shape({ {0, 0} });
-			//gameObjects.back()->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-		}
-
-		if (cacr.getValue() == 1){
-			auto tower = eManager->CreateEntity();
-			tower->setComponent<TransformationComponent>();
-			tower->setComponent<RenderComponent>(renderer);
-
-			tower->getComponent<TransformationComponent>()->translate(100, 100);
-			tower->getComponent<TransformationComponent>()->rotate(3.14);
-			tower->getComponent<TransformationComponent>()->translate(100, 100);
-
-			tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
-
-			tower->setComponent<CollideComponent>(collisionManager, CollideMask::ENEMY);
-			tower->getComponent<CollideComponent>()->SetCollisionRadius(20);
-			tower->setComponent<MovementComponent>(cacr.getClickedPosition());
-		}
-
-		eManager->update();
-		if(blok->hasComponent<InputComponent>())
-			blok->getComponent<InputComponent>()->executeInput();
-
-		//resolve input
-		collisionManager.update();
-		*/
-		//renderer.render_frame();
-		/*eManager->clean();
-		// * *************************************************
-
-
-		// * *************************************************
-		*/
 
 		game.update(delta_time);
+		
 
 		SDL_GL_SwapWindow(window);
+		
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
 		delta_time = diff.count();

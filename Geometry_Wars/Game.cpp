@@ -14,7 +14,7 @@ void Game::init() {
 	renderer.resized(1280, 720);
 	SoundManager::initialize();
 	SoundManager::play(Sounds::THEME, true);
-
+	input_manager.addKeyControl(SDL_SCANCODE_SPACE, stateHandler, 1.f);
 }
 
 void Game::reset() {
@@ -28,13 +28,27 @@ void Game::load_shaders() {
 }
 
 void Game::update(float delta_time) {
-	entity_manager.update();
-	input_manager.update();
-	collision_manager.update();
+	if (get_game_state() == Game::State::PLAYING) {
+		entity_manager.update();
+		input_manager.update();
+		collision_manager.update();
+	}
+	else if (get_game_state() == Game::State::WELCOME || get_game_state() == Game::State::PAUSE) {
+		if (stateHandler.getValue() >= 1) {
+			set_game_state(Game::State::PLAYING);
+		}
+	}
 
 	renderer.render_frame();
 	entity_manager.clean();
 
+}
+
+void Game::set_game_state(Game::State game_state) {
+	current_state = game_state;
+}
+Game::State Game::get_game_state() {
+	return current_state;
 }
 
 void Game::init_level() {

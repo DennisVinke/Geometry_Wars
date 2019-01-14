@@ -20,6 +20,7 @@ public:
 	void spawn_object();
 	void spawn_player();
 	void spawn_bullet(Weapon *, glm::vec2 spawn_position);
+	void spawn_enemy();
 	//void set_game(Game * gme);
 private:
 	Game& game;
