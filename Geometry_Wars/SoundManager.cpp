@@ -102,6 +102,7 @@ void SoundManager::initialize()
 
     load_sound(Sounds::THEME, (data_folder / "theme.wav").string(), 128);
     load_sound(Sounds::LASER, (data_folder / "laser.wav").string(), 10);
+    load_sound(Sounds::EXPLOSION, (data_folder / "explosion.wav").string(), 128);
 
     output_spec = sounds[0].spec;
     output_spec.callback = SoundManager::audio_callback;
@@ -117,6 +118,10 @@ void SoundManager::initialize()
 
 void SoundManager::shutdown()
 {
+    std::lock_guard lock{ audio_mutex };
+
+    sounds_playing.clear();
+
     for (int i = 0; i < static_cast<int>(Sounds::NUM_SOUNDS); ++i)
     {
         SDL_FreeWAV(sounds[i].data);
