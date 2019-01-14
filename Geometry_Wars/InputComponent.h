@@ -37,7 +37,7 @@ public:
 	ActionController& getActionController(uint8_t index);
 	void removeActionController(uint8_t idx);
 
-	void executeInput();
+	void executeInput(float delta_time);
 	//void clearControllers();
 };
 

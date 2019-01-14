@@ -8,7 +8,7 @@ EnemyBehaviourComponent::EnemyBehaviourComponent(EnemyBehaviour*bhvir, Entity* p
 EnemyBehaviourComponent::~EnemyBehaviourComponent() {}
 
 void EnemyBehaviourComponent::execute() {
-	glm::vec2 movement = behaviour->update(entity->getComponent<MovementComponent>()->getLocation(), player->getComponent<MovementComponent>()->getLocation());
+	glm::vec2 movement = behaviour->update(entity, player->getComponent<MovementComponent>()->getLocation());
 	entity->getComponent<MovementComponent>()->doMovement(movement);
 }
 

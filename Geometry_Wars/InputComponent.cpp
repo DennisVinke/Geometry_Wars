@@ -56,13 +56,13 @@ void InputComponent::removeActionController(uint8_t idx) {
 	controllers[idx]->~ActionController();
 }
 
-void InputComponent::executeInput() {
+void InputComponent::executeInput(float delta_time) {
 	if (entity->hasComponent<MovementComponent>()) {
 		entity->getComponent<MovementComponent>()->doMovement(glm::vec2(getActionController(0).getValue(), getActionController(1).getValue()));
 	}
 	if (getActionController(2).getValue() >= 1) {
 		if (entity->hasComponent<ShootComponent>()) {
-			entity->getComponent<ShootComponent>()->shoot(getActionController(2).getClickedPosition());
+			entity->getComponent<ShootComponent>()->shoot(getActionController(2).getClickedPosition(),delta_time);
 		}
 
 		if (getActionController(4).getValue() >= 1) {

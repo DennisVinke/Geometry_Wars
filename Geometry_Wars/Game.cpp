@@ -33,7 +33,7 @@ void Game::load_shaders() {
 void Game::update(float delta_time) {
 	if (get_game_state() == Game::State::PLAYING) {
 		entity_manager.update();
-		input_manager.update();
+		input_manager.update(delta_time);
 		collision_manager.update();
 	}
 	else if (get_game_state() == Game::State::WELCOME || get_game_state() == Game::State::PAUSE) {
@@ -56,7 +56,7 @@ Game::State Game::get_game_state() {
 void Game::init_level() {
 	object_spawner.spawn_player();
 	object_spawner.spawn_enemy(new Chaser(), glm::vec2(1200, 350));
-	object_spawner.spawn_shooting_enemy();
+	object_spawner.spawn_shooting_enemy(new Shooting, glm::vec2(1200,200));
 }
 
 InputManager& Game::get_input_manager() {

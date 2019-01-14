@@ -48,12 +48,12 @@ void InputManager::removeInputComponent(InputComponent* input) {
 //	inputComponents.erase(std::remove(inputComponents.begin(), inputComponents.end(), input),inputComponents.end());
 }
 
-void InputManager::executeInput() {
+void InputManager::executeInput(float delta_time) {
 	for (auto component : inputComponents) {
-		component->executeInput();
+		component->executeInput(delta_time);
 	}
 }
 
-void InputManager::update() {
-	executeInput();
+void InputManager::update(float delta_time) {
+	executeInput(delta_time);
 }

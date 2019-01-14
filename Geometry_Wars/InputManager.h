@@ -26,8 +26,8 @@ public:
 
 	void addInputComponent(InputComponent*);
 	void removeInputComponent(InputComponent*);
-	void executeInput();
-	void update();
+	void executeInput(float delta_time);
+	void update(float delta_time);
 
 private:
 	std::map<uint32_t, std::vector<std::pair<float, ActionController&>>> inputActions;

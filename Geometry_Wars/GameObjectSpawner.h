@@ -22,7 +22,7 @@ public:
 	void spawn_player();
 	void spawn_bullet(Weapon *, glm::vec2 spawn_position);
 	void spawn_enemy(EnemyBehaviour *, glm::vec2);
-	void spawn_shooting_enemy();
+	void spawn_shooting_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_position);
 	void spawn_shield_enemy();
 	//void set_game(Game * gme);
 private:
