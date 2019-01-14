@@ -4,6 +4,7 @@
 #include "MovementComponent.h"
 #include "EntityManager.h"
 
+
 ShootComponent::ShootComponent(GameObjectSpawner& bullet_spwnr):Component(),bullet_spawner(bullet_spwnr) {
 
 }

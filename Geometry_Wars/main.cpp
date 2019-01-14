@@ -299,7 +299,7 @@ int main(int argc, char* args[])
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end - start;
 		delta_time = diff.count();
-		//std::cout << diff.count() << std::endl;
+		std::cout << diff.count() << std::endl;
 	}
 
 	SoundManager::shutdown();

@@ -1,14 +1,16 @@
 #pragma once
 
-
 #include "ShootComponent.h"
+
 
 class Game;
 class EntityManager;
 class InputManager;
 class CollisionManager;
 class Renderer;
+class Weapon;
 class GameObjectSpawner{
+
 public:
 	GameObjectSpawner() = delete;
 	GameObjectSpawner(Game& gme);

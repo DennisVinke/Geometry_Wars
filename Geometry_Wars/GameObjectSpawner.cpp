@@ -2,6 +2,7 @@
 #include "Components.h"
 #include "ShootComponent.h"
 #include "Game.h"
+#include "Weapon.h"
 
 
 GameObjectSpawner::GameObjectSpawner(Game& gme):game(gme),entity_manager(gme.get_entity_manager()), input_manager(gme.get_input_manager()), collision_manager(gme.get_collision_manager()), renderer(gme.get_renderer()) {}
@@ -49,7 +50,7 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	spawn.y *= 5;
 	gameObjects.back()
 	*/
-	entity->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1,0));
+	entity->getComponent<MovementComponent>()->setConstantMovement(bullet_info->speed);
 	entity->setComponent<RenderComponent>(renderer);
 	
 	/*
