@@ -20,7 +20,7 @@ Background::Background(Background::Theme theme_)
     auto[path, success] = find_folder("Geometry_Wars");
     auto data = path / "data";
 
-    auto sdl_welcome_img = SDL_LoadBMP((data / "welcome_screen.bmp").string().c_str());
+    auto sdl_welcome_img = SDL_LoadBMP((data / "new_welcome_screen.bmp").string().c_str());
     auto sdl_light_img = SDL_LoadBMP((data / "light_theme.bmp").string().c_str());
     auto sdl_dark_img = SDL_LoadBMP((data / "dark_theme.bmp").string().c_str());
 
