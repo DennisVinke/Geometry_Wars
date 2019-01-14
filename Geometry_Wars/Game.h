@@ -23,7 +23,8 @@ private:
 	InputManager input_manager;
 	CollisionManager collision_manager;
 	Renderer renderer;
-	
+	SoundManager sound_manager;
+
 	GameObjectSpawner object_spawner; //Ik ben hier echt nu om aan het huilen. Bijna een uur hieraan besteed om het werkend te kijgen. RAGE!!!!!!!!!!
 
 	int score;

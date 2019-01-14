@@ -64,13 +64,6 @@ void print_context_status()
 
 #include "Renderer.h"
 
-glm::vec2 clamp(glm::vec2 a, glm::vec2 b, int valA, int valB) {
-	glm::vec2 sum(a - b);
-	sum.x = std::clamp(sum.x, -1.f, 1.f);
-	sum.y = std::clamp(sum.y, -1.f, 1.f);
-	return sum;
-}
-
 int main(int argc, char* args[])
 {
 
@@ -107,10 +100,6 @@ int main(int argc, char* args[])
 	ShaderManager::load_shaders();
 	Game game;//(window);
 	float delta_time = 0;
-	game.Test();
-	
-	
-
 
 	//Renderer renderer;
 
@@ -130,8 +119,7 @@ int main(int argc, char* args[])
 	InputManager inputHandler;
 	CollisionManager collisionManager;
 
-	SoundManager::initialize();
-	SoundManager::play(Sounds::THEME, true);
+	
 
 
 	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());

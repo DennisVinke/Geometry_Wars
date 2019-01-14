@@ -12,6 +12,9 @@ Game::~Game() {
 void Game::init() {
 	reset();
 	renderer.resized(1280, 720);
+	SoundManager::initialize();
+	SoundManager::play(Sounds::THEME, true);
+
 }
 
 void Game::reset() {

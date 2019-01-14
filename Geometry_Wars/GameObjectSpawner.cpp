@@ -14,27 +14,22 @@ void GameObjectSpawner::spawn_object() {
 }
 
 void GameObjectSpawner::spawn_player(){
+	//create Components
 	auto entity = game.get_entity_manager().CreateEntity();
 	entity->setComponent<MovementComponent>(glm::vec2(0, 0));
 	entity->setComponent<InputComponent>();
+
+	//Adding controls to the 
 	game.get_input_manager().addInputComponent(entity->getComponent<InputComponent>());
 	input_manager.addKeyControl(SDL_SCANCODE_A, entity->getComponent<InputComponent>()->getActionController(0), -1.0f);
 	input_manager.addKeyControl(SDL_SCANCODE_D, entity->getComponent<InputComponent>()->getActionController(0), 1.0f);
-
 	input_manager.addKeyControl(SDL_SCANCODE_W, entity->getComponent<InputComponent>()->getActionController(1), -1.0f);
 	input_manager.addKeyControl(SDL_SCANCODE_S, entity->getComponent<InputComponent>()->getActionController(1), 1.0f);
-	
 	input_manager.addMouseControl(1, entity->getComponent<InputComponent>()->getActionController(2), 1.0f);
-
 	input_manager.addMouseControl(SDL_SCANCODE_R, entity->getComponent<InputComponent>()->getActionController(4), 1.0f);
 
 
-	//ActionController ac, cac, cacr;
-	//input_manager.addKeyControl(SDL_SCANCODE_P, ac, 1.f);
-	//input_manager.addMouseControl(1, cac, 1.f);
-	//input_manager.addMouseControl(3, cacr, 1.f);
 	entity->setComponent<RenderComponent>(renderer);
-
 	entity->setComponent<CollideComponent>(collision_manager, CollideMask::PLAYER);
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(10);
 	entity->setComponent<ShootComponent>(*this);
@@ -45,18 +40,13 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	auto entity = game.get_entity_manager().CreateEntity();
 	entity->setComponent<MovementComponent>(spawn_position);
 
-/*
-	spawn.x *= 5;
-	spawn.y *= 5;
-	gameObjects.back()
-	*/
 	entity->getComponent<MovementComponent>()->setConstantMovement(bullet_info->speed);
 	entity->setComponent<RenderComponent>(renderer);
 	
-	/*
-	gameObjects.back()->setComponent<CollideComponent>(collisionManager, CollideMask::BULLET);
-	gameObjects.back()->getComponent<CollideComponent>()->SetCollisionRadius(10);
-	*/
+	
+	entity->setComponent<CollideComponent>(collision_manager, CollideMask::BULLET);
+	entity->getComponent<CollideComponent>()->SetCollisionRadius(10);
+	
 
 	auto render_component = entity->getComponent<RenderComponent>();
 	render_component->shape.set_line_width(7);
@@ -64,6 +54,6 @@ void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_posit
 	render_component->shape.set_shape({ {0, 0} });
 	
 	entity->getComponent<RenderComponent>()->setColor(rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-	
+	SoundManager::play(Sounds::LASER);
 }
 
