@@ -20,8 +20,7 @@ an executable can be found in:
 "/AP/AP/x64/Release"
 
 
-Doxygen documentation and doxyfile can be found in "/Geometry_Wars/"
-
+Doxygen documentation and doxyfile can be found in the main folder
 
 
 
@@ -33,14 +32,11 @@ Steps to compile the project:
 
 * Create a new solution and add all the .h and .cpp files found in:
   - /Geometry_Wars/
-  - /Geometry_Wars/io/
-  - /Geometry_Wars/opengl/
+And all its subdirectories
 
-* Make sure that the shaders folder is inside of the Geometry_Wars folder, and the Geometry Wars folder can be found, by moving up folders from the executable's directory.
+* Make sure that the data folder is inside of the Geometry_Wars folder, and the Geometry Wars folder can be found, by moving up folders from the executable's directory:
 
-  IE. 
-
-  When the executable is in:
+  E.G. When the executable is in:
   C:\Users\aart\Documents\AP\AP\x64\Debug\Geometry_Wars.exe
 
   then having the shader folder located at:
@@ -52,11 +48,13 @@ Steps to compile the project:
 
 * Three external libraries are used (with Johan's permission): GLM, glad, and SDL2. For each:
 
-* GLM is header only and thus the only thing that needs to be done is add the folder /Geometry_Wars/glm_include/ to the include directories, under project properties. 
+* GLM is header only and thus the only thing that needs to be done is add the folder /glm_include/ to the include directories, under project properties. 
 
-* glad has one c file that we have added to /Geometry_Wars/ so that should be compiled properly by following step 2. Furthermore the headers of glad need to be added by including the folder "/Geometry_Wars/glad_include" under project properties
+* GLAD has one c file which we have already added to the sources. The folder 
+/glad_include/ needs to be added to the include directories.
 
-* SDL2: add the folder /Geometry_Wars/SDL2-2.0.9/include/ to the solutions include directories, SDL3 has three.lib files, that need to be added. Under project properties >> VC++ Directories >> Library Directories, add /Geometry_Wars/SDL2-2.0.9/lib/x86/ or /Geometry_Wars/SDL2-2.0.9/lib/x64/, and under Linker >> Input >> Additional Dependencies add SDL2.lib, SDL2main.lib, SDL2test.lib. Lastly add SDL2.dll to the executable directory. For more information see: https://www.wikihow.com/Set-Up-SDL-with-Visual-Studio-2017
+* SDL2: add the folder /SDL2-2.0.9/include/ to the solutions include directories, SDL3 has three.lib files, that need to be added. Under project properties >> VC++ Directories >> Library Directories, add /SDL2-2.0.9/lib/x86/ or /SDL2-2.0.9/lib/x64/, and under Linker >> Input >> Additional Dependencies add SDL2.lib, SDL2main.lib, SDL2test.lib. Lastly add SDL2.dll to the executable directory. For more information see:
+https://www.wikihow.com/Set-Up-SDL-with-Visual-Studio-2017
 
 * Lastly when using SDL sometimes it is necessary to specify the subsystem: in project properties, under linker >> system >> SubSystem, select Console. If you do not follow this step, you will get a runtime error when executing the application.
 
