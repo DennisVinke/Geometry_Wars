@@ -72,6 +72,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="class_texture.html" title="Texture class, holds a texture in OpenGL. ">Texture</a> class, holds a texture in OpenGL.  
+ <a href="class_texture.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_texture_8h_source.html">Texture.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -87,69 +90,100 @@ Public Types</h2></td></tr>
 <a class="el" href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6a6dbcf837cc3a3f167d8f20c5b1b04f03">Type::NON_NORMALIZED</a> = 19
 <br />
  }</td></tr>
+<tr class="memdesc:ad2c8ef40596541417b34bea14fc974b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">enum class <a class="el" href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6" title="enum class Texture::Type ">Texture::Type</a>  <a href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6">More...</a><br /></td></tr>
 <tr class="separator:ad2c8ef40596541417b34bea14fc974b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aac7f5570ba305fefb580df4f3dab0b74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#aac7f5570ba305fefb580df4f3dab0b74">Texture</a> ()=delete</td></tr>
+<tr class="memdesc:aac7f5570ba305fefb580df4f3dab0b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor is deleted.  <a href="#aac7f5570ba305fefb580df4f3dab0b74">More...</a><br /></td></tr>
 <tr class="separator:aac7f5570ba305fefb580df4f3dab0b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5045a2dce727325fc6c316830b7aedbe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a5045a2dce727325fc6c316830b7aedbe">Texture</a> (<a class="el" href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6">Type</a> <a class="el" href="class_texture.html#ab0e4a6974bb3d66b24ce62552a741e8b">type</a>, GLenum <a class="el" href="class_texture.html#a7185dd09abe57317a2d42ab775f5e9ac">pixel_format</a>)</td></tr>
+<tr class="memdesc:a5045a2dce727325fc6c316830b7aedbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">It is possible to construct Textures when a type and a pixel_format is provided.  <a href="#a5045a2dce727325fc6c316830b7aedbe">More...</a><br /></td></tr>
 <tr class="separator:a5045a2dce727325fc6c316830b7aedbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f37ee9dc7bb5e960660df07200de426"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a6f37ee9dc7bb5e960660df07200de426">Texture</a> (const <a class="el" href="class_texture.html">Texture</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a6f37ee9dc7bb5e960660df07200de426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copying is disabled because it is ambiguous who retains ownership of the gpu data.  <a href="#a6f37ee9dc7bb5e960660df07200de426">More...</a><br /></td></tr>
 <tr class="separator:a6f37ee9dc7bb5e960660df07200de426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cc55df0366fe590681bbbe4d7467d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a34cc55df0366fe590681bbbe4d7467d1">Texture</a> (<a class="el" href="class_texture.html">Texture</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:a34cc55df0366fe590681bbbe4d7467d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor is allowed becuase only one instance stays responsible for the gpu memory.  <a href="#a34cc55df0366fe590681bbbe4d7467d1">More...</a><br /></td></tr>
 <tr class="separator:a34cc55df0366fe590681bbbe4d7467d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09c4bcb7462f64c1d20fa69dba3cee8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a09c4bcb7462f64c1d20fa69dba3cee8a">~Texture</a> ()</td></tr>
+<tr class="memdesc:a09c4bcb7462f64c1d20fa69dba3cee8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor.  <a href="#a09c4bcb7462f64c1d20fa69dba3cee8a">More...</a><br /></td></tr>
 <tr class="separator:a09c4bcb7462f64c1d20fa69dba3cee8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82685a963e0fdc5707bcf404994a52cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a82685a963e0fdc5707bcf404994a52cc">allocate_empty</a> (unsigned int width, unsigned int height)</td></tr>
+<tr class="memdesc:a82685a963e0fdc5707bcf404994a52cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">allocates the memory on the gpu, without filling it to a certain color.  <a href="#a82685a963e0fdc5707bcf404994a52cc">More...</a><br /></td></tr>
 <tr class="separator:a82685a963e0fdc5707bcf404994a52cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09ceb4cd4413d621e65481d99346c50e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a09ceb4cd4413d621e65481d99346c50e">allocate_filled</a> (unsigned int width, unsigned int height, const unsigned char *data)</td></tr>
+<tr class="memdesc:a09ceb4cd4413d621e65481d99346c50e"><td class="mdescLeft">&#160;</td><td class="mdescRight">allocate with data from client side memory, this is useful when showing images on the screen.  <a href="#a09ceb4cd4413d621e65481d99346c50e">More...</a><br /></td></tr>
 <tr class="separator:a09ceb4cd4413d621e65481d99346c50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac78462a6f4e6a0cb810570b75cc4c0bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ac78462a6f4e6a0cb810570b75cc4c0bc">set_size</a> (unsigned int width, unsigned int height)</td></tr>
+<tr class="memdesc:ac78462a6f4e6a0cb810570b75cc4c0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">resizes the texture to size width/ height, undefined what happens with the old data  <a href="#ac78462a6f4e6a0cb810570b75cc4c0bc">More...</a><br /></td></tr>
 <tr class="separator:ac78462a6f4e6a0cb810570b75cc4c0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16c8f2650d1cf403b33909e0c101cea2"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a16c8f2650d1cf403b33909e0c101cea2">get_size</a> () const</td></tr>
+<tr class="memdesc:a16c8f2650d1cf403b33909e0c101cea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current allocated size of the texture  <a href="#a16c8f2650d1cf403b33909e0c101cea2">More...</a><br /></td></tr>
 <tr class="separator:a16c8f2650d1cf403b33909e0c101cea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20da4dc64569eb2d4f86178e21098d72"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a20da4dc64569eb2d4f86178e21098d72">query_size</a> ()</td></tr>
+<tr class="memdesc:a20da4dc64569eb2d4f86178e21098d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the allocated size of the texture, but instead of returning the cached value, queries the value from opengl  <a href="#a20da4dc64569eb2d4f86178e21098d72">More...</a><br /></td></tr>
 <tr class="separator:a20da4dc64569eb2d4f86178e21098d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0855aaa1c0252620681351b1cf8f2244"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a0855aaa1c0252620681351b1cf8f2244">get_width</a> () const</td></tr>
+<tr class="memdesc:a0855aaa1c0252620681351b1cf8f2244"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the width of the texture  <a href="#a0855aaa1c0252620681351b1cf8f2244">More...</a><br /></td></tr>
 <tr class="separator:a0855aaa1c0252620681351b1cf8f2244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04e93b660b6588087569275641417d51"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a04e93b660b6588087569275641417d51">get_height</a> () const</td></tr>
+<tr class="memdesc:a04e93b660b6588087569275641417d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the height of the texture  <a href="#a04e93b660b6588087569275641417d51">More...</a><br /></td></tr>
 <tr class="separator:a04e93b660b6588087569275641417d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1677f4400b9a880098ea5c75e4efa678"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a1677f4400b9a880098ea5c75e4efa678">query_width</a> ()</td></tr>
+<tr class="memdesc:a1677f4400b9a880098ea5c75e4efa678"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the width of the texture, but instead of returning the cached value, queries the value from opengl  <a href="#a1677f4400b9a880098ea5c75e4efa678">More...</a><br /></td></tr>
 <tr class="separator:a1677f4400b9a880098ea5c75e4efa678"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a698ee547b1a3a0771b84db423198bb25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a698ee547b1a3a0771b84db423198bb25">query_height</a> ()</td></tr>
+<tr class="memdesc:a698ee547b1a3a0771b84db423198bb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the height of the texture, but instead of returning the cached value, queries the value from opengl  <a href="#a698ee547b1a3a0771b84db423198bb25">More...</a><br /></td></tr>
 <tr class="separator:a698ee547b1a3a0771b84db423198bb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab71412e0edd40c140332036c10627ccc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ab71412e0edd40c140332036c10627ccc">set_mag_filter</a> (GLenum mag_filter)</td></tr>
+<tr class="memdesc:ab71412e0edd40c140332036c10627ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the filter that is used when sampling this texture, and this texture is magnified  <a href="#ab71412e0edd40c140332036c10627ccc">More...</a><br /></td></tr>
 <tr class="separator:ab71412e0edd40c140332036c10627ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4b21ee8d8e3abc5c2ac12b2c6280139"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#af4b21ee8d8e3abc5c2ac12b2c6280139">set_min_filter</a> (GLenum min_filter)</td></tr>
+<tr class="memdesc:af4b21ee8d8e3abc5c2ac12b2c6280139"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the filter that is used when sampling this texture, and this texture is minified  <a href="#af4b21ee8d8e3abc5c2ac12b2c6280139">More...</a><br /></td></tr>
 <tr class="separator:af4b21ee8d8e3abc5c2ac12b2c6280139"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f40c12c042cbcbab3d87297efcb16d1"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a8f40c12c042cbcbab3d87297efcb16d1">get_mag_filter</a> () const</td></tr>
+<tr class="memdesc:a8f40c12c042cbcbab3d87297efcb16d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the filter that is used when sampling this texture, and this texture is minified  <a href="#a8f40c12c042cbcbab3d87297efcb16d1">More...</a><br /></td></tr>
 <tr class="separator:a8f40c12c042cbcbab3d87297efcb16d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa35c2d0993ae679b1dab957a21cfa2cf"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#aa35c2d0993ae679b1dab957a21cfa2cf">get_min_filter</a> () const</td></tr>
+<tr class="memdesc:aa35c2d0993ae679b1dab957a21cfa2cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the filter that is used when sampling this texture, and this texture is minified  <a href="#aa35c2d0993ae679b1dab957a21cfa2cf">More...</a><br /></td></tr>
 <tr class="separator:aa35c2d0993ae679b1dab957a21cfa2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d7fb24df0bc6fdc77d984e8ab3fbbc2"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a2d7fb24df0bc6fdc77d984e8ab3fbbc2">query_mag_filter</a> ()</td></tr>
+<tr class="memdesc:a2d7fb24df0bc6fdc77d984e8ab3fbbc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the filter that is used when sampling this texture, and this texture is magnified unlike the get variant of this version (returning the cached value ) it is queried from opengl  <a href="#a2d7fb24df0bc6fdc77d984e8ab3fbbc2">More...</a><br /></td></tr>
 <tr class="separator:a2d7fb24df0bc6fdc77d984e8ab3fbbc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a598fa49ad596d6651b7806b602ed9143"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a598fa49ad596d6651b7806b602ed9143">query_min_filter</a> ()</td></tr>
+<tr class="memdesc:a598fa49ad596d6651b7806b602ed9143"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the filter that is used when sampling this texture, and this texture is minified unlike the get variant of this version (returning the cached value ) it is queried from opengl  <a href="#a598fa49ad596d6651b7806b602ed9143">More...</a><br /></td></tr>
 <tr class="separator:a598fa49ad596d6651b7806b602ed9143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa987295ff0d5e3530dc5bce5e9fa364b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#aa987295ff0d5e3530dc5bce5e9fa364b">set_wrap_x</a> (GLenum wrap_mode)</td></tr>
+<tr class="memdesc:aa987295ff0d5e3530dc5bce5e9fa364b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#aa987295ff0d5e3530dc5bce5e9fa364b">More...</a><br /></td></tr>
 <tr class="separator:aa987295ff0d5e3530dc5bce5e9fa364b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d995d15f0bf85cbde1258079577e0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a22d995d15f0bf85cbde1258079577e0f">set_wrap_y</a> (GLenum wrap_mode)</td></tr>
+<tr class="memdesc:a22d995d15f0bf85cbde1258079577e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#a22d995d15f0bf85cbde1258079577e0f">More...</a><br /></td></tr>
 <tr class="separator:a22d995d15f0bf85cbde1258079577e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a603805af384db48bb8ce5f387ca06f52"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a603805af384db48bb8ce5f387ca06f52">get_wrap_x</a> () const</td></tr>
+<tr class="memdesc:a603805af384db48bb8ce5f387ca06f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#a603805af384db48bb8ce5f387ca06f52">More...</a><br /></td></tr>
 <tr class="separator:a603805af384db48bb8ce5f387ca06f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6384f79fd7af790df3153f635da5505"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ad6384f79fd7af790df3153f635da5505">get_wrap_y</a> () const</td></tr>
+<tr class="memdesc:ad6384f79fd7af790df3153f635da5505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#ad6384f79fd7af790df3153f635da5505">More...</a><br /></td></tr>
 <tr class="separator:ad6384f79fd7af790df3153f635da5505"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad44016cf84fbbbba23307f0b84a907b1"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ad44016cf84fbbbba23307f0b84a907b1">query_wrap_x</a> ()</td></tr>
+<tr class="memdesc:ad44016cf84fbbbba23307f0b84a907b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#ad44016cf84fbbbba23307f0b84a907b1">More...</a><br /></td></tr>
 <tr class="separator:ad44016cf84fbbbba23307f0b84a907b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5649f56fc40c816aa79a7446d482de50"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a5649f56fc40c816aa79a7446d482de50">query_wrap_y</a> ()</td></tr>
+<tr class="memdesc:a5649f56fc40c816aa79a7446d482de50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the wrap mode used when the texture is sampled outside of its boundaries.  <a href="#a5649f56fc40c816aa79a7446d482de50">More...</a><br /></td></tr>
 <tr class="separator:a5649f56fc40c816aa79a7446d482de50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a253399477bf49634a44d8f67e02364a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a253399477bf49634a44d8f67e02364a8">get_num_samples</a> () const</td></tr>
+<tr class="memdesc:a253399477bf49634a44d8f67e02364a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the amount of samples (MSAA samples) that this texture is configured to use This is only necessary when the texture is being used as a render target.  <a href="#a253399477bf49634a44d8f67e02364a8">More...</a><br /></td></tr>
 <tr class="separator:a253399477bf49634a44d8f67e02364a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e801059ded5c5f8b5d1793332a7ee6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a7e801059ded5c5f8b5d1793332a7ee6e">query_num_samples</a> ()</td></tr>
+<tr class="memdesc:a7e801059ded5c5f8b5d1793332a7ee6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the amount of samples (MSAA samples) that this texture is configured to use This is only necessary when the texture is being used as a render target.  <a href="#a7e801059ded5c5f8b5d1793332a7ee6e">More...</a><br /></td></tr>
 <tr class="separator:a7e801059ded5c5f8b5d1793332a7ee6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b85391c6e54686ec566ba38c62dde98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a4b85391c6e54686ec566ba38c62dde98">bind</a> () const</td></tr>
+<tr class="memdesc:a4b85391c6e54686ec566ba38c62dde98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds this texture to its OpenGL binding target.  <a href="#a4b85391c6e54686ec566ba38c62dde98">More...</a><br /></td></tr>
 <tr class="separator:a4b85391c6e54686ec566ba38c62dde98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa77ea61d036de433fd39b7e11288b5a8"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#aa77ea61d036de433fd39b7e11288b5a8">get_handle</a> () const</td></tr>
+<tr class="memdesc:aa77ea61d036de433fd39b7e11288b5a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the handle that points to the texture object in opengl  <a href="#aa77ea61d036de433fd39b7e11288b5a8">More...</a><br /></td></tr>
 <tr class="separator:aa77ea61d036de433fd39b7e11288b5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -161,7 +195,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab0e4a6974bb3d66b24ce62552a741e8b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ab0e4a6974bb3d66b24ce62552a741e8b">type</a></td></tr>
 <tr class="separator:ab0e4a6974bb3d66b24ce62552a741e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_texture.html" title="Texture class, holds a texture in OpenGL. ">Texture</a> class, holds a texture in OpenGL. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="ad2c8ef40596541417b34bea14fc974b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2c8ef40596541417b34bea14fc974b6">&#9670;&nbsp;</a></span>Type</h2>
 
@@ -181,6 +217,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>enum class <a class="el" href="class_texture.html#ad2c8ef40596541417b34bea14fc974b6" title="enum class Texture::Type ">Texture::Type</a> </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad2c8ef40596541417b34bea14fc974b6a59cb0bf40b9575df01af29e50917dd32"></a>MULTI_SAMPLED_2&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad2c8ef40596541417b34bea14fc974b6ab0e0a153532d993a56aaff9159bd6cbf"></a>MULTI_SAMPLED_4&#160;</td><td class="fielddoc"></td></tr>
@@ -217,6 +255,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>default constructor is deleted. </p>
+
 </div>
 </div>
 <a id="a5045a2dce727325fc6c316830b7aedbe"></a>
@@ -245,6 +285,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>It is possible to construct Textures when a type and a pixel_format is provided. </p>
+
 </div>
 </div>
 <a id="a6f37ee9dc7bb5e960660df07200de426"></a>
@@ -271,6 +313,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Copying is disabled because it is ambiguous who retains ownership of the gpu data. </p>
+
 </div>
 </div>
 <a id="a34cc55df0366fe590681bbbe4d7467d1"></a>
@@ -289,6 +333,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Move constructor is allowed becuase only one instance stays responsible for the gpu memory. </p>
+
 </div>
 </div>
 <a id="a09c4bcb7462f64c1d20fa69dba3cee8a"></a>
@@ -305,6 +351,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>destructor. </p>
 
 </div>
 </div>
@@ -334,6 +382,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>allocates the memory on the gpu, without filling it to a certain color. </p>
 
 </div>
 </div>
@@ -369,6 +419,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>allocate with data from client side memory, this is useful when showing images on the screen. </p>
+
 </div>
 </div>
 <a id="a4b85391c6e54686ec566ba38c62dde98"></a>
@@ -385,6 +437,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Binds this texture to its OpenGL binding target. </p>
 
 </div>
 </div>
@@ -403,6 +457,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns the handle that points to the texture object in opengl </p>
+
 </div>
 </div>
 <a id="a04e93b660b6588087569275641417d51"></a>
@@ -419,6 +475,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the height of the texture </p>
 
 </div>
 </div>
@@ -437,6 +495,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns the filter that is used when sampling this texture, and this texture is minified </p>
+
 </div>
 </div>
 <a id="aa35c2d0993ae679b1dab957a21cfa2cf"></a>
@@ -453,6 +513,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the filter that is used when sampling this texture, and this texture is minified </p>
 
 </div>
 </div>
@@ -471,6 +533,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the amount of samples (MSAA samples) that this texture is configured to use This is only necessary when the texture is being used as a render target. </p>
+
 </div>
 </div>
 <a id="a16c8f2650d1cf403b33909e0c101cea2"></a>
@@ -487,6 +551,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the current allocated size of the texture </p>
 
 </div>
 </div>
@@ -505,6 +571,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns the width of the texture </p>
+
 </div>
 </div>
 <a id="a603805af384db48bb8ce5f387ca06f52"></a>
@@ -521,6 +589,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the wrap mode used when the texture is sampled outside of its boundaries. </p>
 
 </div>
 </div>
@@ -539,6 +609,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the wrap mode used when the texture is sampled outside of its boundaries. </p>
+
 </div>
 </div>
 <a id="a698ee547b1a3a0771b84db423198bb25"></a>
@@ -555,6 +627,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the height of the texture, but instead of returning the cached value, queries the value from opengl </p>
 
 </div>
 </div>
@@ -573,6 +647,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns the filter that is used when sampling this texture, and this texture is magnified unlike the get variant of this version (returning the cached value ) it is queried from opengl </p>
+
 </div>
 </div>
 <a id="a598fa49ad596d6651b7806b602ed9143"></a>
@@ -589,6 +665,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the filter that is used when sampling this texture, and this texture is minified unlike the get variant of this version (returning the cached value ) it is queried from opengl </p>
 
 </div>
 </div>
@@ -607,6 +685,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>sets the amount of samples (MSAA samples) that this texture is configured to use This is only necessary when the texture is being used as a render target. </p>
+
 </div>
 </div>
 <a id="a20da4dc64569eb2d4f86178e21098d72"></a>
@@ -623,6 +703,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>returns the allocated size of the texture, but instead of returning the cached value, queries the value from opengl </p>
 
 </div>
 </div>
@@ -641,6 +723,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>returns the width of the texture, but instead of returning the cached value, queries the value from opengl </p>
+
 </div>
 </div>
 <a id="ad44016cf84fbbbba23307f0b84a907b1"></a>
@@ -658,6 +742,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the wrap mode used when the texture is sampled outside of its boundaries. </p>
+<p>unlike the get variant of this version (returning the cached value ) it is queried from opengl </p>
+
 </div>
 </div>
 <a id="a5649f56fc40c816aa79a7446d482de50"></a>
@@ -674,6 +761,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the wrap mode used when the texture is sampled outside of its boundaries. </p>
+<p>unlike the get variant of this version (returning the cached value ) it is queried from opengl </p>
 
 </div>
 </div>
@@ -693,6 +783,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>sets the filter that is used when sampling this texture, and this texture is magnified </p>
+
 </div>
 </div>
 <a id="af4b21ee8d8e3abc5c2ac12b2c6280139"></a>
@@ -710,6 +802,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>sets the filter that is used when sampling this texture, and this texture is minified </p>
 
 </div>
 </div>
@@ -739,6 +833,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>resizes the texture to size width/ height, undefined what happens with the old data </p>
+
 </div>
 </div>
 <a id="aa987295ff0d5e3530dc5bce5e9fa364b"></a>
@@ -757,6 +853,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the wrap mode used when the texture is sampled outside of its boundaries. </p>
+
 </div>
 </div>
 <a id="a22d995d15f0bf85cbde1258079577e0f"></a>
@@ -774,6 +872,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the wrap mode used when the texture is sampled outside of its boundaries. </p>
 
 </div>
 </div>
