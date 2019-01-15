@@ -18,7 +18,6 @@ class Texture;
 class GaussianBlur
 {
 
-
 public:
     
     /// Constructor for GaussianBlur, arguments are width and height of the game screen,

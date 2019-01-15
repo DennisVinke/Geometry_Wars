@@ -120,7 +120,8 @@ void SoundManager::initialize()
 void SoundManager::shutdown()
 {
     std::lock_guard lock{ audio_mutex };
-
+    
+    stop();
     sounds_playing.clear();
 
     for (int i = 0; i < static_cast<int>(Sounds::NUM_SOUNDS); ++i)

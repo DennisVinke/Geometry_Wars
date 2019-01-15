@@ -7,6 +7,14 @@
 #include <SDL.h>
 
 
+
+
+/// enum class Sounds
+/*
+ *  This enum has one value for every sound that can be played in the game.
+ *  Allows the user to play sounds with the SoundManager without having to know how
+ *  SounManager internally stores its sounds.
+ */
 enum class Sounds : int
 {
     THEME = 0,
@@ -19,19 +27,31 @@ enum class Sounds : int
 
 
 
+/// class SoundManager
+/*
+ *  The SoundManager class is used to play sounds over the speakers.
+ *  it only has static methods/ members, which makes it behave more like
+ *  a namespace which also has a private part.
+ */
 class SoundManager
 {
 
 public:
 
 
+    /// Initializes the SDL audio strea, and loads all the sounds in the data folder.
     static void initialize();
 
+
+    /// deallocates the resources held by SoundManager and closes the audiostream.
     static void shutdown();
 
 
+    /// Plays the sound that belongs the the SOunds enum value.
     static void play(Sounds sound, bool loop = false);
 
+
+    /// Stop all currently playing sounds.
     static void stop();
 
 

@@ -9,7 +9,7 @@ namespace detail
 }
 
 
-
+/// random number between min and max
 inline float random(float min, float max)
 {
     std::uniform_real_distribution<float> dist{ min, max };
@@ -17,13 +17,15 @@ inline float random(float min, float max)
 }
 
 
+
+/// random number between 0 and max
 inline float random(float max)
 {
     return random(0.0f, max);
 }
 
 
-// Inclusive of both min and max
+/// random number between min and max, Inclusive of both min and max
 inline int random(int min, int max)
 {
     std::uniform_int_distribution<int> dist{ min, max };
@@ -31,7 +33,7 @@ inline int random(int min, int max)
 }
 
 
-// Inclusive of max
+/// random number between 0 and max, Inclusive of max
 inline int random(int max)
 {
     return random(0, max);

@@ -9,6 +9,9 @@
 #include "components/components.h"
 
 #include "graphics/ShaderManager.h"
+#include "graphics/Renderer.h"
+#include "graphics/glm_type_registration.h"
+
 
 #include "engine/InputManager.h"
 #include "engine/EntityManager.h"
@@ -57,9 +60,9 @@ void print_context_status()
 	std::cout << "rgba bits:\t" << red_bits << ", " << green_bits << ", " << blue_bits << ", " << alpha_bits << "\n";
 }
 
-#include "graphics/glm_type_registration.h"
 
-#include "graphics/Renderer.h"
+
+
 
 int main(int argc, char* args[])
 {
@@ -78,107 +81,21 @@ int main(int argc, char* args[])
 
 
 	configure_context();
-
 	opengl_context = SDL_GL_CreateContext(window);
-
 	gladLoadGLLoader(SDL_GL_GetProcAddress);
-
 	SDL_GL_SetSwapInterval(1);
-
 	print_context_status();
 
-
-	// * *************************************************
-
-	//Application
-
+	// *************************************************
 
 	GaussianBlur::load_shaders();
 	ShaderManager::initialize();
-	Game game;//(window);
+
+	Game game;
+
 	float delta_time = 0;
 
-	//Renderer renderer;
-
-	//renderer.resized(640, 480);
-	
-	// * *************************************************
-
-	//****** Game Loop\\
-	//Todo DENNIS: Maak hier nog een apparte game class voor!\\
-
-
-
-	/*
-	std::cout << "Creating Entity manager" << std::endl;
-	EntityManager * eManager = new EntityManager();
-
-	InputManager inputHandler;
-	CollisionManager collisionManager;
-
-	
-
-
-	//GameObject * playerEntity = new PlayerShip(eManager->CreateEntity());
-
-	eManager->update();
-
-	/*auto test = eManager->CreateEntity();
-	eManager->update();
-
-	std::cout << "The component is being added!" << std::endl;
-	test->setComponent<HealthComponent>();
-	eManager->update();
-
-	std::cout << "The component is got!" << std::endl;
-	test->getComponent<HealthComponent>()->print();
-
-	std::cout<<"The component is being removed!" << std::endl;
-	test->removeComponent<HealthComponent>();
-	test->setComponent<MovementComponent>();
-	test->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(1, 1));
-	//test.setComponent<RenderComponent>(renderer);
-	*/
-
-	
-	/*int j = 0;
-	for (int i = 0; i < 15000;i++) {
-		if (i % 100 == 0) ++j;
-		gameObjects.emplace_back(eManager->CreateEntity());
-		gameObjects.back()->setComponent<MovementComponent>(glm::vec2(i%100, j));
-		gameObjects.back()->getComponent<MovementComponent>()->setConstantMovement(glm::vec2(10, 10));
-		gameObjects.back()->setComponent<RenderComponent>(renderer);
-		gameObjects.back()->getComponent<RenderComponent>()->setColor(20, 200, 10, 120);
-		if (i % 1000 == 0) {
-			std::cout << "1000 more created" << std::endl;
-		}
-	}*/
-
-
-	/*
-	auto tower = eManager->CreateEntity();
-	tower->setComponent<TransformationComponent>();
-	tower->setComponent<RenderComponent>(renderer);
-
-	tower->getComponent<TransformationComponent>()->translate(100, 100);
-	tower->getComponent<TransformationComponent>()->rotate(3.14);
-	tower->getComponent<TransformationComponent>()->translate(100, 100);
-	
-	tower->getComponent<RenderComponent>()->shape.set_shape({ {0, 20}, {20, -20}, {-20, -20} });
-
-	tower->setComponent<CollideComponent>(collisionManager, CollideMask::ENEMY);
-	tower->getComponent<CollideComponent>()->SetCollisionRadius(20);
-	tower->setComponent<MovementComponent>(glm::vec2(400,400));
-	/*EntityManager::getLastComponentID<T>();
-	*/
-
-	//playerEntity->update();
-	//DefaultShader default_shader;
-	//default_shader.start();
-
-	// * *************************************************
-
-
+	// ************************************************
 
 	for (bool quit = false; !quit;)
 	{
@@ -230,7 +147,9 @@ int main(int argc, char* args[])
 		std::cout << diff.count() << std::endl;
 	}
 
+    ShaderManager::shutdown();
 	SoundManager::shutdown();
+
 	SDL_DestroyWindow(window);
 
 

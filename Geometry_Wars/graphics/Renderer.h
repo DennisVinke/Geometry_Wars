@@ -31,6 +31,8 @@ public:
     /// Renderer, Destructor
     ~Renderer();
 
+
+    /// Applies the RGB distortion shader, see report for more info.
     void shake(float amount, float decrease);
 
 
