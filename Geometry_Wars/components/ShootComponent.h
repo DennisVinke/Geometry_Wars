@@ -1,0 +1,33 @@
+#pragma once
+
+#include <glm/glm.hpp>
+#include "engine/Component.h"
+#include "content/Weapon.h"
+
+class GameObjectSpawner;
+
+
+class ShootComponent : public Component {
+public:
+	ShootComponent(GameObjectSpawner& bullet_spwner);
+	~ShootComponent();
+
+	void execute() override;
+	void init() override;
+	void print() override;
+	void shoot(glm::vec2 clickedPosition, float delta_time);
+	void setBulletColor(int r, int g, int b, int a);
+	void setWeapon(Weapon * weapon);
+	void next_weapon();
+	void set_mask(int new_mask);
+private:
+	GameObjectSpawner& bullet_spawner;
+	int current_gun = 0;
+	SingleShotGun  basic;
+	//DoubleShotGun  double_shot;
+	//TripleShotGun triple_shot;
+	std::array<Weapon*, 3> weapons{new SingleShotGun(), new DoubleShotGun(), new TripleShotGun()};
+	int lastFired;
+	float current_time = 0;
+
+};

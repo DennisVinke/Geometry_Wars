@@ -3,13 +3,17 @@
 #include <chrono>
 #include <cstdint>
 
-#include "EntityManager.h"
-#include "InputManager.h"
-#include "CollisionManager.h"
-#include "SoundManager.h"
-#include "ShaderManager.h"
-#include "GameObjectSpawner.h"
-#include "ActionController.h"
+#include "engine/InputManager.h"
+#include "engine/EntityManager.h"
+#include "engine/CollisionManager.h"
+#include "engine/ActionController.h"
+
+#include "sound/SoundManager.h"
+
+#include "content/GameObjectSpawner.h"
+
+#include "graphics/ShaderManager.h"
+
 
 
 class Renderer;

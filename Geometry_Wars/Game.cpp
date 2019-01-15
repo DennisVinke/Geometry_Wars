@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "EnemyBehaviour.h"
-#include "Renderer.h"
+#include "content/EnemyBehaviour.h"
+#include "graphics/Renderer.h"
 
 
 Game::Game() : renderer{ std::make_unique<Renderer>() }, object_spawner(GameObjectSpawner(*this)) {
@@ -27,7 +27,7 @@ void Game::reset() {
 
 void Game::load_shaders() {
 	GaussianBlur::load_shaders();
-	ShaderManager::load_shaders();
+	ShaderManager::initialize();
 }
 
 void Game::update(float delta_time) {
@@ -75,9 +75,9 @@ CollisionManager& Game::get_collision_manager() {
 }
 
 /*
-#include "MovementComponent.h"
-#include "InputComponent.h"
-#include "RenderComponent.h"
+#include "components/MovementComponent.h"
+#include "components/InputComponent.h"
+#include "components/RenderComponent.h"
 */
 void Game::Test() {}/*
 	blok = entity_manager.CreateEntity();

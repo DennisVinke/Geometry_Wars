@@ -1,30 +1,27 @@
-#include <SDL.h>
-#include <cstdlib>
 #include <iostream>
-#include <glad/glad.h>
 #include <vector>
+#include <cstdlib>
 
+#include <SDL.h>
 
-#include "InputManager.h"
-#include "EntityManager.h"
-#include "CollisionManager.h"
-#include "SoundManager.h"
+#include <glad/glad.h>
+
+#include "components/components.h"
+
+#include "graphics/ShaderManager.h"
+
+#include "engine/InputManager.h"
+#include "engine/EntityManager.h"
+#include "engine/CollisionManager.h"
+
+#include "sound/SoundManager.h"
 
 #include "Game.h"
-//Deze moeten allemaal naar 1 header denk ik
-#include "HealthComponent.h"
-#include "RenderComponent.h"
-#include "MovementComponent.h"
-#include "TransformationComponent.h"
-#include "InputComponent.h"
-#include "CollideComponent.h"
 
 #undef main
 
-#include "ShaderManager.h"
 
 
-#include "math_utils.h"
 
 
 void configure_context()
@@ -60,9 +57,9 @@ void print_context_status()
 	std::cout << "rgba bits:\t" << red_bits << ", " << green_bits << ", " << blue_bits << ", " << alpha_bits << "\n";
 }
 
-#include "glm_type_registration.h"
+#include "graphics/glm_type_registration.h"
 
-#include "Renderer.h"
+#include "graphics/Renderer.h"
 
 int main(int argc, char* args[])
 {
@@ -97,7 +94,7 @@ int main(int argc, char* args[])
 
 
 	GaussianBlur::load_shaders();
-	ShaderManager::load_shaders();
+	ShaderManager::initialize();
 	Game game;//(window);
 	float delta_time = 0;
 
