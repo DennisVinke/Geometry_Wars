@@ -170,7 +170,7 @@ void Renderer::render_frame(Game::State game_state)
     glActiveTexture(GL_TEXTURE1);
     blurred_texture->bind();
 
-    combine_shader->uniform["weights"] = glm::vec2(0.25, 0.75);
+    combine_shader->uniform["weights"] = glm::vec2(0.35, 0.75);
 
 
     glDrawArrays(GL_TRIANGLES, 0, 6);

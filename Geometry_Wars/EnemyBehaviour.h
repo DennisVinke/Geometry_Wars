@@ -20,6 +20,8 @@ public:
 
 struct Chaser :EnemyBehaviour {
 
+    Chaser();
+
 	void update() override;
 };
 
