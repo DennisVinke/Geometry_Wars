@@ -8,19 +8,12 @@ Robin van Emmerloot, s1538683
 
 The source code of our project is located in the Geometry_Wars folder.
 
-The "AP" folder contains the visual studio 2017 solution to build and run the code
-MAKE SURE TO USE 64 BIT, I WAS TOO LAZY TO ADD SDL'S 32 BIT LIBRARIES IN THE SOLUTION,
-if you are generating your own solution this is not necessary.
-
-If you do not want to use visual studio, or setup a new project from scratch, follow
-the instructions below. 
-
-If for some reason you are unable to compile the code,
-an executable can be found in:
-"/AP/AP/x64/Release"
-
 
 Doxygen documentation and doxyfile can be found in the main folder
+
+
+TO set everything up follow the instructions below. 
+
 
 
 
