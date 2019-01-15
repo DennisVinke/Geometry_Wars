@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm_include/glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "engine/Component.h"
 
 /*! \file RenderComponent.h
