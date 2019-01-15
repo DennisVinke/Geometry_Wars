@@ -43,7 +43,11 @@ public:
     void render();
 
 
-    
+    /// render_welcome_screen();
+    /*
+     *  renders the screen you see when you startup the game, this is rendered to the currently
+     *  active framebuffer.
+     */
     void render_welcome_screen();
 
 
