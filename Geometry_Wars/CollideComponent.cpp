@@ -20,9 +20,6 @@ bool CollideComponent::hasCollision(glm::vec2 otherPosition, int size) {
 }
 
 bool CollideComponent::hasCollision(CollideComponent* other) {
-	if (!(colMan.can_collide(this->get_mask(), other->get_mask()))) {
-		return false;
-	}
 	if (entity->hasComponent<MovementComponent>() && other->entity->hasComponent<MovementComponent>()) {
 		auto posSelf = entity->getComponent<MovementComponent>()->getLocation();
 		auto posOther = other->entity->getComponent<MovementComponent>()->getLocation();
@@ -40,7 +37,12 @@ int CollideComponent::GetCollisionRadius() {
 }
 
 void CollideComponent::onCollision() {
+	if (get_mask() != CollideMask::PLAYER) {
 	entity->removeAllComponents();
+}
+	else {
+		entity->getComponent<MovementComponent>()->setPosition(glm::vec2(400, 400));
+	}
 
 	//std::cout << "I have collided!" << std::endl;
 }

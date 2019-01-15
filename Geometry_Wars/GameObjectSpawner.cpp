@@ -34,19 +34,21 @@ void GameObjectSpawner::spawn_player(){
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(10);
 	entity->setComponent<ShootComponent>(*this);
 
+	player = entity;
+
 }
 
 void GameObjectSpawner::spawn_bullet(Weapon * bullet_info, glm::vec2 spawn_position) {
 	auto entity = game.get_entity_manager().CreateEntity();
 	entity->setComponent<MovementComponent>(spawn_position);
 
-	entity->getComponent<MovementComponent>()->setConstantMovement(bullet_info->speed);
+	entity->getComponent<MovementComponent>()->setConstantMovement(bullet_info->direction*bullet_info->speed);
 	entity->setComponent<RenderComponent>(renderer);
 	
 	
-	entity->setComponent<CollideComponent>(collision_manager, CollideMask::BULLET);
+	entity->setComponent<CollideComponent>(collision_manager, CollideMask(bullet_info->mask));
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(bullet_info->size);
-	
+	CollideMask test =entity->getComponent<CollideComponent>()->get_mask();
 
 	auto render_component = entity->getComponent<RenderComponent>();
 	render_component->shape.set_line_width(7);
@@ -64,12 +66,33 @@ void GameObjectSpawner::spawn_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_
 	entity->setComponent<RenderComponent>(renderer);
 	auto render_component = entity->getComponent<RenderComponent>();
 
-	render_component->shape.set_line_width(7);
-	render_component->shape.set_draw_mode(GL_POINTS);
-	render_component->shape.set_shape({ {0, 0} });
+	render_component->shape.set_line_width(1);
+	//render_component->shape.set_draw_mode(GL_POINTS);
+	//render_component->shape.set_shape({ {0, 0} });
 	entity->getComponent<RenderComponent>()->setColor(enemy_info->red, enemy_info->green, enemy_info->blue, enemy_info->alpha);
 	entity->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
 	entity->getComponent<CollideComponent>()->SetCollisionRadius(enemy_info->size);
-	entity->setComponent<EnemyBehaviourComponent>(enemy_info);
+	entity->setComponent<EnemyBehaviourComponent>(enemy_info, player);
+
+}
+
+void GameObjectSpawner::spawn_shooting_enemy(EnemyBehaviour* enemy_info, glm::vec2 spawn_position) {
+	auto entity = game.get_entity_manager().CreateEntity();
+	entity->setComponent<MovementComponent>(spawn_position);
+
+	entity->setComponent<RenderComponent>(renderer);
+	auto render_component = entity->getComponent<RenderComponent>();
+
+	render_component->shape.set_line_width(1);
+	//render_component->shape.set_draw_mode(GL_POINTS);
+	//render_component->shape.set_shape({ {0, 0} });
+	entity->getComponent<RenderComponent>()->setColor(enemy_info->red, enemy_info->green, enemy_info->blue, enemy_info->alpha);
+	entity->setComponent<CollideComponent>(collision_manager, CollideMask::ENEMY);
+	entity->getComponent<CollideComponent>()->SetCollisionRadius(enemy_info->size);
+	entity->setComponent<EnemyBehaviourComponent>(enemy_info, player);
+
+	entity->setComponent<ShootComponent>(*this);
+	entity->getComponent<ShootComponent>()->setWeapon(new EnemyGun());
+
 
 }
