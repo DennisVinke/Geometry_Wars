@@ -15,7 +15,6 @@ var searchData=
   ['_7ehealthcomponent',['~HealthComponent',['../class_health_component.html#aac06fe69b879a4eb47ddce62f18ca2f9',1,'HealthComponent']]],
   ['_7einputcomponent',['~InputComponent',['../class_input_component.html#a50e6b9501302f0c8f055325ca652050e',1,'InputComponent']]],
   ['_7emovementcomponent',['~MovementComponent',['../class_movement_component.html#ac39be9eb1437d87cc50404dfb25487e6',1,'MovementComponent']]],
-  ['_7eplayership',['~PlayerShip',['../class_player_ship.html#a167478327150c2a6e12539fcfabe8d6c',1,'PlayerShip']]],
   ['_7erendercomponent',['~RenderComponent',['../class_render_component.html#a16bab40295123b9ea802d7e85b14a884',1,'RenderComponent']]],
   ['_7erenderer',['~Renderer',['../class_renderer.html#afeee408862d5bd6255a6882d47e6d5cd',1,'Renderer']]],
   ['_7eshader',['~Shader',['../class_shader.html#aff01df87e8a102f270b5b135a295e59d',1,'Shader']]],

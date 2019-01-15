@@ -5,16 +5,13 @@ var searchData=
   ['texture_2ecpp',['Texture.cpp',['../_texture_8cpp.html',1,'']]],
   ['texture_2eh',['Texture.h',['../_texture_8h.html',1,'']]],
   ['theme',['Theme',['../class_background.html#aee7222ee0062ab4453a4af8daaf60076',1,'Background::Theme()'],['../_sound_manager_8h.html#a05f9f49dd1883b4a45748d52e83a0078a93d806121bc2f9657f7d3effa8f7a406',1,'THEME():&#160;SoundManager.h']]],
-  ['tower',['Tower',['../class_tower.html',1,'Tower'],['../class_tower.html#a1b785dc1e9fb979a10620ca183b5761d',1,'Tower::Tower()']]],
-  ['tower_2ecpp',['Tower.cpp',['../_tower_8cpp.html',1,'']]],
-  ['tower_2eh',['Tower.h',['../_tower_8h.html',1,'']]],
   ['transformationcomponent',['TransformationComponent',['../class_transformation_component.html',1,'']]],
   ['transformationcomponent_2ecpp',['TransformationComponent.cpp',['../_transformation_component_8cpp.html',1,'']]],
   ['transformationcomponent_2eh',['TransformationComponent.h',['../_transformation_component_8h.html',1,'']]],
   ['translate',['translate',['../class_transformation_component.html#a90dfa0bd17502b76292c44776f99f7cd',1,'TransformationComponent::translate(float x, float y)'],['../class_transformation_component.html#a86adc68ad89e9009381c50b1f26c80ab',1,'TransformationComponent::translate(glm::vec2 translation)'],['../class_shape.html#a6588f7f5172ba6d75c7e10160d1ca7b8',1,'Shape::translate(glm::vec2 translation)'],['../class_shape.html#a445c12bca7c8f978210900e950169f08',1,'Shape::translate(float x, float y)']]],
   ['treeslice',['TREESLICE',['../_collision_manager_8h.html#aa72ad68653371d1bcd16a3c4b8351e5c',1,'CollisionManager.h']]],
   ['tripleshotgun',['TripleShotGun',['../class_triple_shot_gun.html',1,'TripleShotGun'],['../class_triple_shot_gun.html#a9ee5c4ed023d66ff21ad50ab650568ae',1,'TripleShotGun::TripleShotGun()']]],
-  ['type',['Type',['../class_texture.html#ad2c8ef40596541417b34bea14fc974b6',1,'Texture::Type()'],['../class_attribute_definition.html#acb1b7c2535f48cdef1c5df0e918d9b78',1,'AttributeDefinition::type()'],['../class_texture.html#ab0e4a6974bb3d66b24ce62552a741e8b',1,'Texture::type()'],['../class_uniform_definition.html#adb37143186384ea770e826fc0a25be16',1,'UniformDefinition::type()'],['../types_8h.html#ae7effd05e828863e524966a186ef4d20',1,'Type():&#160;types.h']]],
+  ['type',['type',['../class_attribute_definition.html#acb1b7c2535f48cdef1c5df0e918d9b78',1,'AttributeDefinition::type()'],['../class_texture.html#ab0e4a6974bb3d66b24ce62552a741e8b',1,'Texture::type()'],['../class_uniform_definition.html#adb37143186384ea770e826fc0a25be16',1,'UniformDefinition::type()'],['../class_texture.html#ad2c8ef40596541417b34bea14fc974b6',1,'Texture::Type()'],['../types_8h.html#ae7effd05e828863e524966a186ef4d20',1,'Type():&#160;types.h']]],
   ['typeflags',['TypeFlags',['../struct_type_flags.html',1,'']]],
   ['types_2eh',['types.h',['../types_8h.html',1,'']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['uniform',['Uniform',['../class_uniform.html',1,'']]],
-  ['uniformdefinition',['UniformDefinition',['../class_uniform_definition.html',1,'']]]
+  ['weapon',['Weapon',['../class_weapon.html',1,'']]]
 ];

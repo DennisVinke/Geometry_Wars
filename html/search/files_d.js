@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['uniform_2ecpp',['Uniform.cpp',['../_uniform_8cpp.html',1,'']]],
-  ['uniform_2eh',['Uniform.h',['../_uniform_8h.html',1,'']]],
-  ['uniformdefinition_2eh',['UniformDefinition.h',['../_uniform_definition_8h.html',1,'']]]
+  ['weapon_2eh',['Weapon.h',['../_weapon_8h.html',1,'']]]
 ];
