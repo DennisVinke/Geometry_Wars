@@ -10,7 +10,7 @@
 namespace fs = std::filesystem;
 
 
-
+/// Finds a folder useful for loading in data
 inline auto find_folder(const std::string& folder_name)
 {
     auto directory = fs::current_path();
@@ -31,7 +31,7 @@ inline auto find_folder(const std::string& folder_name)
 
 
 
-
+/// load a text file into a c++ std::string
 inline std::string load_file_to_string(const fs::path& file_path)
 {
     std::ifstream file{ file_path.string() };
