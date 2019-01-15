@@ -14,11 +14,11 @@
 
 #include "graphics/ShaderManager.h"
 
-
+#include "utility/random.h"
+#include "content/EnemyBehaviour.h"
+#include <array>
 
 class Renderer;
-
-//TODO: Incorperate new SoundManager!
 
 class Game {
 
@@ -43,12 +43,16 @@ private:
 
 	ActionController stateHandler;
 
+	void spawn_enemy(float);
+
+
 	int score;
 	int lifes;
-
+	float last_spawn = 0;
+	float spawn_rate = .5;
 	void reset();
 	void load_shaders();
-
+	std::array<EnemyBehaviour *, 4> behaviours = {new Chaser(), new Random(), new ChaserWhenNear(), new Shooting()};
 	State current_state;
 	
 public:

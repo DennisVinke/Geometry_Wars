@@ -3,52 +3,10 @@
 #include <glm/glm.hpp>
 #include "engine/Component.h"
 
-/*! \file RenderComponent.h
-	\brief A component responsible for showing an Entity on the screen through the renderer
-*/
-
-/*! \fn RenderComponent(Renderer&)
-	\brief Constructor of RenderComponent
-
-	\param a reference to the renderer used by the game.
-*/
-
-/*! \fn ~RenderComponent()
-	\brief Destructor of RenderComponent
-*/
-
-/*! \fn execute()
-	\brief Override function to execute component logic every update. Makes shape object ready for rendering and makes a request to the renderer
-*/
-
-/*! \fn init()
-	\brief Override function to init component when created. Used when old components are reused. If created please use the constructor
-*/
-
-/*! \fn print()
-	\brief Override function to print the name of the component to the console. Only used for testing!
-*/
-
-/*! \fn render()
-	\brief adds the shape to the renderer
-*/
-
-/*! \fn setColor(int r, int g, int b, int alpha)
-	\brief sets the color of a shape
-
-	\param r the red value between 0 and 255
-	\param g the green value between 0 and 255
-	\param b the blue value between 0 and 255
-	\param a the alpha value between 0 and 255
-*/
-
-/*! \var Renderer& renderer
-	\brief Contains a reference to the renderer used by the game
-*/
-
-/*! \var Shape shape
-	\brief Contains the shape that should be drawn by the renderer
-*/
+/// enum class CollideMask.
+/*
+ *  enum to define different kind of collision objects.
+ */
 enum class CollideMask:int {
 PLAYER,
 ENEMY,
@@ -58,10 +16,27 @@ POWERUP
 };
 
 class CollisionManager;
+
+/// class CollideComponent: A component responsible for collisions between Entities and how to deal when a collision happens. 
+/*
+ *	This class is responsible for looking if it collides with a given entity 
+ *  and how what to do when a collision with this entity has been done
+ *	Currently only supports circle collision
+ *	Every entity that wants to use collisions should contain this component 
+ *	If you want to define your own collision logic, use this as baseclass
+ *  and override the hasCollision and onCollision methods
+ */
 class CollideComponent : public Component
 {
 public:
 	CollideComponent() = delete;
+
+	/// Constructor
+	/*
+	*	Initializes component with a collisionMask and a reference to the game's CollisionManager
+	*	@param CollisionManager& colManager reference to CollisionManager
+	*	@param CollideMasl id identifier of kind of collision object this component is.
+	*/
 	CollideComponent(CollisionManager& colManager, CollideMask id);
 	CollideComponent(CollisionManager&) = delete;
 	~CollideComponent();
@@ -69,14 +44,46 @@ public:
 	void execute() override;
 	void init() override;
 	void print() override;
-
+	
+	/// hasCollision(glm::vec2 otherPosition, int size)
+	/// hasCollision(CollideComponent *)
+	/*
+	*	Checks if the current component has a collision with the other component
+	*	Can be overriden if other collisionCheckingMethod has to be implemented
+	*	@param CollideComponent * information about the other component
+	*	@return if there is a collision with the other component
+	*/
 	virtual bool hasCollision(glm::vec2 otherPosition, int size);
 	virtual bool hasCollision(CollideComponent *);
-	void onCollision();
+	
+	/// hasCollision()
+	/*
+	*	executes what needs to be done on collision
+	*	Can be overriden if other onCollisionBehaviour has to be implemented
+	*/
+	virtual void onCollision();
 
+	/// setCollisionRadius(int radius)
+	/*
+	*	Sets the radius used for collision check
+	*	@param int radius new radius value
+	*/
 	void SetCollisionRadius(int radius);
+
+	/// getCollisionRadius()
+	/*
+	*	gets the radius used for collision check
+	*	@return circle radius used for collision check
+	*/
 	int GetCollisionRadius();
+	
+	/// get_mask()
+	/*
+	*	get the type of collision type the component is
+	*	@return type of collision object this component is
+	*/
 	CollideMask get_mask();
+
 private:
 	CollisionManager& colMan;
 	int collisionRadius;
