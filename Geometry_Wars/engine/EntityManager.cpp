@@ -18,10 +18,6 @@ EntityManager::~EntityManager()
 EntityID EntityManager::getComponentID() {
 	return lastID++;
 }
-/*
-void EntityManager::AddEntity(IEntity& entity) {
-	//entities.emplace_back(new );
-}*/
 
 Entity* EntityManager::CreateEntity() {
 	Entity * entity = new Entity(1);
@@ -50,11 +46,9 @@ void EntityManager::clean() {
 			entities.at(i)->cleanUp();
 			i++;
 		}
-		else{
+		else {
 			entities.at(i).swap(entities.at(entities.size() - 1));
 			entities.pop_back();
 		}
-	}		
+	}
 }
-
-void EntityManager::draw() {}

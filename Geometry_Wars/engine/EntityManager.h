@@ -82,16 +82,10 @@ public:
 	~EntityManager();
 
 	EntityID getComponentID();
-	//void AddEntity(IEntity&);
 	Entity* CreateEntity();
 	void update();
-	void draw(); //can be deleted
 	void clean();
-	//void 
-	//virtual const int GetStaticEntityID() const = 0;
-	
 
-	//Deze een keer mooier wegwerken en dan voornamelijk in een andere header of class
 	static inline ComponentID getLastComponentID() noexcept {
 		return lastComponentID++;
 	}

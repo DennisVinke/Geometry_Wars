@@ -18,7 +18,12 @@ struct CollisionEvent {
 	CollideComponent * entity1;
 	CollideComponent * entity2;
 };
-
+/// class CollisionManager
+/**
+*	The CollisionManager manages all the CollidableComponents
+*	Registers all the collisions in a frame and 
+*	Calls the objects that collided to resolve their collision
+*/
 class CollisionManager{
 public:
 	CollisionManager();
@@ -31,11 +36,10 @@ private:
 	
 	void CleanUp();
 	void ResolveCollisions();
-	void RemoveDupplicateCollisions(); // is deze niet overbodig?
-	
+	void RemoveDupplicateCollisions(); 
+
 	std::vector<CollideComponent*> entities;
 
-	//std::map<int, std::map<int, CollideComponent *>> collideTree;
 	std::vector<std::vector<CollideComponent *>> sortedCollideComponents;
 	std::vector<CollisionEvent> collisions;
 	

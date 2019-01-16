@@ -10,19 +10,9 @@ Entity::~Entity()
 
 }
 
-/*
-void Entity::addComponent(Component * component) {
-	if (dynamic_cast<HealthComponent *>(component) != nullptr){
-		;
-}
-}
-*/
 void Entity::update() {
-	//std::cout << "Entity is updating" << std::endl;
-	//std::cout << "Size of list is: " << componentList.size() << std::endl;
 	for (auto& c : componentList) {
 		c->execute();
-	//	c->toString();
 	}
 }
 void Entity::draw() {}

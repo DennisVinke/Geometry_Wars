@@ -11,7 +11,6 @@ class GameObject
 public:
 	GameObject() = delete;
 	GameObject(Entity& entity);
-	//GameObject(std::vector<Component> * components, glm::Vec3 startingPosition);
 	~GameObject();
 
 	virtual void init() = 0;
@@ -21,8 +20,6 @@ public:
 private:
 	Entity& entity;
 	std::vector<Component> componentList;
-
-	//glm::Vec3 position;
 
 };
 

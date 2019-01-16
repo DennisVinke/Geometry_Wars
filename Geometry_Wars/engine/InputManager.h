@@ -11,10 +11,13 @@
 
 #define MOUSEKEYOFFSET 512
 #define SDL_MOUSEBUTTON_TYPES 5
-/*
-	@Aart gaan we hier nog een interface voor schrijven of vind je het wel prima zo?
-*/
 
+/// class InputManager: Class that adds an abstract layer to the SDL input and manages InputComponents.
+/**
+ *  The InputManager class allows ActionControllers to be connected with SDL input
+ *	The InputManager updates all registered interaction and notifices the connnected ActionControllers 
+ *	InputControllers can register themselves and remove themselves so they can be updated
+ */
 class InputManager {
 public:
 	InputManager() {}

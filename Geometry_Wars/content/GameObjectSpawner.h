@@ -10,6 +10,10 @@ class CollisionManager;
 class Renderer;
 class Weapon;
 struct EnemyBehaviour;
+/// class GameObjectSpawner
+/**
+*	Class that turns Entities into usable gameobjects by including the specific components
+*/
 class GameObjectSpawner{
 
 public:

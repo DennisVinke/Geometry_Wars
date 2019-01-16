@@ -6,7 +6,7 @@
 class EnemyBehaviour;
 
 /// class EnemyBehaviourComponent: A component responsible for moving the AI of entities. 
-/*
+/**
  *	This class is responsible for updating entities that are controlled by AI
  *	Different kind of behaviours can be used by including an EnemyBehaviour on instantiation
  *	Currently supports Chase, Random, Chase in Radius, Shoot and Chase behaviours are included.
@@ -15,7 +15,7 @@ class EnemyBehaviour;
 class EnemyBehaviourComponent: public Component{
 public:
 	/// Constructor
-	/*
+	/**
 	*	Initializes component with a predefined behaviour and a reference to entity controlled by the player
 	*	@param EnemyBehaviour * The Behaviour the AI will conduct
 	*	@param Entity *  reference to player controlled entity
@@ -28,7 +28,7 @@ public:
 	void print() override;
 	
 	/// set_player_position(MovementComponent *)
-	/*
+	/**
 	*	Changes the reference to the players position
 	*	@param EnemyBehaviour * The Behaviour the AI will conduct
 	*	@param MovementComponent * reference to the movementComponetn of the player

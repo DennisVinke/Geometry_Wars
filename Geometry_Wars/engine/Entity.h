@@ -12,7 +12,7 @@
 
 
 class Component;
-//Deze moeten allemaal een keer naar een constants class
+
 constexpr auto maxComponents = 10;
 
 //Array[Components] for indexation
@@ -147,11 +147,8 @@ public:
 		containsComponents[componentID] = true;
 		std::unique_ptr<Component> uniqueComponent(component);
 		componentList.emplace_back(std::move(uniqueComponent));
-		//std::cout << "De id in de manager: " << EntityManager::template getLastComponentID<T>() << std::endl;
-		//component->print();
 	}
 
-	//TODO: DENNIS DOE FIX
 	template<typename T>
 	T * getComponent() {
 		static_assert(std::is_base_of<Component, T>::value);
@@ -168,32 +165,18 @@ public:
 	}
 
 
-	//willen we components recyclen of willen we gewoon vernietigen
-	//Bij recyclen moeten we iets maken die kijkt of de components al gebruikt worden door iets, aka componentmanager :'(
 	template<typename T>
 	void removeComponent() {
 		static_assert(std::is_base_of<Component, T>::value);
 		auto componentID = EntityManager::template getLastComponentID<T>();
 		if (containsComponents[componentID]) {
-			//containsComponents[componentID] = false;
 			auto component = componentArray[componentID];
 			component->remove = true;
 			component->id = componentID;
 			this->changedComponentFlag = true;
-			//std::cout << "Hello I have been removed!" << std::endl;
-			//ComponentArray[componentID] = nullptr
-			//auto index = std::find(componentList.begin(), componentList.end(), component);
-			//componentList.at(index-componentList.begin()).swap(componentList.at(componentList.end()- componentList.begin()));
-			//std::iter_swap(index, componentList.end()-1);
-			//componentList.pop_back();
-			//std::cout << "De component: " << component->toString() << " will be removed" << std::endl;
 		}
 	}
 	
-	/*
-	*@Aart: Weet jij hoe je de type van een parent van een unique pointer kunt opvragen?
-	* Anders blijf ik mijn kut oplossing gebruiken
-	*/
 	template<typename T>
 	bool removeFlaggedComponent() {
 		static_assert(std::is_base_of<Component, T>::value);
@@ -207,12 +190,6 @@ public:
 	bool changedComponents();
 	void cleanUp();
 	bool isActive();
-
-	//virtual const int GetStaticEntityID() const = 0;
-
-	//inline const int GetEntityID() const { return this->id; }
-
-	//inline const int GetEntityID() const { return this->id; }
 
 };
 
