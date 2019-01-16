@@ -18,30 +18,12 @@ InputComponent::~InputComponent()
 }
 
 void InputComponent::execute() {
-	constantMovement();
 }
 
 
 void InputComponent::init() {
-	position = glm::vec2(0, 0);
 }
 
-
-void InputComponent::doMovement(glm::vec2 move) {
-	position += move;
-}
-
-void InputComponent::constantMovement() {
-	doMovement(constMove);
-}
-
-void InputComponent::setConstantMovement(glm::vec2 value) {
-	constMove = value;
-}
-
-void InputComponent::addActionController() {
-//	controllers[index] = new ActionController();
-}
 
 ActionController& InputComponent::getActionController(uint8_t idx) {
 	assert(idx<=maxActions);
@@ -52,13 +34,9 @@ void InputComponent::print() {
 	std::cout << "InputComponent" << std::endl;
 }
 
-void InputComponent::removeActionController(uint8_t idx) {
-	controllers[idx]->~ActionController();
-}
-
 void InputComponent::executeInput(float delta_time) {
 	if (entity->hasComponent<MovementComponent>()) {
-		entity->getComponent<MovementComponent>()->doMovement(glm::vec2(getActionController(0).getValue(), getActionController(1).getValue()));
+		entity->getComponent<MovementComponent>()->doMovement(glm::vec2(getActionController(0).getValue()*3, getActionController(1).getValue()*3));
 	}
 	if (getActionController(2).getValue() >= 1) {
 		if (entity->hasComponent<ShootComponent>()) {

@@ -35,6 +35,6 @@ glm::vec2 Shooting::update(Entity * enemy, glm::vec2 player_position) {
 	glm::vec2 position = enemy->getComponent<MovementComponent>()->getLocation();
 	glm::vec2 update_position = glm::vec2((player_position - position) / glm::distance(player_position, position));
 	update_position *= speed;
-	enemy->getComponent<ShootComponent>()->shoot(update_position,0.016);
+	enemy->getComponent<ShootComponent>()->shoot(player_position, 0.016);
 	return update_position;
 }

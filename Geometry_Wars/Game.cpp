@@ -35,6 +35,7 @@ void Game::update(float delta_time) {
 		entity_manager.update();
 		input_manager.update(delta_time);
 		collision_manager.update();
+		spawn_enemy(delta_time);
 	}
 	else if (get_game_state() == Game::State::WELCOME || get_game_state() == Game::State::PAUSE) {
 		if (stateHandler.getValue() >= 1) {
@@ -55,8 +56,21 @@ Game::State Game::get_game_state() {
 
 void Game::init_level() {
 	object_spawner.spawn_player();
-	object_spawner.spawn_enemy(new Chaser(), glm::vec2(1200, 350));
-	object_spawner.spawn_shooting_enemy(new Shooting, glm::vec2(1200,200));
+}
+
+void Game::spawn_enemy(float delta_time) {
+
+	last_spawn += delta_time;
+	if (last_spawn > spawn_rate) {
+		last_spawn = 0;
+		int spawn = random(0, 3);
+		if (spawn < 3) {
+			object_spawner.spawn_enemy(behaviours[spawn], glm::vec2(random(10,1270), random(10,700)));
+		}
+		else {
+			object_spawner.spawn_shooting_enemy(behaviours[spawn], glm::vec2(random(10, 1270), random(10, 700)));
+		}
+	}
 }
 
 InputManager& Game::get_input_manager() {
