@@ -10,7 +10,7 @@
 
 
 /// enum class Sounds
-/*
+/**
  *  This enum has one value for every sound that can be played in the game.
  *  Allows the user to play sounds with the SoundManager without having to know how
  *  SounManager internally stores its sounds.
@@ -28,7 +28,7 @@ enum class Sounds : int
 
 
 /// class SoundManager
-/*
+/**
  *  The SoundManager class is used to play sounds over the speakers.
  *  it only has static methods/ members, which makes it behave more like
  *  a namespace which also has a private part.

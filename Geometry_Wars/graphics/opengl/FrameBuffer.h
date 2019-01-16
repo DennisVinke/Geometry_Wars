@@ -9,7 +9,7 @@
 
 
 /// Class FrameBuffer, OpenGL FrameBuffer Object
-/*
+/**
  *  Class representing an OpenGL FrameBuffer Object,
  *  to Use this class as a render target, textures need to be attached first.
  *  For more info on FBO's see: https://www.khronos.org/opengl/wiki/Framebuffer_Object

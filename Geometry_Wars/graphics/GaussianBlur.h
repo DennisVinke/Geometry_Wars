@@ -9,7 +9,7 @@ class Texture;
 
 
 /// class GaussianBlur
-/*
+/**
  *  Gaussian blur filter that blurs an image from and FBO, and outputs a new FBO.
  *  The blur algorithm used uses multiple passes (horizontal and vertical), and
  *  multiple iterations of blurring for the most effective result. algorithm is based on:

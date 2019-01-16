@@ -14,7 +14,7 @@ class Background;
 
 
 /// class Renderer: Responsible for rendering entities to the screen
-/*
+/**
  *  Renderer holds a queue of components that require to be rendered.
  *  Furthermore it is the class responsible for updating all systems, shaders
  *  and entities that need to know the current size of the screen.

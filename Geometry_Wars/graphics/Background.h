@@ -6,7 +6,7 @@
 
 
 /// class Background
-/*
+/**
  *  class that is used to draw the background of the game. Draws to the currently active framebuffer.
  */
 class Background
@@ -15,7 +15,7 @@ class Background
 public:
 
     /// enum class Theme.
-    /*
+    /**
      *  Enum class that contains all possbible themes that can be used as a background for the game.
      */
     enum class Theme : int
@@ -27,7 +27,7 @@ public:
 
 
     /// constructor.
-    /*
+    /**
      *  constructs the necessary resources to draw the background, how the background will look 
      *  depends on the Theme passes as parameter.
      */
@@ -35,7 +35,7 @@ public:
 
 
     /// render().
-    /*
+    /**
      *  renders the scene depending on the current theme. Make sure to call this when the correct 
      *  framebuffer is active, this class does not have it's own framebuffer, but renders to the
      *  currently active one. 
@@ -44,7 +44,7 @@ public:
 
 
     /// render_welcome_screen();
-    /*
+    /**
      *  renders the screen you see when you startup the game, this is rendered to the currently
      *  active framebuffer.
      */
@@ -52,7 +52,7 @@ public:
 
 
     /// window_resized()
-    /*
+    /**
      *  When the window is resized this class needs to know the new dimensions in order to keep 
      *  the background being drawn correctly. Make sure this is always called on resizes.
      */
