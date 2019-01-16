@@ -12,8 +12,11 @@ class GameObjectSpawner;
 *	to the GameObjectSpawner so the bullet can actually be created
 *	Contains three different guns which can be used 
  */
-class ShootComponent : public Component {
+class ShootComponent : public Component 
+{
+
 public:
+
 	/// Constructor
 		/**
 		* Constructor to initialize InputComponent
@@ -40,6 +43,8 @@ public:
 	/**
 	*	Sets the color of the bullet to the desired values
 	*/
+
+
 	void setBulletColor(int r, int g, int b, int a);
 
 	/// setWeapon(Weapon * weapon)
@@ -48,16 +53,23 @@ public:
 	*	@param new Weapon. Make sure the pointer is a derived class instead of base class.
 	*/
 	void setWeapon(Weapon * weapon);
+
+
 	/// next_weapon()
 	/**
 	*	Switches to next wapen.
 	*/
 	void next_weapon();
+
+
 	///	set_mask(int new_mask)
 	/**
 	*	Set collision type to bullet or enemybullet
 	*/
+
 	void set_mask(int new_mask);
+
+
 private:
 	GameObjectSpawner& bullet_spawner;
 	int current_gun = 0;

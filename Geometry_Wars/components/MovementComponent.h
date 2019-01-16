@@ -7,71 +7,8 @@
 	\brief A component responsible for the movement of an Entity
 */
 
-/*! \fn MovementComponent()
-	\brief Constructor of MovementComponent
-*/
 
-/*! \fn MovementComponent(glm::vec2 constMovement)
-	\brief Constructor of MovementComponent
-
-	\param constMovement initial vector of speed an entity will be moved per update
-*/
-
-/*! \fn ~MovementComponent()
-	\brief Destructor of MovementComponent
-*/
-
-/*! \fn execute()
-	\brief Override function to execute component logic every update
-*/
-
-/*! \fn init()
-	\brief Override function to init component when created. Used when old components are reused. If created please use the constructor
-*/
-
-/*! \fn print()
-	\brief Override function to print the name of the component to the console. Only used for testing!
-*/
-
-/*! \fn doMovement(glm::vec2 move)
-	\brief Adds the vec2 to the entities current position
-
-	\param move the position the object should move
-*/
-
-/*! \fn doMovement(int xpos, int ypos)
-	\brief Adds the vec2 to the entities current position
-
-	\param xpos the position the object should move in the X-axis
-	\param ypos the position the object should move in the Y-axis
-*/
-
-/*! \fn constantMovement()
-	\brief Adds the constantMovement vector to the entities current position
-*/
-
-/*! \fn setConstantMovement(glm::vec2 newMovement)
-	\brief Change the constantMovement vector with a new value;
-
-	\param newMovement the new constantMovement value	
-*/
-
-/*! \fn setConstantMovement(int x, int y)
-	\brief Change the constantMovement vector with a new value;
-
-	\param x the x value the new constantMovement vector should change to
-	\param y the y value the new constantMovement vector should change to
-*/
-
-/*! \fn getLocation()
-	\brief returns;
-
-	\param y the y value the new constantMovement vector should change to
-*/
-/*! \var glm::vec2 constMove
-	\brief Contains the value of which the entity needs to be updated with every frame
-*/
-
+/// Components that gives entities ability to move
 class MovementComponent : public Component
 {
 private:
@@ -79,24 +16,56 @@ private:
 	glm::vec2 position = glm::vec2(0,0); //should be removed
 	glm::vec2 constMove = glm::vec2(0, 0);
 public:
+
+    /// Constructor of MovementComponent
 	MovementComponent();
 	
+    /// brief Constructor of MovementComponent
+    /// param constMovement initial vector of speed an entity will be moved per update
 	MovementComponent(glm::vec2);
+
+    /// Destructor of MovementComponent
 	~MovementComponent();
 
+    /// Override function to execute component logic every update
 	void execute() override;
-	void init() override;
-	void print() override;
+	
+    /// Override function to init component when created. Used when old components are reused. If created please use the constructor
+    void init() override;
+	
+    /// Override function to print the name of the component to the console. Only used for testing!
+    void print() override;
 
+    /// Adds the vec2 to the entities current position
+    /// \param move the position the object should move
 	void doMovement(glm::vec2);
+
+    /// Adds the vec2 to the entities current position
+    /// \param xpos the position the object should move in the X - axis
+    /// \param ypos the position the object should move in the Y - axis
 	void doMovement(int x, int y);
+
+    /// Adds the constantMovement vector to the entities current position
 	void constantMovement();
+
+    /// setConstantMovement(glm::vec2 newMovement)
+    /// \brief Change the constantMovement vector with a new value;
+    /// \param newMovement the new constantMovement value
 	void setConstantMovement(glm::vec2);
+
+    /// setConstantMovement(glm::vec2 newMovement)
+    /// \brief Change the constantMovement vector with a new value;
+    /// \param newMovement the new constantMovement value
 	void setConstantMovement(int x, int y);
+
+    /// returns x the y value the new constantMovement vector should change to
 	glm::vec2 getLocation();
+
+    /// sets the position 
 	void setPosition(glm::vec2);
 
-	//Deze moeten nog ge doxytsgen d worden
+
+    /// handles input
 	void handleInput();
 
 
