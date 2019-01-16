@@ -102,6 +102,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="class_background.html" title="class Background ">Background</a> </p>
+<p>class that is used to draw the background of the game. Draws to the currently active framebuffer. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="aee7222ee0062ab4453a4af8daaf60076"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee7222ee0062ab4453a4af8daaf60076">&#9670;&nbsp;</a></span>Theme</h2>
@@ -124,6 +125,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>enum class Theme. </p>
+<p>Enum class that contains all possbible themes that can be used as a background for the game. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aee7222ee0062ab4453a4af8daaf60076aaaca87c195a81a13b9349b7efedaf89e"></a>LIGHT_THEME&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aee7222ee0062ab4453a4af8daaf60076ae9a7d485c39c433157d0fb4ae4f2398c"></a>DARK_THEME&#160;</td><td class="fielddoc"></td></tr>
@@ -150,6 +152,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>constructor. </p>
+<p>constructs the necessary resources to draw the background, how the background will look depends on the Theme passes as parameter. </p>
 
 </div>
 </div>
@@ -170,6 +173,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="class_background.html#ad3fec52e139b874f4a3ca34d0a6420b3" title="render(). ">render()</a>. </p>
+<p>renders the scene depending on the current theme. Make sure to call this when the correct framebuffer is active, this class does not have it's own framebuffer, but renders to the currently active one. </p>
 
 </div>
 </div>
@@ -189,6 +193,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="class_background.html#ae4f97cd3dc9030579696290ffb1a8ef0" title="render_welcome_screen(); ">render_welcome_screen()</a>; </p>
+<p>renders the screen you see when you startup the game, this is rendered to the currently active framebuffer. </p>
 
 </div>
 </div>
@@ -219,6 +224,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="class_background.html#a5d02efa2d44cc694f5e34e39ee15ed2a" title="window_resized() ">window_resized()</a> </p>
+<p>When the window is resized this class needs to know the new dimensions in order to keep the background being drawn correctly. Make sure this is always called on resizes. </p>
 
 </div>
 </div>

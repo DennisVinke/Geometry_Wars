@@ -9,7 +9,7 @@
 
 
 /// Texture class, holds a texture in OpenGL
-/*
+/**
  *  Texture can be allocated empty or with data from the memory, in case of empty
  *  The texture is useful ass a frameBuffer.
  *  
@@ -26,7 +26,7 @@ public:
 
 
     /// enum class Texture::Type
-    /*
+    /**
      *  Enum that has all different texture tyeps that are possible, much cleaner than
      *  having seperate values for normalizedness, mipmap, and msaa, when most 
      *  combinations of those are invalid state.

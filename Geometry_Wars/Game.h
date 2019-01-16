@@ -39,7 +39,7 @@ private:
 	std::unique_ptr<Renderer> renderer;
 	SoundManager sound_manager;
 
-	GameObjectSpawner object_spawner; //Ik ben hier echt nu om aan het huilen. Bijna een uur hieraan besteed om het werkend te kijgen. RAGE!!!!!!!!!!
+	GameObjectSpawner object_spawner;
 
 	ActionController stateHandler;
 
