@@ -1,6 +1,8 @@
 #include "engine/EntityManager.h"
 
 
+
+
 EntityManager::EntityManager()
 {
     entities.reserve(1000);
