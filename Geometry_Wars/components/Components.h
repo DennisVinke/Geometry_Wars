@@ -6,4 +6,5 @@
 #include "components/EnemyBehaviourComponent.h"
 #include "components/ShootComponent.h"
 #include "components/CollideComponent.h"
+#include "components/SpawnComponent.h"
 
