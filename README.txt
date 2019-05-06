@@ -3,8 +3,6 @@ Creating a 2d Game using C++ and OpenGL.
 
 Aart Odding,         s1595555
 Dennis Vinke,        s1390082
-Robin van Emmerloot, s1538683
-
 
 The source code of our project is located in the Geometry_Wars folder.
 
